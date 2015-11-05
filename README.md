@@ -13,11 +13,8 @@ SlackbotClient = SlackClientFactory.createSlackbotClient(slackbotUrl);
 
 ```
 
-## Slack API compatibility
+### Slack API compatibility
+auth, channels, chat, emoji, files, groups, im, mpim, pins, reactions, stars, team, users
 
-### auth, channels, chat, emoji, files, groups, im, mpim, pins, reactions, stars, team, users
-
-
-## Coming soon next
-
-### search, oauth, rtm Api
+### Coming soon next
+search, oauth, rtm Api
