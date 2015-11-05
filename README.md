@@ -187,7 +187,9 @@ public class SlackWebApiClientTest {
 
 
 
-private String webhookUrl = "https://hooks.slack.com/services/{id_1}/{id_2}/{token}";
+public class SlackWebhookClientTest {
+
+	private String webhookUrl = "https://hooks.slack.com/services/{id_1}/{id_2}/{token}";
 	private SlackWebhookClient webhookClient;
 
 	@Before
@@ -215,6 +217,8 @@ private String webhookUrl = "https://hooks.slack.com/services/{id_1}/{id_2}/{tok
 		webhookClient.post(payload);
 		
 	}
+
+}
 
 
 
