@@ -5,6 +5,23 @@ A Java client for the Web APIs, Incoming Webhooks, Slackbot
 ## Slack Web API compatibility
 auth, channels, chat, emoji, files, groups, im, mpim, pins, reactions, stars, team, users
 
+## Maven
+Step 1. Add the JitPack repository to your build file
+```xml
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
+```
+Step 2. Add the dependency in the form
+```xml
+<dependency>
+    <groupId>com.github.flowctrl</groupId>
+    <artifactId>slack-api</artifactId>
+    <version>v1.0.0.RELEASE</version>
+</dependency>
+```
+
 ## Slack client factory
 ```java
 
