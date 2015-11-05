@@ -2,6 +2,9 @@ slack-api
 =============
 A Java client for the Web APIs, Incoming Webhooks, Slackbot
 
+### Slack Web API compatibility
+auth, channels, chat, emoji, files, groups, im, mpim, pins, reactions, stars, team, users
+
 ## Slack client factory
 ```java
 
@@ -241,9 +244,6 @@ public class SlackbotClientTest {
 }
 
 ```
-
-### Slack API compatibility
-auth, channels, chat, emoji, files, groups, im, mpim, pins, reactions, stars, team, users
 
 ### Coming soon next
 search, oauth, rtm Api
