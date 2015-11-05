@@ -2,7 +2,7 @@ slack-api
 =============
 A Java client for the Web APIs, Incoming Webhooks, Slackbot
 
-## Example
+## Slack client factory
 ```java
 
 SlackWebApiClient webApiClient = SlackClientFactory.createWebApiClient(token);
@@ -13,7 +13,7 @@ SlackbotClient slackbotClient = SlackClientFactory.createSlackbotClient(slackbot
 
 ```
 
-## Using
+## Example
 ```java
 
 public class SlackWebApiClientTest {
