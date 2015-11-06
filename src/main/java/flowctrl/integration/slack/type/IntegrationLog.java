@@ -12,6 +12,7 @@ public class IntegrationLog {
 	protected String channel;
 	protected String date;
 	protected String change_type;
+	protected String reason;
 	protected String scope;
 
 	public String getService_id() {
@@ -70,6 +71,14 @@ public class IntegrationLog {
 		this.change_type = change_type;
 	}
 
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	public String getScope() {
 		return scope;
 	}
@@ -81,7 +90,7 @@ public class IntegrationLog {
 	@Override
 	public String toString() {
 		return "IntegrationLog [service_id=" + service_id + ", service_type=" + service_type + ", user_id=" + user_id + ", user_name=" + user_name + ", channel=" + channel + ", date=" + date
-				+ ", change_type=" + change_type + ", scope=" + scope + "]";
+				+ ", change_type=" + change_type + ", reason=" + reason + ", scope=" + scope + "]";
 	}
 
 }

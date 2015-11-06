@@ -1,5 +1,6 @@
 package flowctrl.integration.slack.type;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,6 +12,9 @@ public class TeamIntegrationLogList {
 	protected Paging paging;
 
 	public List<IntegrationLog> getLogs() {
+		if (logs == null) {
+			logs = new ArrayList<IntegrationLog>();
+		}
 		return logs;
 	}
 
@@ -28,7 +32,7 @@ public class TeamIntegrationLogList {
 
 	@Override
 	public String toString() {
-		return "IntegrationLogList [paging=" + paging + "]";
+		return "TeamIntegrationLogList [logs=" + logs + ", paging=" + paging + "]";
 	}
 
 }
