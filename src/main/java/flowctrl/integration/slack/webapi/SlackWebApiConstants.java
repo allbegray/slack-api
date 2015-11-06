@@ -101,6 +101,8 @@ public interface SlackWebApiConstants {
 
 	// rtm
 
+	public static final String RTM_START = "rtm.start";
+
 	// search
 
 	// stars

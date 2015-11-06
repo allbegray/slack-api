@@ -151,6 +151,11 @@ public interface SlackWebApiClient {
 	boolean removeReactionToFile(String emojiName, String file);
 	boolean removeReactionToFileComment(String emojiName, String file_comment);
 	boolean removeReactionToMessage(String emojiName, String channel, String timestamp);
+	
+	// rtm
+	
+	String startRealTimeMessagingApi();
+	String startRealTimeMessagingApi(String simple_latest, String no_unreads, String mpim_aware);
 
 	// stars
 	

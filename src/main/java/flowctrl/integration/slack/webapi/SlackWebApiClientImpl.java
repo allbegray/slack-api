@@ -96,6 +96,7 @@ import flowctrl.integration.slack.webapi.method.reactions.ReactionsAddMethod;
 import flowctrl.integration.slack.webapi.method.reactions.ReactionsGetMethod;
 import flowctrl.integration.slack.webapi.method.reactions.ReactionsListMethod;
 import flowctrl.integration.slack.webapi.method.reactions.ReactionsRemoveMethod;
+import flowctrl.integration.slack.webapi.method.rtm.RtmStartMethod;
 import flowctrl.integration.slack.webapi.method.stars.StarsAddMethod;
 import flowctrl.integration.slack.webapi.method.stars.StarsListMethod;
 import flowctrl.integration.slack.webapi.method.stars.StarsRemoveMethod;
@@ -801,6 +802,22 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	// rtm
+
+	@Override
+	public String startRealTimeMessagingApi() {
+		return startRealTimeMessagingApi(null, null, null);
+	}
+
+	@Override
+	public String startRealTimeMessagingApi(String simple_latest, String no_unreads, String mpim_aware) {
+		RtmStartMethod method = new RtmStartMethod();
+		method.setSimple_latest(simple_latest);
+		method.setNo_unreads(no_unreads);
+		method.setMpim_aware(mpim_aware);
+
+		JsonNode retNode = call(method);
+		return retNode.findPath("url").asText();
+	}
 
 	// search
 
