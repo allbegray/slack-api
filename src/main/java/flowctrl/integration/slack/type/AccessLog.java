@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccessLog {
-	
+
 	protected String user_id;
 	protected String username;
 	protected Long date_first;

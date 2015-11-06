@@ -150,6 +150,9 @@ public interface SlackWebApiClient {
 	TeamAccessLogList getTeamAccessLogList(int page);
 	TeamAccessLogList getTeamAccessLogList(int page, int count);
 	Team getTeamInfo();
+	TeamIntegrationLogList getTeamIntegrationLogList(int page);
+	TeamIntegrationLogList getTeamIntegrationLogList(int page, int count);
+	TeamIntegrationLogList getTeamIntegrationLogList(String service_id, String app_id, String user, String change_type, int page, int count);
 	
 	// users
 
@@ -176,7 +179,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.0.2.RELEASE</version>
+    <version>v1.0.3.RELEASE</version>
 </dependency>
 ```
 
@@ -422,3 +425,8 @@ public class SlackbotClientTest {
 
 ## Coming soon next
 search, oauth, rtm Api
+
+## Change Logs
+
+### v1.0.3.RELEASE
+add "team.integrationLogs" method 

@@ -20,6 +20,7 @@ import flowctrl.integration.slack.type.ReactionList;
 import flowctrl.integration.slack.type.StarList;
 import flowctrl.integration.slack.type.Team;
 import flowctrl.integration.slack.type.TeamAccessLogList;
+import flowctrl.integration.slack.type.TeamIntegrationLogList;
 import flowctrl.integration.slack.type.User;
 import flowctrl.integration.slack.type.UserPresence;
 import flowctrl.integration.slack.webapi.method.chats.ChatPostMessageMethod;
@@ -169,6 +170,9 @@ public interface SlackWebApiClient {
 	TeamAccessLogList getTeamAccessLogList(int page);
 	TeamAccessLogList getTeamAccessLogList(int page, int count);
 	Team getTeamInfo();
+	TeamIntegrationLogList getTeamIntegrationLogList(int page);
+	TeamIntegrationLogList getTeamIntegrationLogList(int page, int count);
+	TeamIntegrationLogList getTeamIntegrationLogList(String service_id, String app_id, String user, String change_type, int page, int count);
 	
 	// users
 

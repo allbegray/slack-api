@@ -111,8 +111,9 @@ public interface SlackWebApiConstants {
 
 	// team
 
-	public static final String TEAM_ACCESSLOGS = "team.accessLogs";
+	public static final String TEAM_ACCESS_LOGS = "team.accessLogs";
 	public static final String TEAM_INFO = "team.info";
+	public static final String TEAM_INTEGRATION_LOGS = "team.integrationLogs";
 
 	// users
 

@@ -35,6 +35,7 @@ import flowctrl.integration.slack.type.ReactionList;
 import flowctrl.integration.slack.type.StarList;
 import flowctrl.integration.slack.type.Team;
 import flowctrl.integration.slack.type.TeamAccessLogList;
+import flowctrl.integration.slack.type.TeamIntegrationLogList;
 import flowctrl.integration.slack.type.User;
 import flowctrl.integration.slack.type.UserPresence;
 import flowctrl.integration.slack.validation.Problem;
@@ -100,6 +101,7 @@ import flowctrl.integration.slack.webapi.method.stars.StarsListMethod;
 import flowctrl.integration.slack.webapi.method.stars.StarsRemoveMethod;
 import flowctrl.integration.slack.webapi.method.team.TeamAccessLogsMethod;
 import flowctrl.integration.slack.webapi.method.team.TeamInfoMethod;
+import flowctrl.integration.slack.webapi.method.team.TeamIntegrationLogMethod;
 import flowctrl.integration.slack.webapi.method.test.AuthTestMethod;
 import flowctrl.integration.slack.webapi.method.users.UserGetPresenceMethod;
 import flowctrl.integration.slack.webapi.method.users.UserInfoMethod;
@@ -901,6 +903,30 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	public Team getTeamInfo() {
 		JsonNode retNode = call(new TeamInfoMethod());
 		return readValue(retNode, "team", Team.class);
+	}
+
+	@Override
+	public TeamIntegrationLogList getTeamIntegrationLogList(int page) {
+		return getTeamIntegrationLogList(null, null, null, null, page, SlackWebApiConstants.DEFAULT_COUNT);
+	}
+
+	@Override
+	public TeamIntegrationLogList getTeamIntegrationLogList(int page, int count) {
+		return getTeamIntegrationLogList(null, null, null, null, page, count);
+	}
+
+	@Override
+	public TeamIntegrationLogList getTeamIntegrationLogList(String service_id, String app_id, String user, String change_type, int page, int count) {
+		TeamIntegrationLogMethod method = new TeamIntegrationLogMethod();
+		method.setService_id(service_id);
+		method.setApp_id(app_id);
+		method.setUser(user);
+		method.setChange_type(change_type);
+		method.setPage(page);
+		method.setCount(count);
+
+		JsonNode retNode = call(method);
+		return readValue(retNode, null, TeamIntegrationLogList.class);
 	}
 
 	// users

@@ -7,7 +7,7 @@ public class TeamAccessLogsMethod extends AbstractPagingMethod {
 
 	@Override
 	public String getMethodName() {
-		return SlackWebApiConstants.TEAM_ACCESSLOGS;
+		return SlackWebApiConstants.TEAM_ACCESS_LOGS;
 	}
 
 }
