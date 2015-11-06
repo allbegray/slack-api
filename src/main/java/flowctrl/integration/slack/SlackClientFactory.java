@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import flowctrl.integration.slack.bot.SlackbotClient;
 import flowctrl.integration.slack.webapi.SlackWebApiClient;
+import flowctrl.integration.slack.webapi.SlackWebApiClientImpl;
 import flowctrl.integration.slack.webhook.SlackWebhookClient;
 
 public abstract class SlackClientFactory {
@@ -11,15 +12,15 @@ public abstract class SlackClientFactory {
 	// web api
 
 	public static SlackWebApiClient createWebApiClient(String token) {
-		return new SlackWebApiClient(token);
+		return new SlackWebApiClientImpl(token);
 	}
 
 	public static SlackWebApiClient createWebApiClient(String token, ObjectMapper mapper) {
-		return new SlackWebApiClient(token, mapper);
+		return new SlackWebApiClientImpl(token, mapper);
 	}
 
 	public static SlackWebApiClient createWebApiClient(String token, ObjectMapper mapper, int timeout) {
-		return new SlackWebApiClient(token, mapper, timeout);
+		return new SlackWebApiClientImpl(token, mapper, timeout);
 	}
 
 	// webhook
