@@ -154,12 +154,12 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public History getChannelHistory(String channel, Integer count) {
+	public History getChannelHistory(String channel, int count) {
 		return getChannelHistory(channel, null, null, false, count, false);
 	}
 
 	@Override
-	public History getChannelHistory(String channel, String latest, String oldest, boolean inclusive, Integer count, boolean unreads) {
+	public History getChannelHistory(String channel, String latest, String oldest, boolean inclusive, int count, boolean unreads) {
 
 		ChannelHistoryMethod channelHistoryMethod = new ChannelHistoryMethod(channel);
 		channelHistoryMethod.setLatest(latest);
@@ -446,12 +446,12 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public History getGroupHistory(String channel, Integer count) {
+	public History getGroupHistory(String channel, int count) {
 		return getGroupHistory(channel, null, null, false, count, false);
 	}
 
 	@Override
-	public History getGroupHistory(String channel, String latest, String oldest, boolean inclusive, Integer count, boolean unreads) {
+	public History getGroupHistory(String channel, String latest, String oldest, boolean inclusive, int count, boolean unreads) {
 
 		GroupHistoryMethod channelHistoryMethod = new GroupHistoryMethod(channel);
 		channelHistoryMethod.setLatest(latest);
@@ -543,12 +543,12 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public History getDirectMessageChannelHistory(String channel, Integer count) {
+	public History getDirectMessageChannelHistory(String channel, int count) {
 		return getDirectMessageChannelHistory(channel, null, null, false, count, false);
 	}
 
 	@Override
-	public History getDirectMessageChannelHistory(String channel, String latest, String oldest, boolean inclusive, Integer count, boolean unreads) {
+	public History getDirectMessageChannelHistory(String channel, String latest, String oldest, boolean inclusive, int count, boolean unreads) {
 
 		ImHistoryMethod imHistoryMethod = new ImHistoryMethod(channel);
 		imHistoryMethod.setLatest(latest);
@@ -592,12 +592,12 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public History getMultipartyDirectMessageChannelHistory(String channel, Integer count) {
+	public History getMultipartyDirectMessageChannelHistory(String channel, int count) {
 		return getMultipartyDirectMessageChannelHistory(channel, null, null, false, count, false);
 	}
 
 	@Override
-	public History getMultipartyDirectMessageChannelHistory(String channel, String latest, String oldest, boolean inclusive, Integer count, boolean unreads) {
+	public History getMultipartyDirectMessageChannelHistory(String channel, String latest, String oldest, boolean inclusive, int count, boolean unreads) {
 
 		MpimHistoryMethod mpimHistoryMethod = new MpimHistoryMethod(channel);
 		mpimHistoryMethod.setLatest(latest);
