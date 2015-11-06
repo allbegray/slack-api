@@ -4,7 +4,7 @@ A Java client for the Web APIs, Incoming Webhooks, Slackbot
 
 ## Slack Web API compatibility
 auth, channels, chat, emoji, files, groups, im, mpim, pins, reactions, stars, team, users
-```xml
+```java
 public interface SlackWebApiClient {
 	
 	// auth
