@@ -429,4 +429,4 @@ search, oauth, rtm Api
 ## Change Logs
 
 ### v1.0.3.RELEASE
-add "team.integrationLogs" method 
+add "team.integrationLogs" method (https://twitter.com/SlackAPI/status/662350664782225408)
