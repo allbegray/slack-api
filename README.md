@@ -16,8 +16,8 @@ public interface SlackWebApiClient {
 	boolean archiveChannel(String channel);
 	Channel createChannel(String name);
 	History getChannelHistory(String channel);
-	History getChannelHistory(String channel, Integer count);
-	History getChannelHistory(String channel, String latest, String oldest, boolean inclusive, Integer count, boolean unreads);
+	History getChannelHistory(String channel, int count);
+	History getChannelHistory(String channel, String latest, String oldest, boolean inclusive, int count, boolean unreads);
 	Channel getChannelInfo(String channel);
 	Channel inviteUserToChannel(String channel, String user);
 	Channel joinChannel(String name);
@@ -70,8 +70,8 @@ public interface SlackWebApiClient {
 	Group createGroup(String name);
 	Group createChildGroup(String name);
 	History getGroupHistory(String channel);
-	History getGroupHistory(String channel, Integer count);
-	History getGroupHistory(String channel, String latest, String oldest, boolean inclusive, Integer count, boolean unreads);
+	History getGroupHistory(String channel, int count);
+	History getGroupHistory(String channel, String latest, String oldest, boolean inclusive, int count, boolean unreads);
 	Group getGroupInfo(String channel);
 	Group inviteUserToGroup(String channel, String user);
 	boolean kickUserFormGroup(String channel, String user);
@@ -89,8 +89,8 @@ public interface SlackWebApiClient {
 
 	boolean closeDirectMessageChannel(String channel);
 	History getDirectMessageChannelHistory(String channel);
-	History getDirectMessageChannelHistory(String channel, Integer count);
-	History getDirectMessageChannelHistory(String channel, String latest, String oldest, boolean inclusive, Integer count, boolean unreads);
+	History getDirectMessageChannelHistory(String channel, int count);
+	History getDirectMessageChannelHistory(String channel, String latest, String oldest, boolean inclusive, int count, boolean unreads);
 	List<DirectMessageChannel> getDirectMessageChannelList();
 	boolean markDirectMessageChannel(String channel, String ts);
 	boolean openDirectMessageChannel(String user);
@@ -99,8 +99,8 @@ public interface SlackWebApiClient {
 	
 	boolean closeMultipartyDirectMessageChannel(String channel);
 	History getMultipartyDirectMessageChannelHistory(String channel);
-	History getMultipartyDirectMessageChannelHistory(String channel, Integer count);
-	History getMultipartyDirectMessageChannelHistory(String channel, String latest, String oldest, boolean inclusive, Integer count, boolean unreads);
+	History getMultipartyDirectMessageChannelHistory(String channel, int count);
+	History getMultipartyDirectMessageChannelHistory(String channel, String latest, String oldest, boolean inclusive, int count, boolean unreads);
 	List<Group> getMultipartyDirectMessageChannelList();
 	boolean markMultipartyDirectMessageChannel(String channel, String ts);
 	Group openMultipartyDirectMessageChannel(String... users);
