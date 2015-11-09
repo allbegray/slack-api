@@ -109,18 +109,17 @@ public class SlackRealTimeMessagingClient {
 					}
 
 					if (type != null) {
-						if (listeners.containsKey(type)) {
-							List<EventListener> eventListeners = listeners.get(type);
+						List<EventListener> eventListeners = listeners.get(type);
+						if (eventListeners != null && !eventListeners.isEmpty()) {
 							for (EventListener listener : eventListeners) {
 								listener.handleMessage(node);
 							}
 						}
-
 					}
 				}
 
 			}).build()).get();
-			
+
 			logger.info("connected Slack RTM(Real Time Messaging) server : " + webSocketUrl);
 
 			await();
