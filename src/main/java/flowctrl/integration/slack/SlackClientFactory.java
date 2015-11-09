@@ -3,6 +3,8 @@ package flowctrl.integration.slack;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import flowctrl.integration.slack.bot.SlackbotClient;
+import flowctrl.integration.slack.rtm.ProxyServerInfo;
+import flowctrl.integration.slack.rtm.SlackRealTimeMessagingClient;
 import flowctrl.integration.slack.webapi.SlackWebApiClient;
 import flowctrl.integration.slack.webapi.SlackWebApiClientImpl;
 import flowctrl.integration.slack.webhook.SlackWebhookClient;
@@ -45,6 +47,26 @@ public abstract class SlackClientFactory {
 
 	public static SlackbotClient createSlackbotClient(String slackbotUrl, int timeout) {
 		return new SlackbotClient(slackbotUrl, timeout);
+	}
+
+	// rtm
+
+	public static SlackRealTimeMessagingClient createSlackRealTimeMessagingClient(String token) {
+		return createSlackRealTimeMessagingClient(token, null, null);
+	}
+
+	public static SlackRealTimeMessagingClient createSlackRealTimeMessagingClient(String token, ObjectMapper mapper) {
+		return createSlackRealTimeMessagingClient(token, null, mapper);
+	}
+	
+	public static SlackRealTimeMessagingClient createSlackRealTimeMessagingClient(String token, ProxyServerInfo proxyServerInfo) {
+		return createSlackRealTimeMessagingClient(token, proxyServerInfo, null);
+	}
+
+	public static SlackRealTimeMessagingClient createSlackRealTimeMessagingClient(String token, ProxyServerInfo proxyServerInfo, ObjectMapper mapper) {
+		SlackWebApiClient webApiClient = createWebApiClient(token);
+		String webSocketUrl = webApiClient.startRealTimeMessagingApi();
+		return new SlackRealTimeMessagingClient(webSocketUrl, proxyServerInfo, mapper);
 	}
 
 }
