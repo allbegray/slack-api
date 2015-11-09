@@ -57,9 +57,11 @@ public class SlackRealTimeMessagingClient {
 	}
 
 	public void close() {
+		stop = true;
 		if (webSocket != null && webSocket.isOpen()) {
-			stop = true;
 			webSocket.close();
+		}
+		if (asyncHttpClient != null && !asyncHttpClient.isClosed()) {
 			asyncHttpClient.close();
 		}
 	}
