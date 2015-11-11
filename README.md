@@ -2,6 +2,49 @@ slack-api
 =============
 A Java client for the Web APIs, Incoming Webhooks, Slackbot
 
+## Change Logs
+
+### v1.0.4.RELEASE
+
+add RTM(Real Time Messaging) Client
+```java
+public class SlackRealTimeMessagingClientTest {
+
+	private String token = "your slack web api token";
+
+	@Test(timeout = 60 * 1000)
+	public void basicTest() {
+		SlackRealTimeMessagingClient realTimeMessagingClient = SlackClientFactory.createSlackRealTimeMessagingClient(token);
+		realTimeMessagingClient.addListener("hello", new HelloEventListener());
+		realTimeMessagingClient.addListener("message", new MessageEventListener());
+		realTimeMessagingClient.connect();
+	}
+	
+}
+```
+
+add "rtm.start" method (https://api.slack.com/methods/rtm.start)
+
+add SlackTextBuilder
+```java
+String message = SlackTextBuilder.create()
+	.text("text message")
+	.link("https://slack.com/")
+	.link("https://slack.com", "Slack")
+	.bold("bold message")
+	.italic("italic message")
+	.strike("strike message")
+	.mail("test@test.com")
+	.mail("test@test.com", "TestMail")
+	.code("code block")
+	.preformatted("public class SlackWebhookClientTest() {\n\n\tpublic static void main(String args[]) {\n\n\t}\n}")
+	.quote("quote message")
+	.build();
+```
+
+### v1.0.3.RELEASE
+add "team.integrationLogs" method (https://twitter.com/SlackAPI/status/662350664782225408)
+
 ## Slack Web API compatibility
 auth, channels, chat, emoji, files, groups, im, mpim, pins, reactions, stars, team, users
 ```java
@@ -179,7 +222,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.0.3.RELEASE</version>
+    <version>v1.0.4.RELEASE</version>
 </dependency>
 ```
 
@@ -424,9 +467,5 @@ public class SlackbotClientTest {
 ```
 
 ## Coming soon next
-search, oauth, rtm Api
+search, oauth
 
-## Change Logs
-
-### v1.0.3.RELEASE
-add "team.integrationLogs" method (https://twitter.com/SlackAPI/status/662350664782225408)

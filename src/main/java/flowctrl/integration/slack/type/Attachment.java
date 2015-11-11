@@ -3,13 +3,19 @@ package flowctrl.integration.slack.type;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import flowctrl.integration.slack.exception.SlackArgumentException;
 import flowctrl.integration.slack.webhook.SlackWebhookClient;
 
 /**
- * reference : <a href="https://api.slack.com/docs/attachments">https://api.slack.com/docs/attachments</a>
+ * reference :
+ * <a href="https://api.slack.com/docs/attachments">https://api.slack.com/docs/
+ * attachments</a>
  *
  */
+@JsonInclude(Include.NON_EMPTY)
 public class Attachment {
 
 	private static final String HEX_REGEX = "^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
@@ -34,6 +40,8 @@ public class Attachment {
 
 	protected String image_url;
 	protected String thumb_url;
+
+	protected List<String> mrkdwn_in;
 
 	public String getFallback() {
 		return fallback;
@@ -60,10 +68,10 @@ public class Attachment {
 
 		this.color = color;
 	}
-	
+
 	public void setColor(Color color) {
 		if (color != null) {
-			this.color = color.name().toLowerCase();	
+			this.color = color.name().toLowerCase();
 		}
 	}
 
@@ -164,10 +172,26 @@ public class Attachment {
 		this.thumb_url = thumb_url;
 	}
 
+	public void addMrkdwn_in(String field) {
+		getMrkdwn_in().add(field);
+	}
+
+	public List<String> getMrkdwn_in() {
+		if (mrkdwn_in == null) {
+			mrkdwn_in = new ArrayList<String>();
+		}
+		return mrkdwn_in;
+	}
+
+	public void setMrkdwn_in(List<String> mrkdwn_in) {
+		this.mrkdwn_in = mrkdwn_in;
+	}
+
 	@Override
 	public String toString() {
 		return "Attachment [fallback=" + fallback + ", color=" + color + ", pretext=" + pretext + ", author_name=" + author_name + ", author_link=" + author_link + ", author_icon=" + author_icon
-				+ ", title=" + title + ", title_link=" + title_link + ", text=" + text + ", fields=" + fields + ", image_url=" + image_url + ", thumb_url=" + thumb_url + "]";
+				+ ", title=" + title + ", title_link=" + title_link + ", text=" + text + ", fields=" + fields + ", image_url=" + image_url + ", thumb_url=" + thumb_url + ", mrkdwn_in=" + mrkdwn_in
+				+ "]";
 	}
 
 }

@@ -3,6 +3,9 @@ package flowctrl.integration.slack.type;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import flowctrl.integration.slack.exception.SlackArgumentException;
 import flowctrl.integration.slack.webhook.SlackWebhookClient;
 
@@ -12,6 +15,7 @@ import flowctrl.integration.slack.webhook.SlackWebhookClient;
  * incoming-webhooks</a>
  *
  */
+@JsonInclude(Include.NON_EMPTY)
 public class Payload {
 
 	protected String username;
@@ -23,6 +27,15 @@ public class Payload {
 
 	protected Boolean unfurl_links;
 	protected Boolean unfurl_media;
+	protected Boolean mrkdwn;
+
+	public Boolean getMrkdwn() {
+		return mrkdwn;
+	}
+
+	public void setMrkdwn(Boolean mrkdwn) {
+		this.mrkdwn = mrkdwn;
+	}
 
 	public String getUsername() {
 		return username;
