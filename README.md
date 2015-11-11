@@ -12,12 +12,19 @@ public class SlackRealTimeMessagingClientTest {
 
 	private String token = "your slack web api token";
 
-	@Test(timeout = 60 * 1000)
+	@Test
 	public void basicTest() {
 		SlackRealTimeMessagingClient realTimeMessagingClient = SlackClientFactory.createSlackRealTimeMessagingClient(token);
 		realTimeMessagingClient.addListener("hello", new HelloEventListener());
 		realTimeMessagingClient.addListener("message", new MessageEventListener());
 		realTimeMessagingClient.connect();
+		
+		try {
+			Thread.sleep(60 * 1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 }
