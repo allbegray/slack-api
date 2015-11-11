@@ -33,22 +33,10 @@
 			<version>1.9.31</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.websocket</groupId>
-			<artifactId>javax.websocket-api</artifactId>
-			<version>1.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.tyrus.bundles</groupId>
-			<artifactId>tyrus-standalone-client</artifactId>
-			<version>1.9</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
