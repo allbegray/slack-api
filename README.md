@@ -6,7 +6,7 @@ A Java client for the Web APIs, Incoming Webhooks, Slackbot, RTM(Real Time Messa
 
 ### v1.0.4.RELEASE
 
-add RTM(Real Time Messaging) Client (https://api.slack.com/rtm). need JSR 356 implementation
+add RTM(Real Time Messaging) Client (https://api.slack.com/rtm)
 ```java
 public class SlackRealTimeMessagingClientTest {
 
