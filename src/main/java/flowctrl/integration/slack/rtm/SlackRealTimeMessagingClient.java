@@ -46,6 +46,10 @@ public class SlackRealTimeMessagingClient {
 		this.proxyServerInfo = proxyServerInfo;
 		this.mapper = mapper;
 	}
+	
+	public void addListener(Event event, EventListener listener) {
+		addListener(event.name().toLowerCase(), listener);
+	}
 
 	public void addListener(String event, EventListener listener) {
 		List<EventListener> eventListeners = listeners.get(event);

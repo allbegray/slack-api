@@ -17,6 +17,12 @@ public class SlackRealTimeMessagingClientTest {
 		SlackRealTimeMessagingClient realTimeMessagingClient = SlackClientFactory.createSlackRealTimeMessagingClient(token);
 		realTimeMessagingClient.addListener("hello", new HelloEventListener());
 		realTimeMessagingClient.addListener("message", new MessageEventListener());
+		realTimeMessagingClient.addListener(Event.MESSAGE, new EventListener() {
+			@Override
+			public void handleMessage(JsonNode message) {
+				// todo
+			}
+		});
 		realTimeMessagingClient.connect();
 		
 		try {
