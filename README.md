@@ -235,7 +235,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.0.4.RELEASE</version>
+    <version>v1.0.5.RELEASE</version>
 </dependency>
 ```
 
