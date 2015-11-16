@@ -3,7 +3,7 @@ package flowctrl.integration.slack.webapi.method.groups;
 import java.util.List;
 import java.util.Map;
 
-import flowctrl.integration.slack.validation.ChannelNameValidator;
+import flowctrl.integration.slack.validation.SlackFieldValidationUtils;
 import flowctrl.integration.slack.validation.Problem;
 import flowctrl.integration.slack.validation.ValidationError;
 import flowctrl.integration.slack.webapi.SlackWebApiConstants;
@@ -34,8 +34,8 @@ public class GroupCreateMethod extends AbstractMethod {
 	public void validate(List<ValidationError> errors) {
 		if (channel == null) {
 			errors.add(new ValidationError("channel", Problem.REQUIRED, null));
-		} else if (!ChannelNameValidator.valid(channel)) {
-			errors.add(new ValidationError("channel", Problem.PATTERN_NOT_MATCH, ChannelNameValidator.ERROR_MSG));
+		} else if (!SlackFieldValidationUtils.validChannelName(channel)) {
+			errors.add(new ValidationError("channel", Problem.PATTERN_NOT_MATCH, SlackFieldValidationUtils.ERROR_MSG));
 		}
 	}
 

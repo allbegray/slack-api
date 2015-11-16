@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class ChannelNameValidator {
+import flowctrl.integration.slack.exception.SlackArgumentException;
+
+public abstract class SlackFieldValidationUtils {
 
 	private static final String CHANNEL_NAME_REGEX = "^[a-z0-9]{1}[a-z0-9-_]{0,20}$";
 	private static final Set<String> RESERVED_WORDS = new HashSet<String>(Arrays.asList(
@@ -30,8 +32,14 @@ public abstract class ChannelNameValidator {
 	 * @param name
 	 * @return
 	 */
-	public static boolean valid(String name) {
+	public static boolean validChannelName(String name) {
 		return !(name == null || !name.matches(CHANNEL_NAME_REGEX) || RESERVED_WORDS.contains(name));
 	}
-	
+
+	public static void validUrl(String str, String fieldName) {
+		if (str != null && !str.startsWith("http")) {
+			throw new SlackArgumentException("invalid " + fieldName + ". you should start with http|https.");
+		}
+	}
+
 }

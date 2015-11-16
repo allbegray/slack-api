@@ -55,10 +55,4 @@ public class SlackWebhookClient {
 		return null;
 	}
 
-	public static void validUrl(String str, String fieldName) {
-		if (str != null && !str.startsWith("http")) {
-			throw new SlackArgumentException("invalid " + fieldName + ". you should start with http|https.");
-		}
-	}
-
 }

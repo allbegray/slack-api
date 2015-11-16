@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import org.junit.Assert;
 import org.junit.Test;
 
-import flowctrl.integration.slack.validation.ChannelNameValidator;
+import flowctrl.integration.slack.validation.SlackFieldValidationUtils;
 
 public class ChannelNameValidatorTest {
 
@@ -41,7 +41,7 @@ public class ChannelNameValidatorTest {
 		words.put("0-0_", true);
 
 		for (Entry<String, Boolean> entry : words.entrySet()) {
-			boolean ok = ChannelNameValidator.valid(entry.getKey());
+			boolean ok = SlackFieldValidationUtils.validChannelName(entry.getKey());
 			Assert.assertTrue(ok == entry.getValue());
 		}
 

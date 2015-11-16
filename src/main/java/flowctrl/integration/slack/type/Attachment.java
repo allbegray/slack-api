@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import flowctrl.integration.slack.exception.SlackArgumentException;
-import flowctrl.integration.slack.webhook.SlackWebhookClient;
+import flowctrl.integration.slack.validation.SlackFieldValidationUtils;
 
 /**
  * reference :
@@ -96,7 +96,7 @@ public class Attachment {
 	}
 
 	public void setAuthor_link(String author_link) {
-		SlackWebhookClient.validUrl(author_link, "author_link");
+		SlackFieldValidationUtils.validUrl(author_link, "author_link");
 
 		this.author_link = author_link;
 	}
@@ -106,7 +106,7 @@ public class Attachment {
 	}
 
 	public void setAuthor_icon(String author_icon) {
-		SlackWebhookClient.validUrl(author_icon, "author_icon");
+		SlackFieldValidationUtils.validUrl(author_icon, "author_icon");
 
 		this.author_icon = author_icon;
 	}
@@ -124,7 +124,7 @@ public class Attachment {
 	}
 
 	public void setTitle_link(String title_link) {
-		SlackWebhookClient.validUrl(title_link, "title_link");
+		SlackFieldValidationUtils.validUrl(title_link, "title_link");
 
 		this.title_link = title_link;
 	}
@@ -157,7 +157,7 @@ public class Attachment {
 	}
 
 	public void setImage_url(String image_url) {
-		SlackWebhookClient.validUrl(image_url, "image_url");
+		SlackFieldValidationUtils.validUrl(image_url, "image_url");
 
 		this.image_url = image_url;
 	}
@@ -167,7 +167,7 @@ public class Attachment {
 	}
 
 	public void setThumb_url(String thumb_url) {
-		SlackWebhookClient.validUrl(thumb_url, "thumb_url");
+		SlackFieldValidationUtils.validUrl(thumb_url, "thumb_url");
 
 		this.thumb_url = thumb_url;
 	}

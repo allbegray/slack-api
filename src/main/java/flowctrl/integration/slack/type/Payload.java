@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import flowctrl.integration.slack.exception.SlackArgumentException;
-import flowctrl.integration.slack.webhook.SlackWebhookClient;
+import flowctrl.integration.slack.validation.SlackFieldValidationUtils;
 
 /**
  * reference :
@@ -58,7 +58,7 @@ public class Payload {
 	}
 
 	public void setIcon_url(String icon_url) {
-		SlackWebhookClient.validUrl(icon_url, "icon_url");
+		SlackFieldValidationUtils.validUrl(icon_url, "icon_url");
 
 		this.icon_url = icon_url;
 	}
