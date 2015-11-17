@@ -4,6 +4,9 @@ A Java client for the Web APIs, Incoming Webhooks, Slackbot, RTM(Real Time Messa
 
 ## Change Logs
 
+### v1.0.6.RELEASE
+using PoolingHttpClientConnectionManager
+
 ### v1.0.5.RELEASE
 
 add RTM(Real Time Messaging) Client (https://api.slack.com/rtm)
