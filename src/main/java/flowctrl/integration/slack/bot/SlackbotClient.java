@@ -7,6 +7,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 import flowctrl.integration.slack.RestUtils;
+import flowctrl.integration.slack.StringResponseHandler;
 import flowctrl.integration.slack.exception.SlackArgumentException;
 import flowctrl.integration.slack.webapi.SlackWebApiConstants;
 
@@ -42,7 +43,7 @@ public class SlackbotClient {
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
-		return RestUtils.execute(httpClient, url, new StringEntity(message, "UTF-8"));
+		return RestUtils.execute(httpClient, url, new StringEntity(message, "UTF-8"), new StringResponseHandler());
 	}
 
 }
