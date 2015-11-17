@@ -131,6 +131,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		httpClient = RestUtils.createHttpClient(timeout);
 	}
 
+	@Override
 	public void shutdown() {
 		if (httpClient != null) try { httpClient.close(); } catch (Exception e) {}
 	}

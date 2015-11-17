@@ -27,6 +27,8 @@ import flowctrl.integration.slack.webapi.method.chats.ChatPostMessageMethod;
 
 public interface SlackWebApiClient {
 	
+	void shutdown();
+	
 	// auth
 
 	Authentication auth();
