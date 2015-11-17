@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +37,11 @@ public class SlackWebApiClientTest {
 	public void setup() {
 		webApiClient = SlackClientFactory.createWebApiClient(token);
 		testfile = new File("d:\\2.jpg");
+	}
+	
+	@After
+	public void shutdown() {
+		webApiClient.shutdown();
 	}
 
 	@Test

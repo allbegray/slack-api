@@ -1,5 +1,6 @@
 package flowctrl.integration.slack;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,9 +19,14 @@ public class SlackWebhookClientTest {
 		webhookClient = SlackClientFactory.createWebhookClient(webhookUrl);
 	}
 
+	@After
+	public void shutdown() {
+		webhookClient.shutdown();
+	}
+
 	@Test
 	public void basicTest() {
-		
+
 		Payload payload = new Payload();
 		payload.setText("test text");
 		payload.setChannel("#general");
@@ -36,7 +42,7 @@ public class SlackWebhookClientTest {
 		payload.addAttachment(attachment);
 
 		webhookClient.post(payload);
-		
+
 	}
 
 }

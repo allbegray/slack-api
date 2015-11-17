@@ -1,5 +1,6 @@
 package flowctrl.integration.slack;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +14,11 @@ public class SlackbotClientTest {
 	@Before
 	public void setup() {
 		slackbotClient = SlackClientFactory.createSlackbotClient(slackbotUrl);
+	}
+
+	@After
+	public void shutdown() {
+		slackbotClient.shutdown();
 	}
 
 	@Test
