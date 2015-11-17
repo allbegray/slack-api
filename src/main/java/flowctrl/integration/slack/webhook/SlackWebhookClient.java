@@ -3,6 +3,8 @@ package flowctrl.integration.slack.webhook;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.impl.client.CloseableHttpClient;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,8 +17,8 @@ import flowctrl.integration.slack.webapi.SlackWebApiConstants;
 public class SlackWebhookClient {
 
 	private String webhookUrl;
-	private int timeout;
 	private ObjectMapper mapper;
+	private CloseableHttpClient httpClient;
 
 	public SlackWebhookClient(String webhookUrl) {
 		this(webhookUrl, null);
@@ -27,7 +29,6 @@ public class SlackWebhookClient {
 	}
 
 	public SlackWebhookClient(String webhookUrl, ObjectMapper mapper, int timeout) {
-		this.timeout = timeout;
 		if (webhookUrl == null) {
 			throw new SlackArgumentException("Missing WebHook URL Configuration @ SlackApi");
 
@@ -37,6 +38,11 @@ public class SlackWebhookClient {
 
 		this.webhookUrl = webhookUrl;
 		this.mapper = mapper != null ? mapper : new ObjectMapper();
+		httpClient = RestUtils.createHttpClient(timeout);
+	}
+
+	public void shutdown() {
+		if (httpClient != null) try { httpClient.close(); } catch (Exception e) {}
 	}
 
 	public String post(Payload payload) {
@@ -50,7 +56,7 @@ public class SlackWebhookClient {
 
 			Map<String, String> parameters = new HashMap<String, String>();
 			parameters.put("payload", message);
-			return RestUtils.execute(this.webhookUrl, RestUtils.createUrlEncodedFormEntity(parameters), timeout);
+			return RestUtils.execute(httpClient, this.webhookUrl, RestUtils.createUrlEncodedFormEntity(parameters));
 		}
 		return null;
 	}

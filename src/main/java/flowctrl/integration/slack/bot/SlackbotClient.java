@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 
 import flowctrl.integration.slack.RestUtils;
 import flowctrl.integration.slack.exception.SlackArgumentException;
@@ -12,14 +13,13 @@ import flowctrl.integration.slack.webapi.SlackWebApiConstants;
 public class SlackbotClient {
 
 	private String slackbotUrl;
-	private int timeout;
+	private CloseableHttpClient httpClient;
 
 	public SlackbotClient(String slackbotUrl) {
 		this(slackbotUrl, SlackWebApiConstants.DEFAULT_TIMEOUT);
 	}
 
 	public SlackbotClient(String slackbotUrl, int timeout) {
-		this.timeout = timeout;
 		if (slackbotUrl == null) {
 			throw new SlackArgumentException("Missing Slackbot URL Configuration @ SlackApi");
 
@@ -28,6 +28,11 @@ public class SlackbotClient {
 		}
 
 		this.slackbotUrl = slackbotUrl;
+		httpClient = RestUtils.createHttpClient(timeout);
+	}
+
+	public void shutdown() {
+		if (httpClient != null) try { httpClient.close(); } catch (Exception e) {}
 	}
 
 	public String post(String channel, String message) {
@@ -37,7 +42,7 @@ public class SlackbotClient {
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
-		return RestUtils.execute(url, new StringEntity(message, "UTF-8"), timeout);
+		return RestUtils.execute(httpClient, url, new StringEntity(message, "UTF-8"));
 	}
 
 }

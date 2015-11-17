@@ -21,7 +21,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
@@ -49,16 +50,18 @@ public abstract class RestUtils {
 		}
 		return multipartEntityBuilder.build();
 	}
+	
+	public static CloseableHttpClient createHttpClient(int timeout) {
+		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(timeout).setConnectTimeout(timeout).build();
+		PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+		CloseableHttpClient httpClient = HttpClientBuilder.create().setConnectionManager(connectionManager).setDefaultRequestConfig(requestConfig).build();
+		return httpClient;
+	}
 
-	public static String execute(String url, HttpEntity httpEntity, int timeout) {
-
-		CloseableHttpClient httpClient = null;
+	public static String execute(CloseableHttpClient httpClient, String url, HttpEntity httpEntity) {
 		try {
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setEntity(httpEntity);
-
-			RequestConfig config = RequestConfig.custom().setSocketTimeout(timeout).setConnectTimeout(timeout).build();
-			httpClient = HttpClients.custom().setDefaultRequestConfig(config).build();
 
 			String retStr = httpClient.execute(httpPost, new ResponseHandler<String>() {
 
@@ -82,8 +85,6 @@ public abstract class RestUtils {
 
 		} catch (IOException e) {
 			throw new SlackException(e);
-		} finally {
-			if (httpClient != null) try { httpClient.close(); } catch (Exception e) {}
 		}
 	}
 

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -112,9 +113,9 @@ import flowctrl.integration.slack.webapi.method.users.UserSetPresenceMethod;
 
 public class SlackWebApiClientImpl implements SlackWebApiClient {
 
-	private int timeout;
 	private String token;
 	private ObjectMapper mapper;
+	private CloseableHttpClient httpClient;
 
 	public SlackWebApiClientImpl(String token) {
 		this(token, null);
@@ -127,7 +128,11 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	public SlackWebApiClientImpl(String token, ObjectMapper mapper, int timeout) {
 		this.token = token;
 		this.mapper = mapper != null ? mapper : new ObjectMapper();
-		this.timeout = timeout;
+		httpClient = RestUtils.createHttpClient(timeout);
+	}
+
+	public void shutdown() {
+		if (httpClient != null) try { httpClient.close(); } catch (Exception e) {}
 	}
 
 	// auth methods
@@ -1057,7 +1062,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 			httpEntity = RestUtils.createMultipartFormEntity(parameters, is);
 		}
 
-		String retStr = RestUtils.execute(apiUrl, httpEntity, timeout);
+		String retStr = RestUtils.execute(httpClient, apiUrl, httpEntity);
 
 		JsonNode retNode = null;
 		try {
