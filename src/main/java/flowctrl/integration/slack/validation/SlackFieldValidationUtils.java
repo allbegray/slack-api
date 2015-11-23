@@ -8,7 +8,7 @@ import flowctrl.integration.slack.exception.SlackArgumentException;
 
 public abstract class SlackFieldValidationUtils {
 
-	private static final String CHANNEL_NAME_REGEX = "^[a-z0-9]{1}[a-z0-9-_]{0,20}$";
+	private static final String CHANNEL_NAME_REGEX = "^[a-z0-9-_]{1}[a-z0-9-_]{0,20}$";
 	private static final Set<String> RESERVED_WORDS = new HashSet<String>(Arrays.asList(
 		"archive", "archived", "archives", "all", "channel",
 		"channels", "create", "delete", "deleted-channel", "edit",
