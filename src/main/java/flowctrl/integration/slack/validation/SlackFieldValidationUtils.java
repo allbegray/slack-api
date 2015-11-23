@@ -33,7 +33,19 @@ public abstract class SlackFieldValidationUtils {
 	 * @return
 	 */
 	public static boolean validChannelName(String name) {
-		return !(name == null || !name.matches(CHANNEL_NAME_REGEX) || RESERVED_WORDS.contains(name));
+		if (name == null) {
+			return false;
+		}
+		if (name.equals("-") || name.equals("_")) {
+			return false;
+		}
+		if (RESERVED_WORDS.contains(name)) {
+			return false;
+		}
+		if (!name.matches(CHANNEL_NAME_REGEX)) {
+			return false;
+		}
+		return true;
 	}
 
 	public static void validUrl(String str, String fieldName) {

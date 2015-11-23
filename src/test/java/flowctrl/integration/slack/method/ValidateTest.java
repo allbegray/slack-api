@@ -1,7 +1,7 @@
 package flowctrl.integration.slack.method;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -25,7 +25,7 @@ public class ValidateTest {
 	@Test
 	public void channelNameValidatorTest() {
 
-		Map<String, Boolean> words = new HashMap<String, Boolean>();
+		Map<String, Boolean> words = new LinkedHashMap<String, Boolean>();
 		words.put(null, false);
 		words.put("한글", false);
 		words.put("", false);
@@ -37,6 +37,7 @@ public class ValidateTest {
 		words.put("1234567890123456789012", false);
 
 		words.put("archive", false);
+		words.put("archive1", true);
 		words.put("deleted-channel", false);
 		words.put("everyone", false);
 		words.put("group", false);
@@ -50,9 +51,14 @@ public class ValidateTest {
 		words.put("project_nicehop", true);
 		words.put("a", true);
 		words.put("0-0_", true);
+		words.put("_test", true);
+		words.put("-test", true);
 
 		for (Entry<String, Boolean> entry : words.entrySet()) {
 			boolean ok = SlackFieldValidationUtils.validChannelName(entry.getKey());
+			if (ok != entry.getValue()) {
+				System.out.println("error : " + entry.getKey());
+			}
 			Assert.assertTrue(ok == entry.getValue());
 		}
 
