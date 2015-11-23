@@ -1,3 +1,5 @@
+![JitPack](https://img.shields.io/github/release/flowctrl/slack-api.svg?label=JitPack)
+
 slack-api
 =============
 A Java client for the Web APIs, Incoming Webhooks, Slackbot, RTM(Real Time Messaging)
