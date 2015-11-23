@@ -73,31 +73,6 @@ auth, channels, chat, emoji, files, groups, im, mpim, pins, reactions, stars, te
 ```java
 package flowctrl.integration.slack.webapi;
 
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
-
-import flowctrl.integration.slack.type.Attachment;
-import flowctrl.integration.slack.type.Authentication;
-import flowctrl.integration.slack.type.Channel;
-import flowctrl.integration.slack.type.DirectMessageChannel;
-import flowctrl.integration.slack.type.File;
-import flowctrl.integration.slack.type.FileInfo;
-import flowctrl.integration.slack.type.FileList;
-import flowctrl.integration.slack.type.Group;
-import flowctrl.integration.slack.type.History;
-import flowctrl.integration.slack.type.PinItem;
-import flowctrl.integration.slack.type.Presence;
-import flowctrl.integration.slack.type.ReactionItem;
-import flowctrl.integration.slack.type.ReactionList;
-import flowctrl.integration.slack.type.StarList;
-import flowctrl.integration.slack.type.Team;
-import flowctrl.integration.slack.type.TeamAccessLogList;
-import flowctrl.integration.slack.type.TeamIntegrationLogList;
-import flowctrl.integration.slack.type.User;
-import flowctrl.integration.slack.type.UserPresence;
-import flowctrl.integration.slack.webapi.method.chats.ChatPostMessageMethod;
-
 public interface SlackWebApiClient {
 	
 	void shutdown();
