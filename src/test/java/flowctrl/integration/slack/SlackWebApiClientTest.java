@@ -172,8 +172,8 @@ public class SlackWebApiClientTest {
 			webApiClient.addReactionToFile("squirrel", fileId);
 			webApiClient.pinFile(channelId, fileId);
 
-			webApiClient.removeStarToFile(fileId);
-			webApiClient.removeReactionToFile("squirrel", fileId);
+			webApiClient.removeStarFromFile(fileId);
+			webApiClient.removeReactionFromFile("squirrel", fileId);
 			webApiClient.unpinFile(channelId, fileId);
 		}
 

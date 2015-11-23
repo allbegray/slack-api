@@ -150,9 +150,9 @@ public interface SlackWebApiClient {
 	ReactionList getReactionList(int page, int count);
 	ReactionList getReactionList(String user, int page);
 	ReactionList getReactionList(String user, int page, int count);
-	boolean removeReactionToFile(String emojiName, String file);
-	boolean removeReactionToFileComment(String emojiName, String file_comment);
-	boolean removeReactionToMessage(String emojiName, String channel, String timestamp);
+	boolean removeReactionFromFile(String emojiName, String file);
+	boolean removeReactionFromFileComment(String emojiName, String file_comment);
+	boolean removeReactionFromMessage(String emojiName, String channel, String timestamp);
 	
 	// rtm
 	
@@ -168,9 +168,9 @@ public interface SlackWebApiClient {
 	StarList getStarList(int page, int count);
 	StarList getStarList(String user, int page);
 	StarList getStarList(String user, int page, int count);
-	boolean removeStarToFile(String file);
-	boolean removeStarToFileComment(String file_comment);
-	boolean removeStarToMessage(String channel, String timestamp);
+	boolean removeStarFromFile(String file);
+	boolean removeStarFromFileComment(String file_comment);
+	boolean removeStarFromMessage(String channel, String timestamp);
 
 	// team
 	

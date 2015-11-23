@@ -69,7 +69,36 @@ add "team.integrationLogs" method (https://twitter.com/SlackAPI/status/662350664
 ## Slack Web API compatibility
 auth, channels, chat, emoji, files, groups, im, mpim, pins, reactions, stars, team, users
 ```java
+package flowctrl.integration.slack.webapi;
+
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
+
+import flowctrl.integration.slack.type.Attachment;
+import flowctrl.integration.slack.type.Authentication;
+import flowctrl.integration.slack.type.Channel;
+import flowctrl.integration.slack.type.DirectMessageChannel;
+import flowctrl.integration.slack.type.File;
+import flowctrl.integration.slack.type.FileInfo;
+import flowctrl.integration.slack.type.FileList;
+import flowctrl.integration.slack.type.Group;
+import flowctrl.integration.slack.type.History;
+import flowctrl.integration.slack.type.PinItem;
+import flowctrl.integration.slack.type.Presence;
+import flowctrl.integration.slack.type.ReactionItem;
+import flowctrl.integration.slack.type.ReactionList;
+import flowctrl.integration.slack.type.StarList;
+import flowctrl.integration.slack.type.Team;
+import flowctrl.integration.slack.type.TeamAccessLogList;
+import flowctrl.integration.slack.type.TeamIntegrationLogList;
+import flowctrl.integration.slack.type.User;
+import flowctrl.integration.slack.type.UserPresence;
+import flowctrl.integration.slack.webapi.method.chats.ChatPostMessageMethod;
+
 public interface SlackWebApiClient {
+	
+	void shutdown();
 	
 	// auth
 
@@ -192,9 +221,14 @@ public interface SlackWebApiClient {
 	ReactionList getReactionList(int page, int count);
 	ReactionList getReactionList(String user, int page);
 	ReactionList getReactionList(String user, int page, int count);
-	boolean removeReactionToFile(String emojiName, String file);
-	boolean removeReactionToFileComment(String emojiName, String file_comment);
-	boolean removeReactionToMessage(String emojiName, String channel, String timestamp);
+	boolean removeReactionFromFile(String emojiName, String file);
+	boolean removeReactionFromFileComment(String emojiName, String file_comment);
+	boolean removeReactionFromMessage(String emojiName, String channel, String timestamp);
+	
+	// rtm
+	
+	String startRealTimeMessagingApi();
+	String startRealTimeMessagingApi(String simple_latest, String no_unreads, String mpim_aware);
 
 	// stars
 	
@@ -205,9 +239,9 @@ public interface SlackWebApiClient {
 	StarList getStarList(int page, int count);
 	StarList getStarList(String user, int page);
 	StarList getStarList(String user, int page, int count);
-	boolean removeStarToFile(String file);
-	boolean removeStarToFileComment(String file_comment);
-	boolean removeStarToMessage(String channel, String timestamp);
+	boolean removeStarFromFile(String file);
+	boolean removeStarFromFileComment(String file_comment);
+	boolean removeStarFromMessage(String channel, String timestamp);
 
 	// team
 	

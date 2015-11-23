@@ -784,7 +784,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public boolean removeReactionToFile(String emojiName, String file) {
+	public boolean removeReactionFromFile(String emojiName, String file) {
 		ReactionsRemoveMethod method = new ReactionsRemoveMethod(emojiName);
 		method.setFile(file);
 
@@ -792,7 +792,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public boolean removeReactionToFileComment(String emojiName, String file_comment) {
+	public boolean removeReactionFromFileComment(String emojiName, String file_comment) {
 		ReactionsRemoveMethod method = new ReactionsRemoveMethod(emojiName);
 		method.setFile_comment(file_comment);
 
@@ -800,7 +800,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public boolean removeReactionToMessage(String emojiName, String channel, String timestamp) {
+	public boolean removeReactionFromMessage(String emojiName, String channel, String timestamp) {
 		ReactionsRemoveMethod method = new ReactionsRemoveMethod(emojiName);
 		method.setChannel(channel);
 		method.setTimestamp(timestamp);
@@ -882,7 +882,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public boolean removeStarToFile(String file) {
+	public boolean removeStarFromFile(String file) {
 		StarsRemoveMethod method = new StarsRemoveMethod();
 		method.setFile(file);
 
@@ -890,7 +890,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public boolean removeStarToFileComment(String file_comment) {
+	public boolean removeStarFromFileComment(String file_comment) {
 		StarsRemoveMethod method = new StarsRemoveMethod();
 		method.setFile_comment(file_comment);
 
@@ -898,7 +898,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public boolean removeStarToMessage(String channel, String timestamp) {
+	public boolean removeStarFromMessage(String channel, String timestamp) {
 		StarsRemoveMethod method = new StarsRemoveMethod();
 		method.setChannel(channel);
 		method.setTimestamp(timestamp);
