@@ -12,7 +12,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -55,13 +54,13 @@ public abstract class RestUtils {
 		return httpClient;
 	}
 
-	public static <T> T execute(CloseableHttpClient httpClient, String url, HttpEntity httpEntity, ResponseHandler<T> responseHandler) {
+	public static String execute(CloseableHttpClient httpClient, String url, HttpEntity httpEntity) {
 		logger.info("url : " + url);
 
 		try {
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setEntity(httpEntity);
-			return httpClient.execute(httpPost, responseHandler);
+			return httpClient.execute(httpPost, new StringResponseHandler());
 		} catch (IOException e) {
 			throw new SlackException(e);
 		}

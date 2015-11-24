@@ -17,7 +17,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import flowctrl.integration.slack.RestUtils;
-import flowctrl.integration.slack.StreamResponseHandler;
 import flowctrl.integration.slack.exception.SlackArgumentException;
 import flowctrl.integration.slack.exception.SlackException;
 import flowctrl.integration.slack.exception.SlackResponseErrorException;
@@ -1064,7 +1063,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 			httpEntity = RestUtils.createMultipartFormEntity(parameters, is);
 		}
 
-		InputStream retContent = RestUtils.execute(httpClient, apiUrl, httpEntity, new StreamResponseHandler());
+		String retContent = RestUtils.execute(httpClient, apiUrl, httpEntity);
 
 		JsonNode retNode = null;
 		try {

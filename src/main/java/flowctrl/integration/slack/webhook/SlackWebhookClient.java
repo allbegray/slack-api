@@ -9,7 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import flowctrl.integration.slack.RestUtils;
-import flowctrl.integration.slack.StringResponseHandler;
 import flowctrl.integration.slack.exception.SlackArgumentException;
 import flowctrl.integration.slack.exception.SlackException;
 import flowctrl.integration.slack.type.Payload;
@@ -57,7 +56,7 @@ public class SlackWebhookClient {
 
 			Map<String, String> parameters = new HashMap<String, String>();
 			parameters.put("payload", message);
-			return RestUtils.execute(httpClient, this.webhookUrl, RestUtils.createUrlEncodedFormEntity(parameters), new StringResponseHandler());
+			return RestUtils.execute(httpClient, this.webhookUrl, RestUtils.createUrlEncodedFormEntity(parameters));
 		}
 		return null;
 	}
