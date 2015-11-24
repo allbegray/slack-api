@@ -8,7 +8,7 @@ A Java client for the Web APIs, Incoming Webhooks, Slackbot, RTM(Real Time Messa
 
 ### v1.0.7.RELEASE
 
-[fix - Channel name reg expression](https://github.com/flowctrl/slack-api/issues/1)
+[fix - Channel name reg expression](https://github.com/flowctrl/slack-api/issues/1)  
 [fix - Attempted read on closed stream](https://github.com/flowctrl/slack-api/issues/3)
 
 ### v1.0.6.RELEASE
