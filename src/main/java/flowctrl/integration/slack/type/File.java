@@ -55,7 +55,7 @@ public class File {
 	protected List<String> groups;
 	protected List<String> ims;
 	protected Integer comments_count;
-	// String initial_comment;
+	protected Comment initial_comment;
 	protected Integer num_stars;
 	protected Boolean is_starred;
 	protected List<String> pinned_to;
@@ -390,6 +390,14 @@ public class File {
 		this.comments_count = comments_count;
 	}
 
+	public Comment getInitial_comment() {
+		return initial_comment;
+	}
+
+	public void setInitial_comment(Comment initial_comment) {
+		this.initial_comment = initial_comment;
+	}
+
 	public Integer getNum_stars() {
 		return num_stars;
 	}
@@ -433,8 +441,8 @@ public class File {
 				+ ", thumb_360=" + thumb_360 + ", thumb_360_gif=" + thumb_360_gif + ", thumb_360_w=" + thumb_360_w + ", thumb_360_h=" + thumb_360_h + ", image_exif_rotation=" + image_exif_rotation
 				+ ", original_w=" + original_w + ", original_h=" + original_h + ", permalink=" + permalink + ", permalink_public=" + permalink_public + ", edit_link=" + edit_link + ", preview="
 				+ preview + ", preview_highlight=" + preview_highlight + ", lines=" + lines + ", lines_more=" + lines_more + ", is_public=" + is_public + ", public_url_shared=" + public_url_shared
-				+ ", channels=" + channels + ", groups=" + groups + ", ims=" + ims + ", comments_count=" + comments_count + ", num_stars=" + num_stars + ", is_starred=" + is_starred + ", pinned_to="
-				+ pinned_to + ", reactions=" + reactions + "]";
+				+ ", channels=" + channels + ", groups=" + groups + ", ims=" + ims + ", comments_count=" + comments_count + ", initial_comment=" + initial_comment + ", num_stars=" + num_stars
+				+ ", is_starred=" + is_starred + ", pinned_to=" + pinned_to + ", reactions=" + reactions + "]";
 	}
 
 }

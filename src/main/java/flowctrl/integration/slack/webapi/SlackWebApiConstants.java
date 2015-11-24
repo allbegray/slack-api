@@ -105,6 +105,10 @@ public interface SlackWebApiConstants {
 
 	// search
 
+	public static final String SEARCH_ALL = "search.all";
+	public static final String SEARCH_FILES = "search.files";
+	public static final String SEARCH_MESSAGES = "search.messages";
+
 	// stars
 
 	public static final String STARS_ADD = "stars.add";

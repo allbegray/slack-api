@@ -33,14 +33,14 @@ public class UserSetPresenceMethod extends AbstractMethod {
 	public void validate(List<ValidationError> errors) {
 		if (presence == null) {
 			addError(errors, "presence", Problem.REQUIRED, null);
-		} else if (!("auto".equals(presence) || "away".equals(presence))) {
+		} else if (!("auto".equalsIgnoreCase(presence) || "away".equalsIgnoreCase(presence))) {
 			addError(errors, "presence", Problem.PATTERN_NOT_MATCH, "\"presence\" must be either \"auto\" or \"away\".");
 		}
 	}
 
 	@Override
 	protected void createParameters(Map<String, String> parameters) {
-		parameters.put("presence", presence);
+		parameters.put("presence", presence.toLowerCase());
 	}
 
 }

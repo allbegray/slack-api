@@ -15,13 +15,15 @@ import flowctrl.integration.slack.validation.ValidationError;
 import flowctrl.integration.slack.webapi.method.AbstractHistoryMethod;
 import flowctrl.integration.slack.webapi.method.AbstractItemMethod;
 import flowctrl.integration.slack.webapi.method.AbstractPagingMethod;
+import flowctrl.integration.slack.webapi.method.AbstractSearchMethod;
 import flowctrl.integration.slack.webapi.method.SlackMethod;
 import flowctrl.integration.slack.webapi.method.channels.ChannelHistoryMethod;
 import flowctrl.integration.slack.webapi.method.files.FileInfoMethod;
+import flowctrl.integration.slack.webapi.method.search.SearchAllMethod;
 import flowctrl.integration.slack.webapi.method.stars.StarsAddMethod;
 
 public class ValidateTest {
-	
+
 	@Test
 	public void channelNameValidatorTest() {
 
@@ -62,6 +64,30 @@ public class ValidateTest {
 			Assert.assertTrue(ok == entry.getValue());
 		}
 
+	}
+
+	@Test
+	public void abstractSearchMethodTest() {
+		AbstractSearchMethod method = new SearchAllMethod("test query");
+		method.setSort("zxc");
+		method.setSort_dir("zxcv");
+
+		validate(method, 2);
+
+		method.setSort("timestamp");
+		method.setSort_dir("zxcv");
+
+		validate(method, 1);
+
+		method.setSort("score");
+		method.setSort_dir("desc");
+
+		validate(method, 0);
+		
+		method.setSort("TIMESTAMP");
+		method.setSort_dir("ASC");
+
+		validate(method, 0);
 	}
 
 	@Test
