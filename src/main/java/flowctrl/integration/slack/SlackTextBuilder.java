@@ -66,6 +66,11 @@ public class SlackTextBuilder {
 		buffer.append("\n> ").append(text).append("\n");
 		return this;
 	}
+	
+	public SlackTextBuilder paragraphs(String text) {
+		buffer.append("\n>>> ").append(text).append("\n");
+		return this;
+	}
 
 	public SlackTextBuilder newline() {
 		buffer.append("\n");
