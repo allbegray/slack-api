@@ -22,6 +22,40 @@ public class SlackSearchQueryBuilderTest {
 	}
 	
 	@Test
+	public void emptyValueFilterTest() {
+		String query = SlackSearchQueryBuilder.create()
+				.text(null)
+				.text("")
+				.in(null)
+				.in("")
+				.inChannelName(null)
+				.inChannelName("")
+				.inUserName(null)
+				.inUserName("")
+				.from(null)
+				.from("")
+				.fromUserName(null)
+				.fromUserName("")
+				.hasEmoji(null)
+				.hasEmoji("")
+				.before((String) null)
+				.before((SlackDateTime) null)
+				.before("")
+				.after((String) null)
+				.after((SlackDateTime) null)
+				.after("")
+				.on((String) null)
+				.on((SlackDateTime) null)
+				.on("")
+				.during((String) null)
+				.during((SlackDateTime) null)
+				.during("")
+				.build();
+		
+		Assert.assertTrue(query == null);
+	}
+	
+	@Test
 	public void inTest() {
 		String query = SlackSearchQueryBuilder.create()
 				.in("test")

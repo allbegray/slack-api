@@ -46,19 +46,11 @@ public class SlackSearchQueryBuilder {
 	}
 
 	public SlackSearchQueryBuilder inChannelName(String channelName) {
-		if (channelName != null) {
-			channelName = channelName.trim();
-			channelName = "#" + channelName;
-		}
-		return filter(FILTER_IN, channelName);
+		return filter(FILTER_IN, "#", channelName, null);
 	}
 
 	public SlackSearchQueryBuilder inUserName(String userName) {
-		if (userName != null) {
-			userName = userName.trim();
-			userName = "@" + userName;
-		}
-		return filter(FILTER_IN, userName);
+		return filter(FILTER_IN, "@", userName, null);
 	}
 
 	public SlackSearchQueryBuilder from(String text) {
@@ -66,11 +58,7 @@ public class SlackSearchQueryBuilder {
 	}
 
 	public SlackSearchQueryBuilder fromUserName(String userName) {
-		if (userName != null) {
-			userName = userName.trim();
-			userName = "@" + userName;
-		}
-		return filter(FILTER_FROM, userName);
+		return filter(FILTER_FROM, "@", userName, null);
 	}
 
 	public SlackSearchQueryBuilder fromMe() {
@@ -91,15 +79,9 @@ public class SlackSearchQueryBuilder {
 
 	public SlackSearchQueryBuilder hasEmoji(String emojiName) {
 		if (emojiName != null) {
-			emojiName = emojiName.trim();
-			if (!emojiName.startsWith(":")) {
-				emojiName = ":" + emojiName;	
-			}
-			if (!emojiName.endsWith(":")) {
-				emojiName = emojiName + ":";	
-			}
+			emojiName = emojiName.replace(":", "");
 		}
-		return filter(FILTER_HAS, emojiName);
+		return filter(FILTER_HAS, ":", emojiName, ":");
 	}
 
 	public SlackSearchQueryBuilder before(String date) {
@@ -107,6 +89,9 @@ public class SlackSearchQueryBuilder {
 	}
 
 	public SlackSearchQueryBuilder before(SlackDateTime dateTime) {
+		if (dateTime == null) {
+			return this;
+		}
 		before(dateTime.name().toLowerCase());
 		return this;
 	}
@@ -116,6 +101,9 @@ public class SlackSearchQueryBuilder {
 	}
 
 	public SlackSearchQueryBuilder after(SlackDateTime dateTime) {
+		if (dateTime == null) {
+			return this;
+		}
 		after(dateTime.name().toLowerCase());
 		return this;
 	}
@@ -125,6 +113,9 @@ public class SlackSearchQueryBuilder {
 	}
 
 	public SlackSearchQueryBuilder on(SlackDateTime dateTime) {
+		if (dateTime == null) {
+			return this;
+		}
 		on(dateTime.name().toLowerCase());
 		return this;
 	}
@@ -134,19 +125,40 @@ public class SlackSearchQueryBuilder {
 	}
 
 	public SlackSearchQueryBuilder during(SlackDateTime dateTime) {
+		if (dateTime == null) {
+			return this;
+		}
 		during(dateTime.name().toLowerCase());
 		return this;
 	}
 
-	protected SlackSearchQueryBuilder filter(String prefix, String text) {
+	protected SlackSearchQueryBuilder filter(String filterName, String text) {
+		return filter(filterName, null, text, null);
+	}
+
+	protected SlackSearchQueryBuilder filter(String filterName, String prefix, String text, String suffix) {
 		if (text == null) {
+			return this;
+		}
+
+		text = text.trim();
+
+		if (text.length() == 0) {
 			return this;
 		}
 
 		if (buffer.length() > 0) {
 			buffer.append(" ");
 		}
-		buffer.append(prefix + ":" + text.trim());
+
+		if (prefix != null) {
+			text = prefix + text;
+		}
+		if (suffix != null) {
+			text = text + suffix;
+		}
+
+		buffer.append(filterName + ":" + text);
 		usingFilter = true;
 		return this;
 	}
