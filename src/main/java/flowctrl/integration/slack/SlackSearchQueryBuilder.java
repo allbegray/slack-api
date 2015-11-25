@@ -2,7 +2,18 @@ package flowctrl.integration.slack;
 
 public class SlackSearchQueryBuilder {
 
+	private static final String FILTER_IN = "in";
+	private static final String FILTER_FROM = "from";
+
+	private static final String FILTER_HAS = "has";
+
+	private static final String FILTER_BEFORE = "before";
+	private static final String FILTER_AFTER = "after";
+	private static final String FILTER_ON = "on";
+	private static final String FILTER_DURING = "during";
+
 	private StringBuffer buffer = new StringBuffer();
+	private boolean usingFilter;
 
 	public static SlackSearchQueryBuilder create() {
 		return new SlackSearchQueryBuilder();
@@ -12,53 +23,87 @@ public class SlackSearchQueryBuilder {
 	}
 
 	public SlackSearchQueryBuilder text(String text) {
+		if (text == null) {
+			return this;
+		}
+
+		text = text.trim();
+
+		if (text.length() == 0) {
+			return this;
+		}
+
+		if (usingFilter) {
+			buffer.append(" ");
+		}
 		buffer.append(text);
+		usingFilter = false;
 		return this;
 	}
 
-	public SlackSearchQueryBuilder inChannelOrUserName(String name) {
-		buffer.append(" in:" + name);
-		return this;
+	public SlackSearchQueryBuilder in(String text) {
+		return filter(FILTER_IN, text);
+	}
+
+	public SlackSearchQueryBuilder inChannelName(String channelName) {
+		if (channelName != null) {
+			channelName = channelName.trim();
+			channelName = "#" + channelName;
+		}
+		return filter(FILTER_IN, channelName);
+	}
+
+	public SlackSearchQueryBuilder inUserName(String userName) {
+		if (userName != null) {
+			userName = userName.trim();
+			userName = "@" + userName;
+		}
+		return filter(FILTER_IN, userName);
+	}
+
+	public SlackSearchQueryBuilder from(String text) {
+		return filter(FILTER_FROM, text);
 	}
 
 	public SlackSearchQueryBuilder fromUserName(String userName) {
-		buffer.append(" from:" + userName);
-		return this;
+		if (userName != null) {
+			userName = userName.trim();
+			userName = "@" + userName;
+		}
+		return filter(FILTER_FROM, userName);
 	}
 
 	public SlackSearchQueryBuilder fromMe() {
-		buffer.append(" from:me");
-		return this;
+		return filter(FILTER_FROM, "me");
 	}
 
 	public SlackSearchQueryBuilder hasLink() {
-		buffer.append(" has:link");
-		return this;
-	}
-
-	public SlackSearchQueryBuilder hasLink(String link) {
-		buffer.append(" has:" + link);
-		return this;
+		return filter(FILTER_HAS, "link");
 	}
 
 	public SlackSearchQueryBuilder hasStar() {
-		buffer.append(" has:star");
-		return this;
+		return filter(FILTER_HAS, "star");
 	}
 
 	public SlackSearchQueryBuilder hasReaction() {
-		buffer.append(" has:reaction");
-		return this;
+		return filter(FILTER_HAS, "reaction");
 	}
 
 	public SlackSearchQueryBuilder hasEmoji(String emojiName) {
-		buffer.append(" has::" + emojiName + ":");
-		return this;
+		if (emojiName != null) {
+			emojiName = emojiName.trim();
+			if (!emojiName.startsWith(":")) {
+				emojiName = ":" + emojiName;	
+			}
+			if (!emojiName.endsWith(":")) {
+				emojiName = emojiName + ":";	
+			}
+		}
+		return filter(FILTER_HAS, emojiName);
 	}
 
 	public SlackSearchQueryBuilder before(String date) {
-		buffer.append(" before:" + date);
-		return this;
+		return filter(FILTER_BEFORE, date);
 	}
 
 	public SlackSearchQueryBuilder before(SlackDateTime dateTime) {
@@ -67,8 +112,7 @@ public class SlackSearchQueryBuilder {
 	}
 
 	public SlackSearchQueryBuilder after(String date) {
-		buffer.append(" after:" + date);
-		return this;
+		return filter(FILTER_AFTER, date);
 	}
 
 	public SlackSearchQueryBuilder after(SlackDateTime dateTime) {
@@ -77,8 +121,7 @@ public class SlackSearchQueryBuilder {
 	}
 
 	public SlackSearchQueryBuilder on(String date) {
-		buffer.append(" on:" + date);
-		return this;
+		return filter(FILTER_ON, date);
 	}
 
 	public SlackSearchQueryBuilder on(SlackDateTime dateTime) {
@@ -87,12 +130,24 @@ public class SlackSearchQueryBuilder {
 	}
 
 	public SlackSearchQueryBuilder during(String date) {
-		buffer.append(" during:" + date);
-		return this;
+		return filter(FILTER_DURING, date);
 	}
 
 	public SlackSearchQueryBuilder during(SlackDateTime dateTime) {
 		during(dateTime.name().toLowerCase());
+		return this;
+	}
+
+	protected SlackSearchQueryBuilder filter(String prefix, String text) {
+		if (text == null) {
+			return this;
+		}
+
+		if (buffer.length() > 0) {
+			buffer.append(" ");
+		}
+		buffer.append(prefix + ":" + text.trim());
+		usingFilter = true;
 		return this;
 	}
 
