@@ -1,1 +1,4 @@
 language: java
+
+notifications:
+  slack: flowctrl:TzBIlpdewhDHdz6hRZ0l4F5s
