@@ -60,7 +60,11 @@ public abstract class RestUtils {
 		try {
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setEntity(httpEntity);
-			return httpClient.execute(httpPost, new StringResponseHandler());
+			String retStr = httpClient.execute(httpPost, new StringResponseHandler());
+			
+			logger.info("return : " + retStr);
+			
+			return retStr;
 		} catch (IOException e) {
 			throw new SlackException(e);
 		}

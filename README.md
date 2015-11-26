@@ -6,6 +6,10 @@ A Java client for the Web APIs, Incoming Webhooks, Slackbot, RTM(Real Time Messa
 
 ## Change Logs
 
+### v1.0.8.RELEASE
+
+[fix - Return channel ID resulted from im.open call](https://github.com/flowctrl/slack-api/issues/4)
+
 ### v1.0.7.RELEASE
 
 [fix - Channel name reg expression](https://github.com/flowctrl/slack-api/issues/1)  
@@ -255,7 +259,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.0.7.RELEASE</version>
+    <version>v1.0.8.RELEASE</version>
 </dependency>
 ```
 

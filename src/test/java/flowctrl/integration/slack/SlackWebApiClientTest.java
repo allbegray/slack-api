@@ -73,8 +73,9 @@ public class SlackWebApiClientTest {
 		}
 		webApiClient.closeDirectMessageChannel(slackbot.getId());
 
-		webApiClient.openDirectMessageChannel(slackbot.getUser());
-
+		String channel = webApiClient.openDirectMessageChannel(slackbot.getUser());
+		Assert.assertTrue(channel != null);
+		
 		History history = webApiClient.getDirectMessageChannelHistory(slackbot.getId());
 		Assert.assertTrue(history.getMessages().size() > 0);
 	}

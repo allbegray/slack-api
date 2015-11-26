@@ -585,10 +585,9 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 
 	@Override
 	public String openDirectMessageChannel(String user) {
-        ImOpenMethod method = new ImOpenMethod(user) ;
-        JsonNode retNode = call(method) ;
+        JsonNode retNode = call(new ImOpenMethod(user));
 
-		return retNode.findPath("id").asText();
+		return retNode.findPath("channel").findPath("id").asText();
 	}
 
 	// mpim (multiparty direct message channel)
