@@ -115,10 +115,10 @@ public interface SlackWebApiClient {
 	History getDirectMessageChannelHistory(String channel, String latest, String oldest, boolean inclusive, int count, boolean unreads);
 	List<DirectMessageChannel> getDirectMessageChannelList();
 	boolean markDirectMessageChannel(String channel, String ts);
-	boolean openDirectMessageChannel(String user);
-	
+	String openDirectMessageChannel(String user);
+
 	// mpim (multiparty direct message channel)
-	
+
 	boolean closeMultipartyDirectMessageChannel(String channel);
 	History getMultipartyDirectMessageChannelHistory(String channel);
 	History getMultipartyDirectMessageChannelHistory(String channel, int count);
