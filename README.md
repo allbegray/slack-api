@@ -1,4 +1,4 @@
-[![Release](https://img.shields.io/github/release/flowctrl/slack-api.svg?label=JitPack)](https://jitpack.io/#flowctrl/slack-api)
+[![Release](https://img.shields.io/github/release/flowctrl/slack-api.svg?label=JitPack)](https://jitpack.io/#flowctrl/slack-api) [![Build Status](https://travis-ci.org/flowctrl/slack-api.svg?branch=master)](https://travis-ci.org/flowctrl/slack-api)
 
 slack-api
 =============
