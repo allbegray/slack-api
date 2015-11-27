@@ -29,6 +29,7 @@ import flowctrl.integration.slack.type.FileInfo;
 import flowctrl.integration.slack.type.FileList;
 import flowctrl.integration.slack.type.Group;
 import flowctrl.integration.slack.type.History;
+import flowctrl.integration.slack.type.OAuthAccessToken;
 import flowctrl.integration.slack.type.PinItem;
 import flowctrl.integration.slack.type.Presence;
 import flowctrl.integration.slack.type.ReactionItem;
@@ -90,6 +91,7 @@ import flowctrl.integration.slack.webapi.method.mpim.MpimHistoryMethod;
 import flowctrl.integration.slack.webapi.method.mpim.MpimListMethod;
 import flowctrl.integration.slack.webapi.method.mpim.MpimMarkMethod;
 import flowctrl.integration.slack.webapi.method.mpim.MpimOpenMethod;
+import flowctrl.integration.slack.webapi.method.oauth.OAuthAccessMethod;
 import flowctrl.integration.slack.webapi.method.pins.PinsAddMethod;
 import flowctrl.integration.slack.webapi.method.pins.PinsListMethod;
 import flowctrl.integration.slack.webapi.method.pins.PinsRemoveMethod;
@@ -645,6 +647,15 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	// oauth
+
+	@Override
+	public OAuthAccessToken accessOAuth(String client_id, String client_secret, String code, String redirect_uri) {
+		OAuthAccessMethod method = new OAuthAccessMethod(client_id, client_secret, code);
+		method.setRedirect_uri(redirect_uri);
+
+		JsonNode retNode = call(method);
+		return readValue(retNode, null, OAuthAccessToken.class);
+	}
 
 	// pins
 

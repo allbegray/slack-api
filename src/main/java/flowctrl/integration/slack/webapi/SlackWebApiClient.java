@@ -13,6 +13,7 @@ import flowctrl.integration.slack.type.FileInfo;
 import flowctrl.integration.slack.type.FileList;
 import flowctrl.integration.slack.type.Group;
 import flowctrl.integration.slack.type.History;
+import flowctrl.integration.slack.type.OAuthAccessToken;
 import flowctrl.integration.slack.type.PinItem;
 import flowctrl.integration.slack.type.Presence;
 import flowctrl.integration.slack.type.ReactionItem;
@@ -127,6 +128,10 @@ public interface SlackWebApiClient {
 	boolean markMultipartyDirectMessageChannel(String channel, String ts);
 	Group openMultipartyDirectMessageChannel(String... users);
 	Group openMultipartyDirectMessageChannel(List<String> users);
+
+	// oauth
+	
+	OAuthAccessToken accessOAuth(String client_id, String client_secret, String code, String redirect_uri);
 
 	// pins
 	

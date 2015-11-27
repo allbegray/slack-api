@@ -86,6 +86,8 @@ public interface SlackWebApiConstants {
 
 	// oauth
 
+	public static final String OAUTH_ACCESS = "oauth.access";
+
 	// pins
 
 	public static final String PINS_ADD = "pins.add";
