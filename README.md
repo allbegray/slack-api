@@ -2,7 +2,7 @@
 
 slack-api
 =============
-A Java client for the Web APIs, Incoming Webhooks, Slackbot, RTM(Real Time Messaging)
+A Java client for the Slack Web API, Incoming Webhooks, Slackbot Remote Control, RTM(Real Time Messaging) API 
 
 ## Change Logs
 
