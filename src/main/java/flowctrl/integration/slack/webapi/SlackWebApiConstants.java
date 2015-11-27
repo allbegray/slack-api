@@ -123,6 +123,19 @@ public interface SlackWebApiConstants {
 	public static final String TEAM_INFO = "team.info";
 	public static final String TEAM_INTEGRATION_LOGS = "team.integrationLogs";
 
+	// usergroups
+
+	public static final String USERGROUPS_CREATE = "usergroups.create";
+	public static final String USERGROUPS_DISABLE = "usergroups.disable";
+	public static final String USERGROUPS_ENABLE = "usergroups.enable";
+	public static final String USERGROUPS_LIST = "usergroups.list";
+	public static final String USERGROUPS_UPDATE = "usergroups.update";
+
+	// usergroups.users
+
+	public static final String USERGROUPS_USERS_LIST = "usergroups.users.list";
+	public static final String USERGROUPS_USERS_UPDATE = "usergroups.users.update";
+
 	// users
 
 	public static final String USERS_GET_PRESENCE = "users.getPresence";

@@ -39,6 +39,7 @@ import flowctrl.integration.slack.type.Team;
 import flowctrl.integration.slack.type.TeamAccessLogList;
 import flowctrl.integration.slack.type.TeamIntegrationLogList;
 import flowctrl.integration.slack.type.User;
+import flowctrl.integration.slack.type.Usergroup;
 import flowctrl.integration.slack.type.UserPresence;
 import flowctrl.integration.slack.validation.Problem;
 import flowctrl.integration.slack.validation.ValidationError;
@@ -107,6 +108,13 @@ import flowctrl.integration.slack.webapi.method.team.TeamAccessLogsMethod;
 import flowctrl.integration.slack.webapi.method.team.TeamInfoMethod;
 import flowctrl.integration.slack.webapi.method.team.TeamIntegrationLogMethod;
 import flowctrl.integration.slack.webapi.method.test.AuthTestMethod;
+import flowctrl.integration.slack.webapi.method.usergroups.UsergroupsCreateMethod;
+import flowctrl.integration.slack.webapi.method.usergroups.UsergroupsDisableMethod;
+import flowctrl.integration.slack.webapi.method.usergroups.UsergroupsEnableMethod;
+import flowctrl.integration.slack.webapi.method.usergroups.UsergroupsListMethod;
+import flowctrl.integration.slack.webapi.method.usergroups.UsergroupsUpdateMethod;
+import flowctrl.integration.slack.webapi.method.usergroups.users.UsergroupsUsersListMethod;
+import flowctrl.integration.slack.webapi.method.usergroups.users.UsergroupsUsersUpdateMethod;
 import flowctrl.integration.slack.webapi.method.users.UserGetPresenceMethod;
 import flowctrl.integration.slack.webapi.method.users.UserInfoMethod;
 import flowctrl.integration.slack.webapi.method.users.UserListMethod;
@@ -963,6 +971,117 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 
 		JsonNode retNode = call(method);
 		return readValue(retNode, null, TeamIntegrationLogList.class);
+	}
+
+	// usergroups
+	
+	@Override
+	public Usergroup createUsergroup(String name, String handle, String description, List<String> channels) {
+		return createUsergroup(name, handle, description, channels, true);
+	}
+
+	@Override
+	public Usergroup createUsergroup(String name, String handle, String description, List<String> channels, boolean include_count) {
+		UsergroupsCreateMethod method = new UsergroupsCreateMethod(name);
+		method.setHandle(handle);
+		method.setDescription(description);
+		method.setChannels(channels);
+		method.setInclude_count(include_count);
+
+		JsonNode retNode = call(method);
+		return readValue(retNode, "usergroup", Usergroup.class);
+	}
+
+	@Override
+	public Usergroup disableUsergroup(String usergroup) {
+		return disableUsergroup(usergroup, true);
+	}
+
+	@Override
+	public Usergroup disableUsergroup(String usergroup, boolean include_count) {
+		UsergroupsDisableMethod method = new UsergroupsDisableMethod(usergroup);
+		method.setInclude_count(include_count);
+
+		JsonNode retNode = call(method);
+		return readValue(retNode, "usergroup", Usergroup.class);
+	}
+
+	@Override
+	public Usergroup enableUsergroup(String usergroup) {
+		return enableUsergroup(usergroup, true);
+	}
+
+	@Override
+	public Usergroup enableUsergroup(String usergroup, boolean include_count) {
+		UsergroupsEnableMethod method = new UsergroupsEnableMethod(usergroup);
+		method.setInclude_count(include_count);
+
+		JsonNode retNode = call(method);
+		return readValue(retNode, "usergroup", Usergroup.class);
+	}
+
+	@Override
+	public List<Usergroup> getUsergroupList() {
+		return getUsergroupList(true, true, true);
+	}
+
+	@Override
+	public List<Usergroup> getUsergroupList(boolean include_disabled, boolean include_count, boolean include_users) {
+		UsergroupsListMethod method = new UsergroupsListMethod();
+		method.setInclude_disabled(include_disabled);
+		method.setInclude_count(include_count);
+		method.setInclude_users(include_users);
+
+		JsonNode retNode = call(method);
+		return readValue(retNode, "usergroup", new TypeReference<List<Usergroup>>() {
+		});
+	}
+	
+	@Override
+	public Usergroup updateUsergroup(String name, String handle, String description, List<String> channels) {
+		return updateUsergroup(name, handle, description, channels, true);
+	}
+
+	@Override
+	public Usergroup updateUsergroup(String name, String handle, String description, List<String> channels, boolean include_count) {
+		UsergroupsUpdateMethod method = new UsergroupsUpdateMethod(name);
+		method.setHandle(handle);
+		method.setDescription(description);
+		method.setChannels(channels);
+		method.setInclude_count(include_count);
+
+		JsonNode retNode = call(method);
+		return readValue(retNode, "usergroup", Usergroup.class);
+	}
+
+	// usergroups.users
+
+	@Override
+	public List<String> getUsergroupUserList(String usergroup) {
+		return getUsergroupUserList(usergroup, false);
+	}
+
+	@Override
+	public List<String> getUsergroupUserList(String usergroup, boolean include_disabled) {
+		UsergroupsUsersListMethod method = new UsergroupsUsersListMethod(usergroup);
+
+		JsonNode retNode = call(method);
+		return readValue(retNode, "users", new TypeReference<List<String>>() {
+		});
+	}
+
+	@Override
+	public Usergroup updateUsergroupUser(String usergroup, List<String> users) {
+		return updateUsergroupUser(usergroup, users, true);
+	}
+
+	@Override
+	public Usergroup updateUsergroupUser(String usergroup, List<String> users, boolean include_count) {
+		UsergroupsUsersUpdateMethod method = new UsergroupsUsersUpdateMethod(usergroup, users);
+		method.setInclude_count(include_count);
+
+		JsonNode retNode = call(method);
+		return readValue(retNode, "usergroup", Usergroup.class);
 	}
 
 	// users

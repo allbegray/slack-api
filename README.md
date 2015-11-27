@@ -6,6 +6,21 @@ A Java client for the Web APIs, Incoming Webhooks, Slackbot, RTM(Real Time Messa
 
 ## Change Logs
 
+### v1.0.9.RELEASE
+
+add "usergroups" method
+
+[usergroups.create - Create a user group](https://api.slack.com/methods/usergroups.create)
+[usergroups.disable - Disable an existing user group](https://api.slack.com/methods/usergroups.disable)
+[usergroups.enable - Enable a user group](https://api.slack.com/methods/usergroups.enable)
+[usergroups.list - List all user groups for a team](https://api.slack.com/methods/usergroups.list)
+[usergroups.update - Update an existing user group](https://api.slack.com/methods/usergroups.update)
+
+add "usergroups.users" method
+
+[usergroups.users.list - List all users in a user group](https://api.slack.com/methods/usergroups.users.list)
+[usergroups.users.update - Update the list of users for a user group](https://api.slack.com/methods/usergroups.users.update)
+
 ### v1.0.8.RELEASE
 
 [fix - Return channel ID resulted from im.open call](https://github.com/flowctrl/slack-api/issues/4)
@@ -74,10 +89,8 @@ String message = SlackTextBuilder.create()
 add "team.integrationLogs" method (https://twitter.com/SlackAPI/status/662350664782225408)
 
 ## Slack Web API compatibility
-auth, channels, chat, emoji, files, groups, im, mpim, pins, reactions, stars, team, users
+auth, channels, chat, emoji, files, groups, im, mpim, oauth, pins, reactions, rtm, stars, team, usergroups, usergroups.users, users
 ```java
-package flowctrl.integration.slack.webapi;
-
 public interface SlackWebApiClient {
 	
 	void shutdown();
@@ -168,10 +181,10 @@ public interface SlackWebApiClient {
 	History getDirectMessageChannelHistory(String channel, String latest, String oldest, boolean inclusive, int count, boolean unreads);
 	List<DirectMessageChannel> getDirectMessageChannelList();
 	boolean markDirectMessageChannel(String channel, String ts);
-	boolean openDirectMessageChannel(String user);
-	
+	String openDirectMessageChannel(String user);
+
 	// mpim (multiparty direct message channel)
-	
+
 	boolean closeMultipartyDirectMessageChannel(String channel);
 	History getMultipartyDirectMessageChannelHistory(String channel);
 	History getMultipartyDirectMessageChannelHistory(String channel, int count);
@@ -180,6 +193,10 @@ public interface SlackWebApiClient {
 	boolean markMultipartyDirectMessageChannel(String channel, String ts);
 	Group openMultipartyDirectMessageChannel(String... users);
 	Group openMultipartyDirectMessageChannel(List<String> users);
+
+	// oauth
+	
+	OAuthAccessToken accessOAuth(String client_id, String client_secret, String code, String redirect_uri);
 
 	// pins
 	
@@ -234,6 +251,26 @@ public interface SlackWebApiClient {
 	TeamIntegrationLogList getTeamIntegrationLogList(int page, int count);
 	TeamIntegrationLogList getTeamIntegrationLogList(String service_id, String app_id, String user, String change_type, int page, int count);
 	
+	// usergroups
+	
+	Usergroup createUsergroup(String name, String handle, String description, List<String> channels);
+	Usergroup createUsergroup(String name, String handle, String description, List<String> channels, boolean include_count);
+	Usergroup disableUsergroup(String usergroup);
+	Usergroup disableUsergroup(String usergroup, boolean include_count);
+	Usergroup enableUsergroup(String usergroup);
+	Usergroup enableUsergroup(String usergroup, boolean include_count);
+	List<Usergroup> getUsergroupList();
+	List<Usergroup> getUsergroupList(boolean include_disabled, boolean include_count, boolean include_users);
+	Usergroup updateUsergroup(String name, String handle, String description, List<String> channels);
+	Usergroup updateUsergroup(String name, String handle, String description, List<String> channels, boolean include_count);
+	
+	// usergroups.users
+	
+	List<String> getUsergroupUserList(String usergroup);
+	List<String> getUsergroupUserList(String usergroup, boolean include_disabled);
+	Usergroup updateUsergroupUser(String usergroup, List<String> users);
+	Usergroup updateUsergroupUser(String usergroup, List<String> users, boolean include_count);
+	
 	// users
 
 	UserPresence getUserPresence(String user);
@@ -259,7 +296,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.0.8.RELEASE</version>
+    <version>v1.0.9.RELEASE</version>
 </dependency>
 ```
 
@@ -504,5 +541,5 @@ public class SlackbotClientTest {
 ```
 
 ## Coming soon next
-search, oauth
+search
 

@@ -24,6 +24,7 @@ import flowctrl.integration.slack.type.TeamAccessLogList;
 import flowctrl.integration.slack.type.TeamIntegrationLogList;
 import flowctrl.integration.slack.type.User;
 import flowctrl.integration.slack.type.UserPresence;
+import flowctrl.integration.slack.type.Usergroup;
 import flowctrl.integration.slack.webapi.method.chats.ChatPostMessageMethod;
 
 public interface SlackWebApiClient {
@@ -185,6 +186,26 @@ public interface SlackWebApiClient {
 	TeamIntegrationLogList getTeamIntegrationLogList(int page);
 	TeamIntegrationLogList getTeamIntegrationLogList(int page, int count);
 	TeamIntegrationLogList getTeamIntegrationLogList(String service_id, String app_id, String user, String change_type, int page, int count);
+	
+	// usergroups
+	
+	Usergroup createUsergroup(String name, String handle, String description, List<String> channels);
+	Usergroup createUsergroup(String name, String handle, String description, List<String> channels, boolean include_count);
+	Usergroup disableUsergroup(String usergroup);
+	Usergroup disableUsergroup(String usergroup, boolean include_count);
+	Usergroup enableUsergroup(String usergroup);
+	Usergroup enableUsergroup(String usergroup, boolean include_count);
+	List<Usergroup> getUsergroupList();
+	List<Usergroup> getUsergroupList(boolean include_disabled, boolean include_count, boolean include_users);
+	Usergroup updateUsergroup(String name, String handle, String description, List<String> channels);
+	Usergroup updateUsergroup(String name, String handle, String description, List<String> channels, boolean include_count);
+	
+	// usergroups.users
+	
+	List<String> getUsergroupUserList(String usergroup);
+	List<String> getUsergroupUserList(String usergroup, boolean include_disabled);
+	Usergroup updateUsergroupUser(String usergroup, List<String> users);
+	Usergroup updateUsergroupUser(String usergroup, List<String> users, boolean include_count);
 	
 	// users
 
