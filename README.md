@@ -8,7 +8,7 @@ A Java client for the Web APIs, Incoming Webhooks, Slackbot, RTM(Real Time Messa
 
 ### v1.0.9.RELEASE
 
-add "usergroups" method
+add "usergroups" method(paid team only)
 
 [usergroups.create - Create a user group](https://api.slack.com/methods/usergroups.create)  
 [usergroups.disable - Disable an existing user group](https://api.slack.com/methods/usergroups.disable)  
@@ -16,7 +16,7 @@ add "usergroups" method
 [usergroups.list - List all user groups for a team](https://api.slack.com/methods/usergroups.list)  
 [usergroups.update - Update an existing user group](https://api.slack.com/methods/usergroups.update)  
 
-add "usergroups.users" method
+add "usergroups.users" method(paid team only)
 
 [usergroups.users.list - List all users in a user group](https://api.slack.com/methods/usergroups.users.list)  
 [usergroups.users.update - Update the list of users for a user group](https://api.slack.com/methods/usergroups.users.update)  
