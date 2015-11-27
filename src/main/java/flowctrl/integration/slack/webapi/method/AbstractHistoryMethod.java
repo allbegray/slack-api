@@ -71,7 +71,7 @@ public abstract class AbstractHistoryMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (channel == null) {
-			addError(errors, "channel", Problem.REQUIRED, null);
+			addError(errors, "channel", Problem.REQUIRED);
 		}
 		if (count != null && (count < 1 || count > 1000)) {
 			addError(errors, "count", Problem.PATTERN_NOT_MATCH, "\"count\" must be between 1 and 1000.");

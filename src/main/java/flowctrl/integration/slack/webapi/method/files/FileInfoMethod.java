@@ -33,7 +33,7 @@ public class FileInfoMethod extends AbstractPagingMethod {
 	public void validate(List<ValidationError> errors) {
 		super.validate(errors);
 		if (file == null) {
-			addError(errors, "file", Problem.REQUIRED, null);
+			addError(errors, "file", Problem.REQUIRED);
 		}
 	}
 

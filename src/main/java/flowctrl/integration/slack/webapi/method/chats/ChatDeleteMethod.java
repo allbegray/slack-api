@@ -42,10 +42,10 @@ public class ChatDeleteMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (channel == null) {
-			addError(errors, "channel", Problem.REQUIRED, null);
+			addError(errors, "channel", Problem.REQUIRED);
 		}
 		if (ts == null) {
-			addError(errors, "ts", Problem.REQUIRED, null);
+			addError(errors, "ts", Problem.REQUIRED);
 		}
 	}
 

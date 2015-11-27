@@ -33,7 +33,7 @@ public class ReactionsRemoveMethod extends AbstractItemMethod {
 	public void validate(List<ValidationError> errors) {
 		super.validate(errors);
 		if (name == null) {
-			addError(errors, "name", Problem.REQUIRED, null);
+			addError(errors, "name", Problem.REQUIRED);
 		}
 	}
 

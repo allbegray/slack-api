@@ -32,7 +32,7 @@ public class UserSetPresenceMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (presence == null) {
-			addError(errors, "presence", Problem.REQUIRED, null);
+			addError(errors, "presence", Problem.REQUIRED);
 		} else if (!("auto".equalsIgnoreCase(presence) || "away".equalsIgnoreCase(presence))) {
 			addError(errors, "presence", Problem.PATTERN_NOT_MATCH, "\"presence\" must be either \"auto\" or \"away\".");
 		}

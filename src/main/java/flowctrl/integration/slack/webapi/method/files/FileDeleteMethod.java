@@ -32,7 +32,7 @@ public class FileDeleteMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (file == null) {
-			addError(errors, "file", Problem.REQUIRED, null);
+			addError(errors, "file", Problem.REQUIRED);
 		}
 	}
 

@@ -42,10 +42,10 @@ public class ChannelSetTopicMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (channel == null) {
-			addError(errors, "channel", Problem.REQUIRED, null);
+			addError(errors, "channel", Problem.REQUIRED);
 		}
 		if (topic == null) {
-			addError(errors, "topic", Problem.REQUIRED, null);
+			addError(errors, "topic", Problem.REQUIRED);
 		}
 	}
 

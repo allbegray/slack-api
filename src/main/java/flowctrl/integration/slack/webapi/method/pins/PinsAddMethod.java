@@ -59,7 +59,7 @@ public class PinsAddMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (channel == null) {
-			addError(errors, "channel", Problem.REQUIRED, null);
+			addError(errors, "channel", Problem.REQUIRED);
 		}
 		if (file == null && file_comment == null && timestamp == null) {
 			addError(errors, "file, file_comment, timestamp", Problem.REQUIRED, "one of \"file\", \"file_comment\", or \"timestamp\" must also be specified");

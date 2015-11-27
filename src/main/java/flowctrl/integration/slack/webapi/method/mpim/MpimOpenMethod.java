@@ -32,7 +32,7 @@ public class MpimOpenMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (users == null || users.isEmpty()) {
-			addError(errors, "users", Problem.REQUIRED, null);
+			addError(errors, "users", Problem.REQUIRED);
 		}
 	}
 

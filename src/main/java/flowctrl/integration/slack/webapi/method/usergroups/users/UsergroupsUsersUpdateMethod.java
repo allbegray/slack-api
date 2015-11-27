@@ -51,10 +51,10 @@ public class UsergroupsUsersUpdateMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (usergroup == null) {
-			addError(errors, "usergroup", Problem.REQUIRED, null);
+			addError(errors, "usergroup", Problem.REQUIRED);
 		}
 		if (users == null || users.isEmpty()) {
-			addError(errors, "users", Problem.REQUIRED, null);
+			addError(errors, "users", Problem.REQUIRED);
 		}
 	}
 

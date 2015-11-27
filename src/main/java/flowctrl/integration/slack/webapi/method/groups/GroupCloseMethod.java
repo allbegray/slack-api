@@ -32,7 +32,7 @@ public class GroupCloseMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (channel == null) {
-			addError(errors, "channel", Problem.REQUIRED, null);
+			addError(errors, "channel", Problem.REQUIRED);
 		}
 	}
 

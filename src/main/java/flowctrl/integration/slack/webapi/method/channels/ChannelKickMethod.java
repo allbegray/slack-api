@@ -42,10 +42,10 @@ public class ChannelKickMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (channel == null) {
-			addError(errors, "channel", Problem.REQUIRED, null);
+			addError(errors, "channel", Problem.REQUIRED);
 		}
 		if (user == null) {
-			addError(errors, "user", Problem.REQUIRED, null);
+			addError(errors, "user", Problem.REQUIRED);
 		}
 	}
 

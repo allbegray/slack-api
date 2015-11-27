@@ -20,6 +20,10 @@ public abstract class AbstractMethod implements SlackMethod {
 	@Override
 	public abstract void validate(List<ValidationError> errors);
 
+	public void addError(List<ValidationError> errors, String field, Problem problem) {
+		addError(errors, field, problem, null);
+	}
+
 	public void addError(List<ValidationError> errors, String field, Problem problem, String description) {
 		errors.add(new ValidationError(field, problem, description));
 	}

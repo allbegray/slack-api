@@ -61,13 +61,13 @@ public class OAuthAccessMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (client_id == null) {
-			addError(errors, "client_id", Problem.REQUIRED, null);
+			addError(errors, "client_id", Problem.REQUIRED);
 		}
 		if (client_secret == null) {
-			addError(errors, "client_secret", Problem.REQUIRED, null);
+			addError(errors, "client_secret", Problem.REQUIRED);
 		}
 		if (code == null) {
-			addError(errors, "code", Problem.REQUIRED, null);
+			addError(errors, "code", Problem.REQUIRED);
 		}
 	}
 

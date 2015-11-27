@@ -32,7 +32,7 @@ public class ChannelJoinMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (name == null) {
-			addError(errors, "name", Problem.REQUIRED, null);
+			addError(errors, "name", Problem.REQUIRED);
 		}
 	}
 

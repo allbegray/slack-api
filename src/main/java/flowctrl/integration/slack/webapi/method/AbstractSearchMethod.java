@@ -54,7 +54,7 @@ public abstract class AbstractSearchMethod extends AbstractPagingMethod {
 	public void validate(List<ValidationError> errors) {
 		super.validate(errors);
 		if (query == null) {
-			addError(errors, "query", Problem.REQUIRED, null);
+			addError(errors, "query", Problem.REQUIRED);
 		}
 		if (sort != null && !("timestamp".equalsIgnoreCase(sort) || "score".equalsIgnoreCase(sort))) {
 			addError(errors, "sort", Problem.PATTERN_NOT_MATCH, "\"sort\" must be either \"timestamp\" or \"score\".");

@@ -41,7 +41,7 @@ public class UsergroupsDisableMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (usergroup == null) {
-			addError(errors, "usergroup", Problem.REQUIRED, null);
+			addError(errors, "usergroup", Problem.REQUIRED);
 		}
 	}
 

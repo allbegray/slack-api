@@ -42,10 +42,10 @@ public class ChannelRenameMethod extends AbstractMethod {
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (channel == null) {
-			addError(errors, "channel", Problem.REQUIRED, null);
+			addError(errors, "channel", Problem.REQUIRED);
 		}
 		if (name == null) {
-			addError(errors, "name", Problem.REQUIRED, null);
+			addError(errors, "name", Problem.REQUIRED);
 		}
 	}
 
