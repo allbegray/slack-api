@@ -10,16 +10,16 @@ A Java client for the Web APIs, Incoming Webhooks, Slackbot, RTM(Real Time Messa
 
 add "usergroups" method
 
-[usergroups.create - Create a user group](https://api.slack.com/methods/usergroups.create)
-[usergroups.disable - Disable an existing user group](https://api.slack.com/methods/usergroups.disable)
-[usergroups.enable - Enable a user group](https://api.slack.com/methods/usergroups.enable)
-[usergroups.list - List all user groups for a team](https://api.slack.com/methods/usergroups.list)
-[usergroups.update - Update an existing user group](https://api.slack.com/methods/usergroups.update)
+[usergroups.create - Create a user group](https://api.slack.com/methods/usergroups.create)  
+[usergroups.disable - Disable an existing user group](https://api.slack.com/methods/usergroups.disable)  
+[usergroups.enable - Enable a user group](https://api.slack.com/methods/usergroups.enable)  
+[usergroups.list - List all user groups for a team](https://api.slack.com/methods/usergroups.list)  
+[usergroups.update - Update an existing user group](https://api.slack.com/methods/usergroups.update)  
 
 add "usergroups.users" method
 
-[usergroups.users.list - List all users in a user group](https://api.slack.com/methods/usergroups.users.list)
-[usergroups.users.update - Update the list of users for a user group](https://api.slack.com/methods/usergroups.users.update)
+[usergroups.users.list - List all users in a user group](https://api.slack.com/methods/usergroups.users.list)  
+[usergroups.users.update - Update the list of users for a user group](https://api.slack.com/methods/usergroups.users.update)  
 
 ### v1.0.8.RELEASE
 
