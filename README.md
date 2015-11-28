@@ -6,6 +6,10 @@ A Java client for the Slack Web API, Incoming Webhooks, Slackbot Remote Control,
 
 ## Change Logs
 
+### v1.0.10.RELEASE
+
+[fix - setting fields to short ("short": true) does not work](https://github.com/flowctrl/slack-api/issues/6)
+
 ### v1.0.9.RELEASE
 
 add "usergroups" method(paid team only)
@@ -296,7 +300,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.0.9.RELEASE</version>
+    <version>v1.0.10.RELEASE</version>
 </dependency>
 ```
 
