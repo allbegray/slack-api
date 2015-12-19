@@ -16,7 +16,7 @@ public class User {
 	protected Boolean is_restricted;
 	protected Boolean is_ultra_restricted;
 	protected Boolean has_2fa;
-	protected Boolean two_factor_type;
+	protected String two_factor_type;
 	protected Boolean has_files;
 
 	public String getId() {
@@ -107,11 +107,11 @@ public class User {
 		this.has_2fa = has_2fa;
 	}
 
-	public Boolean getTwo_factor_type() {
+	public String getTwo_factor_type() {
 		return two_factor_type;
 	}
 
-	public void setTwo_factor_type(Boolean two_factor_type) {
+	public void setTwo_factor_type(String two_factor_type) {
 		this.two_factor_type = two_factor_type;
 	}
 
@@ -125,9 +125,10 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", deleted=" + deleted + ", color=" + color + ", profile=" + profile + ", is_admin=" + is_admin + ", is_owner=" + is_owner + ", is_primary_owner="
-				+ is_primary_owner + ", is_restricted=" + is_restricted + ", is_ultra_restricted=" + is_ultra_restricted + ", has_2fa=" + has_2fa + ", two_factor_type=" + two_factor_type
-				+ ", has_files=" + has_files + "]";
+		return "User [id=" + id + ", name=" + name + ", deleted=" + deleted + ", color=" + color + ", profile="
+				+ profile + ", is_admin=" + is_admin + ", is_owner=" + is_owner + ", is_primary_owner="
+				+ is_primary_owner + ", is_restricted=" + is_restricted + ", is_ultra_restricted=" + is_ultra_restricted
+				+ ", has_2fa=" + has_2fa + ", two_factor_type=" + two_factor_type + ", has_files=" + has_files + "]";
 	}
 
 }

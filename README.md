@@ -6,6 +6,10 @@ A Java client for the Slack Web API, Incoming Webhooks, Slackbot Remote Control,
 
 ## Change Logs
 
+### v.0.11.RELEASE
+
+[fix - change two_factor_type type (boolean -> string)](https://github.com/flowctrl/slack-api/issues/10)
+
 ### v1.0.10.RELEASE
 
 [fix - setting fields to short ("short": true) does not work](https://github.com/flowctrl/slack-api/issues/6)
@@ -300,7 +304,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.0.10.RELEASE</version>
+    <version>v1.0.11.RELEASE</version>
 </dependency>
 ```
 
