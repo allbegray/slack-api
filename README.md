@@ -6,7 +6,7 @@ A Java client for the Slack Web API, Incoming Webhooks, Slackbot Remote Control,
 
 ## Change Logs
 
-### v.0.11.RELEASE
+### v1.0.11.RELEASE
 
 [fix - change two_factor_type type (boolean -> string)](https://github.com/flowctrl/slack-api/issues/10)
 
