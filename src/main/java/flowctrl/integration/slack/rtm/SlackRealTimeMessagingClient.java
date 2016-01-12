@@ -106,13 +106,13 @@ public class SlackRealTimeMessagingClient {
 
 				@Override
 				public void onPing(byte[] message) {
-					ObjectNode pingMessage = mapper.createObjectNode();
-					pingMessage.set("type", TextNode.valueOf("pong"));
-					pingMessage.set("time", LongNode.valueOf(new Date().getTime()));
+					ObjectNode pongMessage = mapper.createObjectNode();
+					pongMessage.set("type", TextNode.valueOf("pong"));
+					pongMessage.set("time", LongNode.valueOf(new Date().getTime()));
 					
-					logger.info("pong message : " + pingMessage);
+					logger.info("pong message : " + pongMessage);
 					
-					webSocket.sendPong(pingMessage.toString().getBytes());
+					webSocket.sendPong(pongMessage.toString().getBytes());
 				}
 				
 				@Override
