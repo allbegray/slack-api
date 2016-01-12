@@ -6,6 +6,10 @@ A Java client for the Slack Web API, Incoming Webhooks, Slackbot Remote Control,
 
 ## Change Logs
 
+### v1.0.12.RELEASE
+
+[fix -SlackRealTimeMessagingClient stops receiving after aprox. 3 minutes](https://github.com/flowctrl/slack-api/issues/9)
+
 ### v1.0.11.RELEASE
 
 [fix - change two_factor_type type (boolean -> string)](https://github.com/flowctrl/slack-api/issues/10)
@@ -304,7 +308,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.0.11.RELEASE</version>
+    <version>v1.0.12.RELEASE</version>
 </dependency>
 ```
 

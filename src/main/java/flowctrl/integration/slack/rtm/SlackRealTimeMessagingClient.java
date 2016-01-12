@@ -1,6 +1,7 @@
 package flowctrl.integration.slack.rtm;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,9 @@ import org.apache.commons.logging.LogFactory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.LongNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
 import com.ning.http.client.AsyncHttpClientConfig;
@@ -94,6 +98,23 @@ public class SlackRealTimeMessagingClient {
 		try {
 			webSocket = requestBuilder.execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new DefaultWebSocketListener() {
 
+				@Override
+				public void onClose(WebSocket websocket) {
+					super.onClose(websocket);
+					stop = true;
+				}
+
+				@Override
+				public void onPing(byte[] message) {
+					ObjectNode pingMessage = mapper.createObjectNode();
+					pingMessage.set("type", TextNode.valueOf("pong"));
+					pingMessage.set("time", LongNode.valueOf(new Date().getTime()));
+					
+					logger.info("pong message : " + pingMessage);
+					
+					webSocket.sendPong(pingMessage.toString().getBytes());
+				}
+				
 				@Override
 				public void onError(Throwable t) {
 					throw new SlackException(t);
