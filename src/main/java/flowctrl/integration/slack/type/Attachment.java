@@ -58,7 +58,7 @@ public class Attachment {
 	public void setColor(String color) {
 		if (color != null) {
 			if (color.charAt(0) == '#') {
-				if (color.substring(1).matches(HEX_REGEX)) {
+				if (!color.substring(1).matches(HEX_REGEX)) {
 					throw new SlackArgumentException("invalid hex color");
 				}
 			} else if (!color.matches(PREDEFINED_COLOR_REGEX)) {
