@@ -755,7 +755,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		method.setFile(file);
 
 		JsonNode retNode = call(method);
-		return readValue(retNode, "message", ReactionItem.class);
+		return readValue(retNode, null, ReactionItem.class);
 	}
 
 	@Override
@@ -764,7 +764,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		method.setFile_comment(file_comment);
 
 		JsonNode retNode = call(method);
-		return readValue(retNode, "message", ReactionItem.class);
+		return readValue(retNode, null, ReactionItem.class);
 	}
 
 	@Override
@@ -774,7 +774,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		method.setTimestamp(timestamp);
 
 		JsonNode retNode = call(method);
-		return readValue(retNode, "message", ReactionItem.class);
+		return readValue(retNode, null, ReactionItem.class);
 	}
 
 	@Override
