@@ -6,6 +6,10 @@ A Java client for the Slack Web API, Incoming Webhooks, Slackbot Remote Control,
 
 ## Change Logs
 
+### v1.0.14.RELEASE
+
+[fix - SlackWebApiClientImpl: Fix getReaction methods return object #12](https://github.com/flowctrl/slack-api/pull/12)
+
 ### v1.0.13.RELEASE
 
 [fix -flowctrl.integration.slack.type.Attachment setColor check error #11](https://github.com/flowctrl/slack-api/issues/11)
@@ -312,7 +316,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.0.13.RELEASE</version>
+    <version>v1.0.14.RELEASE</version>
 </dependency>
 ```
 
