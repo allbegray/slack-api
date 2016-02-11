@@ -8,7 +8,7 @@ A Java client for the Slack Web API, Incoming Webhooks, Slackbot Remote Control,
 
 ### v1.1.14.RELEASE
 
-[add method "dnd"](https://api.slack.com/methods#chat)  
+[add method "dnd"](https://api.slack.com/methods#files.comments)  
 [add method "files.comments"](https://api.slack.com/methods#dnd)
 
 ### v1.0.14.RELEASE
