@@ -8,6 +8,9 @@ import flowctrl.integration.slack.type.Attachment;
 import flowctrl.integration.slack.type.Authentication;
 import flowctrl.integration.slack.type.Channel;
 import flowctrl.integration.slack.type.DirectMessageChannel;
+import flowctrl.integration.slack.type.DndInfo;
+import flowctrl.integration.slack.type.DndSimpleInfo;
+import flowctrl.integration.slack.type.EndSnooze;
 import flowctrl.integration.slack.type.File;
 import flowctrl.integration.slack.type.FileInfo;
 import flowctrl.integration.slack.type.FileList;
@@ -18,6 +21,7 @@ import flowctrl.integration.slack.type.PinItem;
 import flowctrl.integration.slack.type.Presence;
 import flowctrl.integration.slack.type.ReactionItem;
 import flowctrl.integration.slack.type.ReactionList;
+import flowctrl.integration.slack.type.SetSnooze;
 import flowctrl.integration.slack.type.StarList;
 import flowctrl.integration.slack.type.Team;
 import flowctrl.integration.slack.type.TeamAccessLogList;
@@ -66,6 +70,16 @@ public interface SlackWebApiClient {
 	String updateMessage(String channel, String ts, String text);
 	String updateMessage(String channel, String ts, String text, List<Attachment> attachments, boolean link_names);
 
+	// dnd
+	
+	boolean endDnd();
+	EndSnooze endSnooze();
+	SetSnooze setSnooze(int num_minutes);
+	DndInfo getDndInfo();
+	DndInfo getDndInfo(String user);
+	Map<String, DndSimpleInfo> getDndTeamInfo();
+	Map<String, DndSimpleInfo> getDndTeamInfo(List<String> users);
+	
 	// emoji
 	
 	Map<String, String> getEmojiList();

@@ -24,6 +24,9 @@ import flowctrl.integration.slack.type.Attachment;
 import flowctrl.integration.slack.type.Authentication;
 import flowctrl.integration.slack.type.Channel;
 import flowctrl.integration.slack.type.DirectMessageChannel;
+import flowctrl.integration.slack.type.DndInfo;
+import flowctrl.integration.slack.type.DndSimpleInfo;
+import flowctrl.integration.slack.type.EndSnooze;
 import flowctrl.integration.slack.type.File;
 import flowctrl.integration.slack.type.FileInfo;
 import flowctrl.integration.slack.type.FileList;
@@ -34,13 +37,14 @@ import flowctrl.integration.slack.type.PinItem;
 import flowctrl.integration.slack.type.Presence;
 import flowctrl.integration.slack.type.ReactionItem;
 import flowctrl.integration.slack.type.ReactionList;
+import flowctrl.integration.slack.type.SetSnooze;
 import flowctrl.integration.slack.type.StarList;
 import flowctrl.integration.slack.type.Team;
 import flowctrl.integration.slack.type.TeamAccessLogList;
 import flowctrl.integration.slack.type.TeamIntegrationLogList;
 import flowctrl.integration.slack.type.User;
-import flowctrl.integration.slack.type.Usergroup;
 import flowctrl.integration.slack.type.UserPresence;
+import flowctrl.integration.slack.type.Usergroup;
 import flowctrl.integration.slack.validation.Problem;
 import flowctrl.integration.slack.validation.ValidationError;
 import flowctrl.integration.slack.webapi.method.SlackMethod;
@@ -61,6 +65,11 @@ import flowctrl.integration.slack.webapi.method.channels.ChannelUnarchiveMethod;
 import flowctrl.integration.slack.webapi.method.chats.ChatDeleteMethod;
 import flowctrl.integration.slack.webapi.method.chats.ChatPostMessageMethod;
 import flowctrl.integration.slack.webapi.method.chats.ChatUpdateMethod;
+import flowctrl.integration.slack.webapi.method.dnd.DndInfoMethod;
+import flowctrl.integration.slack.webapi.method.dnd.DndTeamInfoMethod;
+import flowctrl.integration.slack.webapi.method.dnd.EndDndMethod;
+import flowctrl.integration.slack.webapi.method.dnd.EndSnoozeMethod;
+import flowctrl.integration.slack.webapi.method.dnd.SetSnoozeMethod;
 import flowctrl.integration.slack.webapi.method.emoji.EmojiListMethod;
 import flowctrl.integration.slack.webapi.method.files.FileDeleteMethod;
 import flowctrl.integration.slack.webapi.method.files.FileInfoMethod;
@@ -319,6 +328,48 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 
 		JsonNode retNode = call(method);
 		return retNode.findPath("ts").asText();
+	}
+	
+	// dnd
+	
+	@Override
+	public boolean endDnd() {
+		return isOk(new EndDndMethod());
+	}
+
+	@Override
+	public EndSnooze endSnooze() {
+		JsonNode retNode = call(new EndSnoozeMethod());
+		return readValue(retNode, null, EndSnooze.class);
+	}
+
+	@Override
+	public SetSnooze setSnooze(int num_minutes) {
+		JsonNode retNode = call(new SetSnoozeMethod(String.valueOf(num_minutes)));
+		return readValue(retNode, null, SetSnooze.class);
+	}
+
+	@Override
+	public DndInfo getDndInfo() {
+		return this.getDndInfo(null);
+	}
+
+	@Override
+	public DndInfo getDndInfo(String user) {
+		JsonNode retNode = call(new DndInfoMethod(user));
+		return readValue(retNode, null, DndInfo.class);
+	}
+
+	@Override
+	public Map<String, DndSimpleInfo> getDndTeamInfo() {
+		return this.getDndTeamInfo(null);
+	}
+
+	@Override
+	public Map<String, DndSimpleInfo> getDndTeamInfo(List<String> users) {
+		JsonNode retNode = call(new DndTeamInfoMethod(users));
+		return readValue(retNode, "users", new TypeReference<Map<String, DndSimpleInfo>>() {
+		});
 	}
 
 	// emoji
