@@ -23,6 +23,7 @@ import flowctrl.integration.slack.exception.SlackResponseErrorException;
 import flowctrl.integration.slack.type.Attachment;
 import flowctrl.integration.slack.type.Authentication;
 import flowctrl.integration.slack.type.Channel;
+import flowctrl.integration.slack.type.Comment;
 import flowctrl.integration.slack.type.DirectMessageChannel;
 import flowctrl.integration.slack.type.DndInfo;
 import flowctrl.integration.slack.type.DndSimpleInfo;
@@ -75,6 +76,9 @@ import flowctrl.integration.slack.webapi.method.files.FileDeleteMethod;
 import flowctrl.integration.slack.webapi.method.files.FileInfoMethod;
 import flowctrl.integration.slack.webapi.method.files.FileListMethod;
 import flowctrl.integration.slack.webapi.method.files.FileUploadMethod;
+import flowctrl.integration.slack.webapi.method.files.comments.FileCommentAddMethod;
+import flowctrl.integration.slack.webapi.method.files.comments.FileCommentDeleteMethod;
+import flowctrl.integration.slack.webapi.method.files.comments.FileCommentEditMethod;
 import flowctrl.integration.slack.webapi.method.groups.GroupArchiveMethod;
 import flowctrl.integration.slack.webapi.method.groups.GroupCloseMethod;
 import flowctrl.integration.slack.webapi.method.groups.GroupCreateChildMethod;
@@ -380,6 +384,27 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 
 		return readValue(retNode, "emoji", new TypeReference<Map<String, String>>() {
 		});
+	}
+	
+	// files.comments
+
+	@Override
+	public Comment addFileComment(String file, String comment) {
+		JsonNode retNode = call(new FileCommentAddMethod(file, comment));
+
+		return readValue(retNode, "comment", Comment.class);
+	}
+
+	@Override
+	public Comment editFileComment(String file, String id, String comment) {
+		JsonNode retNode = call(new FileCommentEditMethod(file, id, comment));
+
+		return readValue(retNode, "comment", Comment.class);
+	}
+
+	@Override
+	public boolean deleteFileComment(String file, String id) {
+		return isOk(new FileCommentDeleteMethod(file, id));
 	}
 
 	// files

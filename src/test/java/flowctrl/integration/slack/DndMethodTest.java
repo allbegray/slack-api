@@ -30,7 +30,7 @@ public class DndMethodTest {
 	}
 
 	@Test
-	public void basciTest() {
+	public void basicTest() {
 		Authentication authentication = webApiClient.auth();
 
 		Map<String, DndSimpleInfo> dndTeamInfo = webApiClient.getDndTeamInfo();

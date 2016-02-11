@@ -7,6 +7,7 @@ import java.util.Map;
 import flowctrl.integration.slack.type.Attachment;
 import flowctrl.integration.slack.type.Authentication;
 import flowctrl.integration.slack.type.Channel;
+import flowctrl.integration.slack.type.Comment;
 import flowctrl.integration.slack.type.DirectMessageChannel;
 import flowctrl.integration.slack.type.DndInfo;
 import flowctrl.integration.slack.type.DndSimpleInfo;
@@ -83,6 +84,12 @@ public interface SlackWebApiClient {
 	// emoji
 	
 	Map<String, String> getEmojiList();
+	
+	// files.comments
+	
+	Comment addFileComment(String file, String comment);
+	Comment editFileComment(String file, String id, String comment);
+	boolean deleteFileComment(String file, String id);
 	
 	// files
 

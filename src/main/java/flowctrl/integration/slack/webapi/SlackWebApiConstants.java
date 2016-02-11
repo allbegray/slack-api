@@ -37,7 +37,7 @@ public interface SlackWebApiConstants {
 	public static final String CHAT_DELETE = "chat.delete";
 	public static final String CHAT_POST_MESSAGE = "chat.postMessage";
 	public static final String CHAT_UPDATE = "chat.update";
-	
+
 	// dnd
 	public static final String DND_END_DND = "dnd.endDnd";
 	public static final String DND_END_SNOOZE = "dnd.endSnooze";
@@ -48,6 +48,12 @@ public interface SlackWebApiConstants {
 	// emoji
 
 	public static final String EMOJI_LIST = "emoji.list";
+
+	// files.comments
+
+	public static final String FILES_COMMENTS_ADD = "files.comments.add";
+	public static final String FILES_COMMENTS_DELETE = "files.comments.delete";
+	public static final String FILES_COMMENTS_EDIT = "files.comments.edit";
 
 	// files
 
