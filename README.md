@@ -4,114 +4,29 @@ slack-api
 =============
 A Java client for the Slack Web API, Incoming Webhooks, Slackbot Remote Control, RTM(Real Time Messaging) API 
 
+## Maven
+Step 1. Add the JitPack repository to your build file
+```xml
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
+```
+Step 2. Add the dependency in the form
+```xml
+<dependency>
+    <groupId>com.github.flowctrl</groupId>
+    <artifactId>slack-api</artifactId>
+    <version>v1.1.0.RELEASE</version>
+</dependency>
+```
+
 ## Change Logs
 
 ### v1.1.0.RELEASE
 
 [add method "dnd"](https://api.slack.com/methods#files.comments)  
 [add method "files.comments"](https://api.slack.com/methods#dnd)
-
-### v1.0.14.RELEASE
-
-[fix - SlackWebApiClientImpl: Fix getReaction methods return object #12](https://github.com/flowctrl/slack-api/pull/12)
-
-### v1.0.13.RELEASE
-
-[fix -flowctrl.integration.slack.type.Attachment setColor check error #11](https://github.com/flowctrl/slack-api/issues/11)
-
-### v1.0.12.RELEASE
-
-[fix -SlackRealTimeMessagingClient stops receiving after aprox. 3 minutes](https://github.com/flowctrl/slack-api/issues/9)
-
-### v1.0.11.RELEASE
-
-[fix - change two_factor_type type (boolean -> string)](https://github.com/flowctrl/slack-api/issues/10)
-
-### v1.0.10.RELEASE
-
-[fix - setting fields to short ("short": true) does not work](https://github.com/flowctrl/slack-api/issues/6)
-
-### v1.0.9.RELEASE
-
-add "usergroups" method(paid team only)
-
-[usergroups.create - Create a user group](https://api.slack.com/methods/usergroups.create)  
-[usergroups.disable - Disable an existing user group](https://api.slack.com/methods/usergroups.disable)  
-[usergroups.enable - Enable a user group](https://api.slack.com/methods/usergroups.enable)  
-[usergroups.list - List all user groups for a team](https://api.slack.com/methods/usergroups.list)  
-[usergroups.update - Update an existing user group](https://api.slack.com/methods/usergroups.update)  
-
-add "usergroups.users" method(paid team only)
-
-[usergroups.users.list - List all users in a user group](https://api.slack.com/methods/usergroups.users.list)  
-[usergroups.users.update - Update the list of users for a user group](https://api.slack.com/methods/usergroups.users.update)  
-
-### v1.0.8.RELEASE
-
-[fix - Return channel ID resulted from im.open call](https://github.com/flowctrl/slack-api/issues/4)
-
-### v1.0.7.RELEASE
-
-[fix - Channel name reg expression](https://github.com/flowctrl/slack-api/issues/1)  
-[fix - Attempted read on closed stream](https://github.com/flowctrl/slack-api/issues/3)
-
-### v1.0.6.RELEASE
-
-using PoolingHttpClientConnectionManager
-
-### v1.0.5.RELEASE
-
-add RTM(Real Time Messaging) Client (https://api.slack.com/rtm)
-```java
-public class SlackRealTimeMessagingClientTest {
-
-	private String token = "your slack web api token";
-
-	@Test
-	public void basicTest() {
-		SlackRealTimeMessagingClient realTimeMessagingClient = SlackClientFactory.createSlackRealTimeMessagingClient(token);
-		realTimeMessagingClient.addListener("hello", new HelloEventListener());
-		realTimeMessagingClient.addListener("message", new MessageEventListener());
-		realTimeMessagingClient.addListener(Event.MESSAGE, new EventListener() {
-			@Override
-			public void handleMessage(JsonNode message) {
-				// todo
-			}
-		});
-		realTimeMessagingClient.connect();
-		
-		try {
-			Thread.sleep(60 * 1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-}
-```
-
-add "rtm.start" method (https://api.slack.com/methods/rtm.start)
-
-add SlackTextBuilder
-```java
-String message = SlackTextBuilder.create()
-	.text("text message")
-	.link("https://slack.com/")
-	.link("https://slack.com", "Slack")
-	.bold("bold message")
-	.italic("italic message")
-	.strike("strike message")
-	.mail("test@test.com")
-	.mail("test@test.com", "TestMail")
-	.code("code block")
-	.preformatted("public class SlackWebhookClientTest() {\n\n\tpublic static void main(String args[]) {\n\n\t}\n}")
-	.quote("quote message")
-	.build();
-```
-
-### v1.0.3.RELEASE
-add "team.integrationLogs" method (https://twitter.com/SlackAPI/status/662350664782225408)
 
 ## Slack Web API compatibility
 auth, channels, chat, dnd, emoji, files.comments. files, groups, im, mpim, oauth, pins, reactions, rtm, stars, team, usergroups, usergroups.users, users
@@ -324,23 +239,6 @@ public interface SlackWebApiClient {
 }
 ```
 
-## Maven
-Step 1. Add the JitPack repository to your build file
-```xml
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
-```
-Step 2. Add the dependency in the form
-```xml
-<dependency>
-    <groupId>com.github.flowctrl</groupId>
-    <artifactId>slack-api</artifactId>
-    <version>v1.1.0.RELEASE</version>
-</dependency>
-```
-
 ## Slack client factory
 ```java
 
@@ -350,234 +248,7 @@ SlackWebhookClient webhookClient = SlackClientFactory.createWebhookClient(webhoo
 
 SlackbotClient slackbotClient = SlackClientFactory.createSlackbotClient(slackbotUrl);
 
-```
-
-## Example
-```java
-
-public class SlackWebApiClientTest {
-
-	private String token = "your slack web api token";
-	private SlackWebApiClient webApiClient;
-	private File testfile;
-
-	@Before
-	public void setup() {
-		webApiClient = SlackClientFactory.createWebApiClient(token);
-		testfile = new File("d:\\2.jpg");
-	}
-
-	@Test
-	public void MultipartyDirectMessageChannelTest() {
-		String user1 = "userId1";
-		String user2 = "userId2";
-
-		Group group = webApiClient.openMultipartyDirectMessageChannel(user1, user2);
-
-		List<Group> messageChannels = webApiClient.getMultipartyDirectMessageChannelList();
-		Assert.assertTrue(messageChannels.size() > 0);
-
-		History history = webApiClient.getMultipartyDirectMessageChannelHistory(group.getId());
-		Assert.assertTrue(history.getHas_more() != null);
-
-		webApiClient.closeMultipartyDirectMessageChannel(group.getId());
-	}
-
-	@Test
-	public void directMessageChannelTest() {
-		List<DirectMessageChannel> messageChannels = webApiClient.getDirectMessageChannelList();
-
-		DirectMessageChannel slackbot = null;
-		for (DirectMessageChannel channel : messageChannels) {
-			if (channel.getUser().contains("SLACKBOT")) {
-				slackbot = channel;
-				break;
-			}
-		}
-		webApiClient.closeDirectMessageChannel(slackbot.getId());
-
-		webApiClient.openDirectMessageChannel(slackbot.getUser());
-
-		History history = webApiClient.getDirectMessageChannelHistory(slackbot.getId());
-		Assert.assertTrue(history.getMessages().size() > 0);
-	}
-
-	@Test
-	public void userTest() {
-		webApiClient.setPresenceUser(Presence.AUTO);
-		webApiClient.setActiveUser();
-
-		List<User> users = webApiClient.getUserList();
-		User user = users.get(0);
-		user = webApiClient.getUserInfo(user.getId());
-
-		UserPresence userPresence = webApiClient.getUserPresence(user.getId());
-		Assert.assertTrue(userPresence.getPresence() != null);
-	}
-
-	@Test
-	public void basicTest() {
-		Authentication authentication = webApiClient.auth();
-		String user = authentication.getUser();
-		String userId = authentication.getUser_id();
-
-		Assert.assertTrue(user != null);
-		Assert.assertTrue(userId != null);
-
-		TeamAccessLogList teamAccessLogList = null;
-		try {
-			teamAccessLogList = webApiClient.getTeamAccessLogList(1);
-			Assert.assertTrue(teamAccessLogList.getLogins().size() > 0);
-		} catch (Exception e) {
-			Assert.assertTrue(e.getMessage().equals("paid_only"));
-		}
-
-		Team team = webApiClient.getTeamInfo();
-		Assert.assertTrue(team.getId() != null);
-
-		Channel channel = webApiClient.createChannel("test_channel");
-		String channelId = channel.getId();
-
-		Assert.assertTrue(channel.getId() != null);
-		Assert.assertTrue(channel.getName() != null);
-		Assert.assertTrue(channel.getCreated() != null);
-		Assert.assertTrue(channel.getCreator() != null);
-		Assert.assertTrue(channel.getCreator() != null);
-		Assert.assertTrue(channel.getIs_archived() != null);
-		Assert.assertTrue(channel.getIs_member() != null);
-		Assert.assertTrue(channel.getIs_general() != null);
-		Assert.assertTrue(channel.getLast_read() != null);
-		Assert.assertTrue(channel.getUnread_count() != null);
-		Assert.assertTrue(channel.getUnread_count_display() != null);
-		Assert.assertTrue(channel.getMembers().size() > 0);
-
-		channel = webApiClient.getChannelInfo(channelId);
-		Assert.assertTrue(channel.getId() != null);
-		channelId = channel.getId();
-
-		channel = webApiClient.renameChannel(channelId, "changed_test_channel");
-		Assert.assertTrue(channel.getId() != null);
-		channelId = channel.getId();
-
-		boolean purpose = webApiClient.setChannelPurpose(channelId, "test purpose");
-		boolean topic = webApiClient.setChannelTopic(channelId, "test topic");
-		Assert.assertTrue(purpose);
-		Assert.assertTrue(topic);
-
-		Map<String, String> emojis = webApiClient.getEmojiList();
-		Assert.assertTrue(emojis.size() > 0);
-
-		ChatPostMessageMethod postMessage = new ChatPostMessageMethod(channelId, "test message");
-		postMessage.setUnfurl_links(true);
-		postMessage.setUnfurl_media(true);
-		postMessage.setAs_user(true);
-		postMessage.setIcon_emoji("bowtie");
-		postMessage.setIcon_url(emojis.get("bowtie"));
-		postMessage.setUsername(user);
-		String ts = webApiClient.postMessage(postMessage);
-		Assert.assertTrue(ts != null);
-
-		webApiClient.addStarToMessage(channelId, ts);
-		webApiClient.addReactionToMessage("squirrel", channelId, ts);
-		webApiClient.pinMessage(channelId, ts);
-
-		String ts2 = webApiClient.postMessage(channelId, "test message");
-		Assert.assertTrue(ts2 != null);
-
-		if (testfile != null && testfile.exists()) {
-			flowctrl.integration.slack.type.File slackFile = webApiClient.uploadFile(testfile, "test file", "test comment", channelId);
-			String fileId = slackFile.getId();
-
-			FileInfo fileInfo = webApiClient.getFileInfo(fileId);
-			fileId = fileInfo.getFile().getId();
-
-			webApiClient.addStarToFile(fileId);
-			webApiClient.addReactionToFile("squirrel", fileId);
-			webApiClient.pinFile(channelId, fileId);
-
-			webApiClient.removeStarToFile(fileId);
-			webApiClient.removeReactionToFile("squirrel", fileId);
-			webApiClient.unpinFile(channelId, fileId);
-		}
-
-		List<PinItem> pinItems = webApiClient.getPinList(channelId);
-		Assert.assertTrue(pinItems.size() > 0);
-
-		ReactionList reactionList = webApiClient.getReactionList(1);
-		Assert.assertTrue(reactionList.getItems().size() > 0);
-
-		StarList starList = webApiClient.getStarList(1);
-		Assert.assertTrue(starList.getItems().size() > 0);
-
-		boolean is_archive = webApiClient.archiveChannel(channelId);
-		boolean is_unarchive = webApiClient.unarchiveChannel(channelId);
-		Assert.assertTrue(is_archive);
-		Assert.assertTrue(is_unarchive);
-
-		History history = webApiClient.getChannelHistory(channelId);
-		Assert.assertTrue(history.getMessages().size() > 0);
-
-		Message message = history.getMessages().get(0);
-		Assert.assertTrue(message.getType() != null);
-		Assert.assertTrue(message.getTs() != null);
-	}
-
-}
-
-
-
-public class SlackWebhookClientTest {
-
-	private String webhookUrl = "https://hooks.slack.com/services/{id_1}/{id_2}/{token}";
-	private SlackWebhookClient webhookClient;
-
-	@Before
-	public void setup() {
-		webhookClient = SlackClientFactory.createWebhookClient(webhookUrl);
-	}
-
-	@Test
-	public void basicTest() {
-		
-		Payload payload = new Payload();
-		payload.setText("test text");
-		payload.setChannel("#general");
-		payload.setUsername("send user");
-		payload.setIcon_emoji(":octocat:");
-
-		Attachment attachment = new Attachment();
-		attachment.setTitle("test attachment title");
-		attachment.setColor("good");
-		attachment.setText("test attachment text");
-		attachment.addField(new Field("test field title 1", "test field value 1"));
-		attachment.addField(new Field("test field title 2", "test field value 2"));
-		payload.addAttachment(attachment);
-
-		webhookClient.post(payload);
-		
-	}
-
-}
-
-
-
-public class SlackbotClientTest {
-
-	private String slackbotUrl = "https://{yourteam}.slack.com/services/hooks/slackbot?token={token}";
-	private SlackbotClient slackbotClient;
-
-	@Before
-	public void setup() {
-		slackbotClient = SlackClientFactory.createSlackbotClient(slackbotUrl);
-	}
-
-	@Test
-	public void basicTest() {
-		slackbotClient.post("#channelName", "test message 1");
-		slackbotClient.post("@userName", "test message 2");
-	}
-
-}
+SlackRealTimeMessagingClient createSlackRealTimeMessagingClient(String token)
 
 ```
 
