@@ -6,7 +6,7 @@ A Java client for the Slack Web API, Incoming Webhooks, Slackbot Remote Control,
 
 ## Change Logs
 
-### v1.1.14.RELEASE
+### v1.1.0.RELEASE
 
 [add method "dnd"](https://api.slack.com/methods#files.comments)  
 [add method "files.comments"](https://api.slack.com/methods#dnd)
@@ -337,7 +337,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.1.14.RELEASE</version>
+    <version>v1.1.0.RELEASE</version>
 </dependency>
 ```
 
