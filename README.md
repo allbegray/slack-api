@@ -6,6 +6,11 @@ A Java client for the Slack Web API, Incoming Webhooks, Slackbot Remote Control,
 
 ## Change Logs
 
+### v1.1.14.RELEASE
+
+[add method "dnd"](https://api.slack.com/methods#chat)
+[add method "files.comments"](https://api.slack.com/methods#dnd)
+
 ### v1.0.14.RELEASE
 
 [fix - SlackWebApiClientImpl: Fix getReaction methods return object #12](https://github.com/flowctrl/slack-api/pull/12)
@@ -109,7 +114,7 @@ String message = SlackTextBuilder.create()
 add "team.integrationLogs" method (https://twitter.com/SlackAPI/status/662350664782225408)
 
 ## Slack Web API compatibility
-auth, channels, chat, emoji, files, groups, im, mpim, oauth, pins, reactions, rtm, stars, team, usergroups, usergroups.users, users
+auth, channels, chat, dnd, emoji, files.comments. files, groups, im, mpim, oauth, pins, reactions, rtm, stars, team, usergroups, usergroups.users, users
 ```java
 public interface SlackWebApiClient {
 	
@@ -150,9 +155,25 @@ public interface SlackWebApiClient {
 	String updateMessage(String channel, String ts, String text);
 	String updateMessage(String channel, String ts, String text, List<Attachment> attachments, boolean link_names);
 
+	// dnd
+	
+	boolean endDnd();
+	EndSnooze endSnooze();
+	SetSnooze setSnooze(int num_minutes);
+	DndInfo getDndInfo();
+	DndInfo getDndInfo(String user);
+	Map<String, DndSimpleInfo> getDndTeamInfo();
+	Map<String, DndSimpleInfo> getDndTeamInfo(List<String> users);
+	
 	// emoji
 	
 	Map<String, String> getEmojiList();
+	
+	// files.comments
+	
+	Comment addFileComment(String file, String comment);
+	Comment editFileComment(String file, String id, String comment);
+	boolean deleteFileComment(String file, String id);
 	
 	// files
 
@@ -316,7 +337,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.0.14.RELEASE</version>
+    <version>v1.1.14.RELEASE</version>
 </dependency>
 ```
 
