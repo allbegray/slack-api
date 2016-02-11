@@ -248,7 +248,7 @@ SlackWebhookClient webhookClient = SlackClientFactory.createWebhookClient(webhoo
 
 SlackbotClient slackbotClient = SlackClientFactory.createSlackbotClient(slackbotUrl);
 
-SlackRealTimeMessagingClient createSlackRealTimeMessagingClient(String token)
+SlackRealTimeMessagingClient rtmClient = SlackClientFactory.createSlackRealTimeMessagingClient(String token)
 
 ```
 
