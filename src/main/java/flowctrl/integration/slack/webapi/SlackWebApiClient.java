@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import flowctrl.integration.slack.type.Attachment;
 import flowctrl.integration.slack.type.Authentication;
 import flowctrl.integration.slack.type.Channel;
@@ -182,9 +183,9 @@ public interface SlackWebApiClient {
 	boolean removeReactionFromMessage(String emojiName, String channel, String timestamp);
 	
 	// rtm
-	
-	String startRealTimeMessagingApi();
-	String startRealTimeMessagingApi(String simple_latest, String no_unreads, String mpim_aware);
+
+	JsonNode startRealTimeMessagingApi();
+	JsonNode startRealTimeMessagingApi(String simple_latest, String no_unreads, String mpim_aware);
 
 	// stars
 	
