@@ -22,7 +22,8 @@ public class Channel {
 	protected String last_read;
 	protected Integer unread_count;
 	protected Integer unread_count_display;
-
+	protected Message latest;
+	
 	public String getId() {
 		return id;
 	}
@@ -138,6 +139,10 @@ public class Channel {
 		this.unread_count_display = unread_count_display;
 	}
 
+	public Message getLatest() {
+		return latest;
+	}
+	
 	@Override
 	public String toString() {
 		return "Channel [id=" + id + ", name=" + name + ", is_channel=" + is_channel + ", created=" + created + ", creator=" + creator + ", is_archived=" + is_archived + ", is_general=" + is_general
