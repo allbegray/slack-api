@@ -114,6 +114,16 @@ public interface SlackWebApiConstants {
 	public static final String REACTIONS_LIST = "reactions.list";
 	public static final String REACTIONS_REMOVE = "reactions.remove";
 
+
+	// reminders
+
+	public static final String REMINDERS_ADD = "reminders.add";
+	public static final String REMINDERS_COMPLETE = "reminders.complete";
+	public static final String REMINDERS_DELETE = "reminders.delete";
+	public static final String REMINDERS_INFO = "reminders.info";
+	public static final String REMINDERS_LIST = "reminders.list";
+
+
 	// rtm
 
 	public static final String RTM_START = "rtm.start";
