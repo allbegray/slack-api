@@ -65,7 +65,7 @@ public abstract class SlackClientFactory {
 
 	public static SlackRealTimeMessagingClient createSlackRealTimeMessagingClient(String token, ProxyServerInfo proxyServerInfo, ObjectMapper mapper) {
 		SlackWebApiClient webApiClient = createWebApiClient(token);
-		String webSocketUrl = webApiClient.startRealTimeMessagingApi();
+		String webSocketUrl = webApiClient.startRealTimeMessagingApi().findPath("url").asText();
 		return new SlackRealTimeMessagingClient(webSocketUrl, proxyServerInfo, mapper);
 	}
 

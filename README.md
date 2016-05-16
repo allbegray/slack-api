@@ -17,11 +17,15 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.flowctrl</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.1.0.RELEASE</version>
+    <version>v1.2.0.RELEASE</version>
 </dependency>
 ```
 
 ## Change Logs
+
+### v1.2.0.RELEASE
+
+[add method "reminders"](https://api.slack.com/methods#reminders) - thanks for [timbuethe](https://github.com/timbuethe)
 
 ### v1.1.0.RELEASE
 
@@ -179,11 +183,19 @@ public interface SlackWebApiClient {
 	boolean removeReactionFromFile(String emojiName, String file);
 	boolean removeReactionFromFileComment(String emojiName, String file_comment);
 	boolean removeReactionFromMessage(String emojiName, String channel, String timestamp);
-	
+
+	// reminders
+	boolean addReminder(String text, String time);
+	boolean addReminder(String text, long time);
+	boolean completeReminder(String reminderId);
+	boolean deleteReminder(String reminderId);
+	ReminderInfo getReminderInfo(String reminderId);
+	ReminderList getReminderList();
+
 	// rtm
-	
-	String startRealTimeMessagingApi();
-	String startRealTimeMessagingApi(String simple_latest, String no_unreads, String mpim_aware);
+
+	JsonNode startRealTimeMessagingApi();
+	JsonNode startRealTimeMessagingApi(String simple_latest, String no_unreads, String mpim_aware);
 
 	// stars
 	

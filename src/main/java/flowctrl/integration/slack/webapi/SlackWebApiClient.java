@@ -1,5 +1,6 @@
 package flowctrl.integration.slack.webapi;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import flowctrl.integration.slack.type.*;
 import flowctrl.integration.slack.webapi.method.chats.ChatPostMessageMethod;
 
@@ -165,9 +166,9 @@ public interface SlackWebApiClient {
 	ReminderList getReminderList();
 
 	// rtm
-	
-	String startRealTimeMessagingApi();
-	String startRealTimeMessagingApi(String simple_latest, String no_unreads, String mpim_aware);
+
+	JsonNode startRealTimeMessagingApi();
+	JsonNode startRealTimeMessagingApi(String simple_latest, String no_unreads, String mpim_aware);
 
 	// stars
 	

@@ -876,19 +876,17 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	// rtm
 
 	@Override
-	public String startRealTimeMessagingApi() {
+	public JsonNode startRealTimeMessagingApi() {
 		return startRealTimeMessagingApi(null, null, null);
 	}
 
 	@Override
-	public String startRealTimeMessagingApi(String simple_latest, String no_unreads, String mpim_aware) {
+	public JsonNode startRealTimeMessagingApi(String simple_latest, String no_unreads, String mpim_aware) {
 		RtmStartMethod method = new RtmStartMethod();
 		method.setSimple_latest(simple_latest);
 		method.setNo_unreads(no_unreads);
 		method.setMpim_aware(mpim_aware);
-
-		JsonNode retNode = call(method);
-		return retNode.findPath("url").asText();
+		return call(method);
 	}
 
 	// search
