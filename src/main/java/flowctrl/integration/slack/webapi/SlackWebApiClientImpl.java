@@ -1,76 +1,21 @@
 package flowctrl.integration.slack.webapi;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import flowctrl.integration.slack.RestUtils;
 import flowctrl.integration.slack.exception.SlackArgumentException;
 import flowctrl.integration.slack.exception.SlackException;
 import flowctrl.integration.slack.exception.SlackResponseErrorException;
-import flowctrl.integration.slack.type.Attachment;
-import flowctrl.integration.slack.type.Authentication;
-import flowctrl.integration.slack.type.Channel;
-import flowctrl.integration.slack.type.Comment;
-import flowctrl.integration.slack.type.DirectMessageChannel;
-import flowctrl.integration.slack.type.DndInfo;
-import flowctrl.integration.slack.type.DndSimpleInfo;
-import flowctrl.integration.slack.type.EndSnooze;
-import flowctrl.integration.slack.type.File;
-import flowctrl.integration.slack.type.FileInfo;
-import flowctrl.integration.slack.type.FileList;
-import flowctrl.integration.slack.type.Group;
-import flowctrl.integration.slack.type.History;
-import flowctrl.integration.slack.type.OAuthAccessToken;
-import flowctrl.integration.slack.type.PinItem;
-import flowctrl.integration.slack.type.Presence;
-import flowctrl.integration.slack.type.ReactionItem;
-import flowctrl.integration.slack.type.ReactionList;
-import flowctrl.integration.slack.type.SetSnooze;
-import flowctrl.integration.slack.type.StarList;
-import flowctrl.integration.slack.type.Team;
-import flowctrl.integration.slack.type.TeamAccessLogList;
-import flowctrl.integration.slack.type.TeamIntegrationLogList;
-import flowctrl.integration.slack.type.User;
-import flowctrl.integration.slack.type.UserPresence;
-import flowctrl.integration.slack.type.Usergroup;
+import flowctrl.integration.slack.type.*;
 import flowctrl.integration.slack.validation.Problem;
 import flowctrl.integration.slack.validation.ValidationError;
 import flowctrl.integration.slack.webapi.method.SlackMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelArchiveMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelCreateMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelHistoryMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelInfoMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelInviteMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelJoinMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelKickMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelLeaveMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelListMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelMarkMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelRenameMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelSetPurposeMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelSetTopicMethod;
-import flowctrl.integration.slack.webapi.method.channels.ChannelUnarchiveMethod;
+import flowctrl.integration.slack.webapi.method.channels.*;
 import flowctrl.integration.slack.webapi.method.chats.ChatDeleteMethod;
 import flowctrl.integration.slack.webapi.method.chats.ChatPostMessageMethod;
 import flowctrl.integration.slack.webapi.method.chats.ChatUpdateMethod;
-import flowctrl.integration.slack.webapi.method.dnd.DndInfoMethod;
-import flowctrl.integration.slack.webapi.method.dnd.DndTeamInfoMethod;
-import flowctrl.integration.slack.webapi.method.dnd.EndDndMethod;
-import flowctrl.integration.slack.webapi.method.dnd.EndSnoozeMethod;
-import flowctrl.integration.slack.webapi.method.dnd.SetSnoozeMethod;
+import flowctrl.integration.slack.webapi.method.dnd.*;
 import flowctrl.integration.slack.webapi.method.emoji.EmojiListMethod;
 import flowctrl.integration.slack.webapi.method.files.FileDeleteMethod;
 import flowctrl.integration.slack.webapi.method.files.FileInfoMethod;
@@ -79,32 +24,9 @@ import flowctrl.integration.slack.webapi.method.files.FileUploadMethod;
 import flowctrl.integration.slack.webapi.method.files.comments.FileCommentAddMethod;
 import flowctrl.integration.slack.webapi.method.files.comments.FileCommentDeleteMethod;
 import flowctrl.integration.slack.webapi.method.files.comments.FileCommentEditMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupArchiveMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupCloseMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupCreateChildMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupCreateMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupHistoryMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupInfoMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupInviteMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupKickMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupLeaveMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupListMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupMarkMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupOpenMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupRenameMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupSetPurposeMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupSetTopicMethod;
-import flowctrl.integration.slack.webapi.method.groups.GroupUnarchiveMethod;
-import flowctrl.integration.slack.webapi.method.im.ImCloseMethod;
-import flowctrl.integration.slack.webapi.method.im.ImHistoryMethod;
-import flowctrl.integration.slack.webapi.method.im.ImListMethod;
-import flowctrl.integration.slack.webapi.method.im.ImMarkMethod;
-import flowctrl.integration.slack.webapi.method.im.ImOpenMethod;
-import flowctrl.integration.slack.webapi.method.mpim.MpimCloseMethod;
-import flowctrl.integration.slack.webapi.method.mpim.MpimHistoryMethod;
-import flowctrl.integration.slack.webapi.method.mpim.MpimListMethod;
-import flowctrl.integration.slack.webapi.method.mpim.MpimMarkMethod;
-import flowctrl.integration.slack.webapi.method.mpim.MpimOpenMethod;
+import flowctrl.integration.slack.webapi.method.groups.*;
+import flowctrl.integration.slack.webapi.method.im.*;
+import flowctrl.integration.slack.webapi.method.mpim.*;
 import flowctrl.integration.slack.webapi.method.oauth.OAuthAccessMethod;
 import flowctrl.integration.slack.webapi.method.pins.PinsAddMethod;
 import flowctrl.integration.slack.webapi.method.pins.PinsListMethod;
@@ -113,6 +35,7 @@ import flowctrl.integration.slack.webapi.method.reactions.ReactionsAddMethod;
 import flowctrl.integration.slack.webapi.method.reactions.ReactionsGetMethod;
 import flowctrl.integration.slack.webapi.method.reactions.ReactionsListMethod;
 import flowctrl.integration.slack.webapi.method.reactions.ReactionsRemoveMethod;
+import flowctrl.integration.slack.webapi.method.reminders.*;
 import flowctrl.integration.slack.webapi.method.rtm.RtmStartMethod;
 import flowctrl.integration.slack.webapi.method.stars.StarsAddMethod;
 import flowctrl.integration.slack.webapi.method.stars.StarsListMethod;
@@ -121,18 +44,21 @@ import flowctrl.integration.slack.webapi.method.team.TeamAccessLogsMethod;
 import flowctrl.integration.slack.webapi.method.team.TeamInfoMethod;
 import flowctrl.integration.slack.webapi.method.team.TeamIntegrationLogMethod;
 import flowctrl.integration.slack.webapi.method.test.AuthTestMethod;
-import flowctrl.integration.slack.webapi.method.usergroups.UsergroupsCreateMethod;
-import flowctrl.integration.slack.webapi.method.usergroups.UsergroupsDisableMethod;
-import flowctrl.integration.slack.webapi.method.usergroups.UsergroupsEnableMethod;
-import flowctrl.integration.slack.webapi.method.usergroups.UsergroupsListMethod;
-import flowctrl.integration.slack.webapi.method.usergroups.UsergroupsUpdateMethod;
+import flowctrl.integration.slack.webapi.method.usergroups.*;
 import flowctrl.integration.slack.webapi.method.usergroups.users.UsergroupsUsersListMethod;
 import flowctrl.integration.slack.webapi.method.usergroups.users.UsergroupsUsersUpdateMethod;
-import flowctrl.integration.slack.webapi.method.users.UserGetPresenceMethod;
-import flowctrl.integration.slack.webapi.method.users.UserInfoMethod;
-import flowctrl.integration.slack.webapi.method.users.UserListMethod;
-import flowctrl.integration.slack.webapi.method.users.UserSetActiveMethod;
-import flowctrl.integration.slack.webapi.method.users.UserSetPresenceMethod;
+import flowctrl.integration.slack.webapi.method.users.*;
+import org.apache.http.HttpEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class SlackWebApiClientImpl implements SlackWebApiClient {
 
@@ -333,9 +259,9 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		JsonNode retNode = call(method);
 		return retNode.findPath("ts").asText();
 	}
-	
+
 	// dnd
-	
+
 	@Override
 	public boolean endDnd() {
 		return isOk(new EndDndMethod());
@@ -385,7 +311,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		return readValue(retNode, "emoji", new TypeReference<Map<String, String>>() {
 		});
 	}
-	
+
 	// files.comments
 
 	@Override
@@ -904,6 +830,49 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		return isOk(method);
 	}
 
+    // Reminders
+
+    @Override
+    public boolean addReminder(String text, String time) {
+        RemindersAddMethod method = new RemindersAddMethod(text, time);
+        return isOk(method);
+    }
+
+    @Override
+    public boolean completeReminder(String reminderId) {
+        RemindersCompleteMethod method = new RemindersCompleteMethod(reminderId);
+        return isOk(method);
+    }
+
+    @Override
+    public boolean deleteReminder(String reminderId) {
+        RemindersDeleteMethod method = new RemindersDeleteMethod(reminderId);
+        return isOk(method);
+    }
+
+    @Override
+    public boolean addReminder(String text, long time) {
+        RemindersAddMethod method = new RemindersAddMethod(text, time);
+        return isOk(method);
+    }
+
+    @Override
+    public ReminderInfo getReminderInfo(String reminderId) {
+
+        RemindersInfoMethod method = new RemindersInfoMethod(reminderId);
+
+        JsonNode retNode = call(method);
+        return readValue(retNode, null, ReminderInfo.class);
+    }
+
+    @Override
+    public ReminderList getReminderList() {
+        RemindersListMethod method = new RemindersListMethod();
+
+        JsonNode retNode = call(method);
+        return readValue(retNode, null, ReminderList.class);
+    }
+
 	// rtm
 
 	@Override
@@ -1050,7 +1019,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	// usergroups
-	
+
 	@Override
 	public Usergroup createUsergroup(String name, String handle, String description, List<String> channels) {
 		return createUsergroup(name, handle, description, channels, true);
@@ -1112,7 +1081,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		return readValue(retNode, "usergroup", new TypeReference<List<Usergroup>>() {
 		});
 	}
-	
+
 	@Override
 	public Usergroup updateUsergroup(String name, String handle, String description, List<String> channels) {
 		return updateUsergroup(name, handle, description, channels, true);
