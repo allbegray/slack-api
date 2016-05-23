@@ -1,40 +1,13 @@
-[![Release](https://img.shields.io/github/release/flowctrl/slack-api.svg?label=JitPack)](https://jitpack.io/#flowctrl/slack-api) [![Build Status](https://travis-ci.org/flowctrl/slack-api.svg?branch=master)](https://travis-ci.org/flowctrl/slack-api)
+package allbegray.slack.webapi;
 
-slack-api
-=============
-A Java client for the Slack Web API, Incoming Webhooks, Slackbot Remote Control, RTM(Real Time Messaging) API 
+import allbegray.slack.type.*;
+import allbegray.slack.webapi.method.chats.ChatPostMessageMethod;
+import com.fasterxml.jackson.databind.JsonNode;
 
-## Maven
-Step 1. Add the JitPack repository to your build file
-```xml
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
-```
-Step 2. Add the dependency in the form
-```xml
-<dependency>
-    <groupId>com.github.allbegray</groupId>
-    <artifactId>slack-api</artifactId>
-    <version>v1.2.0.RELEASE</version>
-</dependency>
-```
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
-## Change Logs
-
-### v1.2.0.RELEASE
-
-[add method "reminders"](https://api.slack.com/methods#reminders) - thanks for [timbuethe](https://github.com/timbuethe)
-
-### v1.1.0.RELEASE
-
-[add method "dnd"](https://api.slack.com/methods#files.comments)  
-[add method "files.comments"](https://api.slack.com/methods#dnd)
-
-## Slack Web API compatibility
-auth, channels, chat, dnd, emoji, files.comments. files, groups, im, mpim, oauth, pins, reactions, rtm, stars, team, usergroups, usergroups.users, users
-```java
 public interface SlackWebApiClient {
 	
 	void shutdown();
@@ -69,7 +42,7 @@ public interface SlackWebApiClient {
 	String postMessage(String channel, String text);
 	String postMessage(String channel, String text, String username, boolean as_user);
 	String postMessage(String channel, String text, String username, boolean as_user, boolean link_names, List<Attachment> attachments, boolean unfurl_links, boolean unfurl_media, String icon_url,
-			String icon_emoji);
+					   String icon_emoji);
 	String postMessage(ChatPostMessageMethod method);
 	String updateMessage(String channel, String ts, String text);
 	String updateMessage(String channel, String ts, String text, List<Attachment> attachments, boolean link_names);
@@ -249,21 +222,3 @@ public interface SlackWebApiClient {
 	boolean setPresenceUser(Presence presence);
 
 }
-```
-
-## Slack client factory
-```java
-
-SlackWebApiClient webApiClient = SlackClientFactory.createWebApiClient(token);
-
-SlackWebhookClient webhookClient = SlackClientFactory.createWebhookClient(webhookUrl);
-
-SlackbotClient slackbotClient = SlackClientFactory.createSlackbotClient(slackbotUrl);
-
-SlackRealTimeMessagingClient rtmClient = SlackClientFactory.createSlackRealTimeMessagingClient(String token)
-
-```
-
-## Coming soon next
-search
-
