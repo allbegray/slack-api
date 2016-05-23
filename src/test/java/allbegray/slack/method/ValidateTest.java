@@ -48,7 +48,7 @@ public class ValidateTest {
 
 		words.put("090", true);
 		words.put("uenginesoft", true);
-		words.put("flowctrl", true);
+		words.put("allbegray", true);
 		words.put("dev", true);
 		words.put("project_nicehop", true);
 		words.put("a", true);
