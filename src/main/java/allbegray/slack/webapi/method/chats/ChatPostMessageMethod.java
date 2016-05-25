@@ -41,6 +41,15 @@ public class ChatPostMessageMethod extends AbstractMethod {
 	protected boolean unfurl_media;
 	protected String icon_url;
 	protected String icon_emoji;
+	protected Boolean mrkdwn;
+
+	public Boolean getMrkdwn() {
+		return mrkdwn;
+	}
+
+	public void setMrkdwn(Boolean mrkdwn) {
+		this.mrkdwn = mrkdwn;
+	}
 
 	public String getChannel() {
 		return channel;
