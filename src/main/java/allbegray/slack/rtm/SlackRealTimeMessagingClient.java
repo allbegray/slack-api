@@ -147,6 +147,10 @@ public class SlackRealTimeMessagingClient {
 				@Override
 				public void onPong(byte[] message) {
 					super.onPong(message);
+					synchronized (pingMutex) {
+						pingOk = true;
+						pingMutex.notify();
+					}
 				}
 
 				@Override
