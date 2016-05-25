@@ -36,6 +36,9 @@ public class SlackRealTimeMessagingClient {
 	private Map<String, List<EventListener>> listeners = new HashMap<String, List<EventListener>>();
 	private boolean stop;
 	private ObjectMapper mapper;
+	private Object pingMutex = new Object();
+	private int pingId = 1;
+	private boolean pingOk = false;
 
 	public SlackRealTimeMessagingClient(String webSocketUrl, ObjectMapper mapper) {
 		this(webSocketUrl, null, mapper);
@@ -71,6 +74,33 @@ public class SlackRealTimeMessagingClient {
 		if (asyncHttpClient != null && !asyncHttpClient.isClosed()) {
 			asyncHttpClient.close();
 		}
+	}
+
+	public boolean ping() {
+		pingOk = false;
+		ObjectNode pingMessage = mapper.createObjectNode();
+		pingMessage.set("type", TextNode.valueOf("ping"));
+		pingMessage.set("id", LongNode.valueOf(pingId++));
+		pingMessage.set("time", LongNode.valueOf(new Date().getTime()));
+		webSocket.sendPing(pingMessage.toString().getBytes());
+
+		synchronized (pingMutex) {
+			if (pingOk == true) {
+				return true;
+			}
+
+			try {
+				pingMutex.wait(1000L);
+			} catch (InterruptedException e) {
+			}
+
+			if (!pingOk) {
+				logger.error("Ping failed, closing slack websocket");
+				webSocket.close();
+			}
+			return pingOk;
+		}
+
 	}
 
 	public boolean connect() {
@@ -113,7 +143,12 @@ public class SlackRealTimeMessagingClient {
 					
 					webSocket.sendPong(pongMessage.toString().getBytes());
 				}
-				
+
+				@Override
+				public void onPong(byte[] message) {
+					super.onPong(message);
+				}
+
 				@Override
 				public void onError(Throwable t) {
 					throw new SlackException(t);
