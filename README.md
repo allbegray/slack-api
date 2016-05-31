@@ -17,11 +17,15 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.allbegray</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.2.0.RELEASE</version>
+    <version>v1.2.1.RELEASE</version>
 </dependency>
 ```
 
 ## Change Logs
+
+### v1.2.1.RELEASE
+
+fix - Getting Usergroup List fails to execute #17
 
 ### v1.2.0.RELEASE
 
