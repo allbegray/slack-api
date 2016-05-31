@@ -25,7 +25,7 @@ Step 2. Add the dependency in the form
 
 ### v1.2.1.RELEASE
 
-fix - Getting Usergroup List fails to execute #17
+[fix - Getting Usergroup List fails to execute #17](https://github.com/allbegray/slack-api/issues/17)
 
 ### v1.2.0.RELEASE
 
