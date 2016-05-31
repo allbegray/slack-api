@@ -1076,7 +1076,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		method.setInclude_users(include_users);
 
 		JsonNode retNode = call(method);
-		return readValue(retNode, "usergroup", new TypeReference<List<Usergroup>>() {
+		return readValue(retNode, "usergroups", new TypeReference<List<Usergroup>>() {
 		});
 	}
 
