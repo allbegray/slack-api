@@ -1,29 +1,24 @@
 package allbegray.slack.rtm;
 
+import allbegray.slack.exception.SlackException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.BoundRequestBuilder;
+import org.asynchttpclient.ws.DefaultWebSocketListener;
+import org.asynchttpclient.ws.WebSocket;
+import org.asynchttpclient.ws.WebSocketUpgradeHandler;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import allbegray.slack.exception.SlackException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.LongNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.TextNode;
-import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.AsyncHttpClient.BoundRequestBuilder;
-import com.ning.http.client.AsyncHttpClientConfig;
-import com.ning.http.client.AsyncHttpClientConfig.Builder;
-import com.ning.http.client.ProxyServer;
-import com.ning.http.client.ProxyServer.Protocol;
-import com.ning.http.client.ws.DefaultWebSocketListener;
-import com.ning.http.client.ws.WebSocket;
-import com.ning.http.client.ws.WebSocketUpgradeHandler;
+import static org.asynchttpclient.Dsl.*;
 
 public class SlackRealTimeMessagingClient {
 
@@ -66,63 +61,29 @@ public class SlackRealTimeMessagingClient {
 	public void close() {
 		stop = true;
 		if (webSocket != null && webSocket.isOpen()) {
-			webSocket.close();
+			try {
+				webSocket.close();
+			} catch (IOException e) {
+				throw new SlackException(e);
+			}
 		}
 		if (asyncHttpClient != null && !asyncHttpClient.isClosed()) {
-			asyncHttpClient.close();
+			try {
+				asyncHttpClient.close();
+			} catch (IOException e) {
+				throw new SlackException(e);
+			}
 		}
 	}
 
 	public boolean connect() {
-
-		Builder builder = new AsyncHttpClientConfig.Builder();
-		if (proxyServerInfo != null) {
-			Protocol protocol = null;
-			for (Protocol p : Protocol.values()) {
-				if (p.getProtocol().equalsIgnoreCase(proxyServerInfo.getProtocol())) {
-					protocol = p;
-				}
-			}
-			if (protocol == null) {
-				protocol = Protocol.HTTP;
-			}
-
-			builder.setProxyServer(new ProxyServer(protocol, proxyServerInfo.getHost(), proxyServerInfo.getPort()));
-			builder.setUseProxyProperties(true);
-		}
-
-		AsyncHttpClientConfig clientConfig = builder.build();
-		asyncHttpClient = new AsyncHttpClient(clientConfig);
-		BoundRequestBuilder requestBuilder = asyncHttpClient.prepareGet(webSocketUrl);
 		try {
+			asyncHttpClient = proxyServerInfo != null ? asyncHttpClient(config().setProxyServer(proxyServer(proxyServerInfo.getHost(), proxyServerInfo.getPort()))) : asyncHttpClient();
+			BoundRequestBuilder requestBuilder = asyncHttpClient.prepareGet(webSocketUrl);
 			webSocket = requestBuilder.execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new DefaultWebSocketListener() {
 
 				@Override
-				public void onClose(WebSocket websocket) {
-					super.onClose(websocket);
-					stop = true;
-				}
-
-				@Override
-				public void onPing(byte[] message) {
-					ObjectNode pongMessage = mapper.createObjectNode();
-					pongMessage.set("type", TextNode.valueOf("pong"));
-					pongMessage.set("time", LongNode.valueOf(new Date().getTime()));
-					
-					logger.info("pong message : " + pongMessage);
-					
-					webSocket.sendPong(pongMessage.toString().getBytes());
-				}
-				
-				@Override
-				public void onError(Throwable t) {
-					throw new SlackException(t);
-				}
-
-				@Override
 				public void onMessage(String message) {
-					logger.info("Slack RTM message : " + message);
-
 					String type = null;
 					JsonNode node = null;
 					try {
@@ -130,6 +91,10 @@ public class SlackRealTimeMessagingClient {
 						type = node.findPath("type").asText();
 					} catch (Exception e) {
 						logger.error(e);
+					}
+
+					if (!"pong".equals(type)) {
+						logger.info("Slack RTM message : " + message);
 					}
 
 					if (type != null) {
@@ -142,6 +107,17 @@ public class SlackRealTimeMessagingClient {
 					}
 				}
 
+				@Override
+				public void onClose(WebSocket websocket) {
+					super.onClose(websocket);
+					stop = true;
+				}
+
+				@Override
+				public void onError(Throwable t) {
+					throw new SlackException(t);
+				}
+
 			}).build()).get();
 
 			logger.info("connected Slack RTM(Real Time Messaging) server : " + webSocketUrl);
@@ -149,10 +125,22 @@ public class SlackRealTimeMessagingClient {
 			await();
 
 		} catch (Exception e) {
+			close();
 			throw new SlackException(e);
 		}
-
 		return true;
+	}
+
+	private long socketId = 1;
+
+	private void ping() {
+		ObjectNode pingMessage = mapper.createObjectNode();
+		pingMessage.put("id", ++socketId);
+		pingMessage.put("type", "ping");
+		String pingJson = pingMessage.toString();
+		webSocket.sendMessage(pingJson);
+
+		logger.debug("ping : " + pingJson);
 	}
 
 	private void await() {
@@ -161,7 +149,8 @@ public class SlackRealTimeMessagingClient {
 			public void run() {
 				while (!stop) {
 					try {
-						Thread.sleep(5 * 1000);
+						ping();
+						Thread.sleep(3 * 1000);
 					} catch (Exception e) {
 						throw new SlackException(e);
 					}

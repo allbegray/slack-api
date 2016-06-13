@@ -17,11 +17,15 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.allbegray</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.2.1.RELEASE</version>
+    <version>v1.2.2.RELEASE</version>
 </dependency>
 ```
 
 ## Change Logs
+
+### v1.2.2.RELEASE
+
+fix - Real Time Messaging API
 
 ### v1.2.1.RELEASE
 
