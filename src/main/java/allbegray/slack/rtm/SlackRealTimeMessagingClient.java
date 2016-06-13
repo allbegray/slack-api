@@ -59,21 +59,25 @@ public class SlackRealTimeMessagingClient {
 	}
 
 	public void close() {
+		logger.info("Slack RTM closing...");
+
 		stop = true;
 		if (webSocket != null && webSocket.isOpen()) {
 			try {
 				webSocket.close();
 			} catch (IOException e) {
-				throw new SlackException(e);
+				// ignore
 			}
 		}
 		if (asyncHttpClient != null && !asyncHttpClient.isClosed()) {
 			try {
 				asyncHttpClient.close();
 			} catch (IOException e) {
-				throw new SlackException(e);
+				// ignore
 			}
 		}
+
+		logger.info("Slack RTM closed.");
 	}
 
 	public boolean connect() {
