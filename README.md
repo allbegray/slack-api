@@ -25,7 +25,7 @@ Step 2. Add the dependency in the form
 
 ### v1.2.2.RELEASE
 
-fix - Real Time Messaging API
+fix - Real Time Messaging API (apologize for being late)
 
 ### v1.2.1.RELEASE
 
