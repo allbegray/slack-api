@@ -85,6 +85,8 @@ public interface SlackWebApiClient {
 	FileList getFileList(String user, int page);
 	FileList getFileList(String user, int page, int count);
 	FileList getFileList(String user, String ts_from, String ts_to, String types, int page, int count);
+    File revokeFilePublicURL(String file);
+	File sharedFilePublicURL(String file);
 	File uploadFile(java.io.File file, String title, String initial_comment, String channels);
 	File uploadFile(java.io.File file, String filetype, String filename, String title, String initial_comment, String channels);
 	File uploadFile(InputStream is, String filetype, String filename, String title, String initial_comment, String channels);

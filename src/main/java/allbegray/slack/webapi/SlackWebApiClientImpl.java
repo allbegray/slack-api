@@ -15,9 +15,7 @@ import allbegray.slack.webapi.method.chats.ChatPostMessageMethod;
 import allbegray.slack.webapi.method.chats.ChatUpdateMethod;
 import allbegray.slack.webapi.method.dnd.*;
 import allbegray.slack.webapi.method.emoji.EmojiListMethod;
-import allbegray.slack.webapi.method.files.FileDeleteMethod;
-import allbegray.slack.webapi.method.files.FileInfoMethod;
-import allbegray.slack.webapi.method.files.FileListMethod;
+import allbegray.slack.webapi.method.files.*;
 import allbegray.slack.webapi.method.files.comments.FileCommentAddMethod;
 import allbegray.slack.webapi.method.files.comments.FileCommentDeleteMethod;
 import allbegray.slack.webapi.method.files.comments.FileCommentEditMethod;
@@ -48,7 +46,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import allbegray.slack.exception.SlackResponseErrorException;
-import allbegray.slack.webapi.method.files.FileUploadMethod;
 import allbegray.slack.webapi.method.usergroups.users.UsergroupsUsersListMethod;
 import org.apache.http.HttpEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -419,6 +416,18 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 
 		JsonNode retNode = call(method);
 		return readValue(retNode, null, FileList.class);
+	}
+
+	@Override
+	public File revokeFilePublicURL(String file) {
+		JsonNode retNode = call(new FileRevokePublicURLMethod(file));
+		return readValue(retNode, "file", File.class);
+	}
+
+	@Override
+	public File sharedFilePublicURL(String file) {
+		JsonNode retNode = call(new FileSharedPublicURLMethod(file));
+		return readValue(retNode, "file", File.class);
 	}
 
 	@Override

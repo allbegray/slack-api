@@ -41,7 +41,7 @@ fix - Real Time Messaging API
 [add method "files.comments"](https://api.slack.com/methods#dnd)
 
 ## Slack Web API compatibility
-auth, channels, chat, dnd, emoji, files.comments. files, groups, im, mpim, oauth, pins, reactions, rtm, stars, team, usergroups, usergroups.users, users
+auth, bots, channels, chat, dnd, emoji, files.comments. files, groups, im, mpim, oauth, pins, reactions, reminders, rtm, stars, team, usergroups, usergroups.users, users
 ```java
 public interface SlackWebApiClient {
 	
@@ -50,10 +50,14 @@ public interface SlackWebApiClient {
 	// auth
 
 	Authentication auth();
+
+	// bots
+
+	Bot getBotInfo(String bot);
 	
 	// channels
 
-	boolean archiveChannel(String channel);
+    boolean archiveChannel(String channel);
 	Channel createChannel(String name);
 	History getChannelHistory(String channel);
 	History getChannelHistory(String channel, int count);
@@ -74,10 +78,11 @@ public interface SlackWebApiClient {
 	// chat
 
 	boolean deleteMessage(String channel, String ts);
+	boolean meMessage(String channel, String text);
 	String postMessage(String channel, String text);
 	String postMessage(String channel, String text, String username, boolean as_user);
 	String postMessage(String channel, String text, String username, boolean as_user, boolean link_names, List<Attachment> attachments, boolean unfurl_links, boolean unfurl_media, String icon_url,
-			String icon_emoji);
+					   String icon_emoji);
 	String postMessage(ChatPostMessageMethod method);
 	String updateMessage(String channel, String ts, String text);
 	String updateMessage(String channel, String ts, String text, List<Attachment> attachments, boolean link_names);
@@ -115,6 +120,8 @@ public interface SlackWebApiClient {
 	FileList getFileList(String user, int page);
 	FileList getFileList(String user, int page, int count);
 	FileList getFileList(String user, String ts_from, String ts_to, String types, int page, int count);
+    File revokeFilePublicURL(String file);
+	File sharedFilePublicURL(String file);
 	File uploadFile(java.io.File file, String title, String initial_comment, String channels);
 	File uploadFile(java.io.File file, String filetype, String filename, String title, String initial_comment, String channels);
 	File uploadFile(InputStream is, String filetype, String filename, String title, String initial_comment, String channels);
