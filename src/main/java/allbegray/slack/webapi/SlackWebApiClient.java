@@ -43,6 +43,7 @@ public interface SlackWebApiClient {
 	// chat
 
 	boolean deleteMessage(String channel, String ts);
+	boolean meMessage(String channel, String text);
 	String postMessage(String channel, String text);
 	String postMessage(String channel, String text, String username, boolean as_user);
 	String postMessage(String channel, String text, String username, boolean as_user, boolean link_names, List<Attachment> attachments, boolean unfurl_links, boolean unfurl_media, String icon_url,

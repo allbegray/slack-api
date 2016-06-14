@@ -10,6 +10,7 @@ import allbegray.slack.webapi.method.SlackMethod;
 import allbegray.slack.webapi.method.bots.BotInfoMethod;
 import allbegray.slack.webapi.method.channels.*;
 import allbegray.slack.webapi.method.chats.ChatDeleteMethod;
+import allbegray.slack.webapi.method.chats.ChatMeMessageMethod;
 import allbegray.slack.webapi.method.chats.ChatPostMessageMethod;
 import allbegray.slack.webapi.method.chats.ChatUpdateMethod;
 import allbegray.slack.webapi.method.dnd.*;
@@ -213,6 +214,11 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	@Override
 	public boolean deleteMessage(String channel, String ts) {
 		return isOk(new ChatDeleteMethod(channel, ts));
+	}
+
+	@Override
+	public boolean meMessage(String channel, String text) {
+		return isOk(new ChatMeMessageMethod(channel, text));
 	}
 
 	@Override
