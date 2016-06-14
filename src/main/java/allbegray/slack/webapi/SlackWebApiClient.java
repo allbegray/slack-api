@@ -15,10 +15,14 @@ public interface SlackWebApiClient {
 	// auth
 
 	Authentication auth();
+
+	// bots
+
+	Bot getBotInfo(String bot);
 	
 	// channels
 
-	boolean archiveChannel(String channel);
+    boolean archiveChannel(String channel);
 	Channel createChannel(String name);
 	History getChannelHistory(String channel);
 	History getChannelHistory(String channel, int count);

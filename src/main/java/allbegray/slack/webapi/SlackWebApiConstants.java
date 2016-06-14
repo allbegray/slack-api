@@ -15,6 +15,10 @@ public interface SlackWebApiConstants {
 	public static final String API_TEST = "api.test";
 	public static final String AUTH_TEST = "auth.test";
 
+	// bots
+
+	public static final String BOTS_INFO = "bots.info";
+
 	// channels
 
 	public static final String CHANNELS_ARCHIVE = "channels.archive";

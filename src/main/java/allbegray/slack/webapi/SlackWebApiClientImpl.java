@@ -7,6 +7,7 @@ import allbegray.slack.type.*;
 import allbegray.slack.validation.Problem;
 import allbegray.slack.validation.ValidationError;
 import allbegray.slack.webapi.method.SlackMethod;
+import allbegray.slack.webapi.method.bots.BotInfoMethod;
 import allbegray.slack.webapi.method.channels.*;
 import allbegray.slack.webapi.method.chats.ChatDeleteMethod;
 import allbegray.slack.webapi.method.chats.ChatPostMessageMethod;
@@ -91,6 +92,16 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	public Authentication auth() {
 		JsonNode retNode = call(new AuthTestMethod());
 		return readValue(retNode, null, Authentication.class);
+	}
+
+	// bots
+
+	@Override
+	public Bot getBotInfo(String bot) {
+		BotInfoMethod method = new BotInfoMethod();
+		method.setBot(bot);
+		JsonNode retNode = call(method);
+		return readValue(retNode, "bot", Bot.class);
 	}
 
 	// channels
@@ -1178,6 +1189,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	protected <T> T readValue(JsonNode node, String findPath, Class<T> valueType) {
 		try {
 			if (findPath != null) {
+				if (!node.has(findPath)) return null;
 				node = node.findPath(findPath);
 			}
 			return mapper.readValue(node.toString(), valueType);
@@ -1189,6 +1201,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	protected <T> T readValue(JsonNode node, String findPath, TypeReference<?> typeReference) {
 		try {
 			if (findPath != null) {
+				if (!node.has(findPath)) return null;
 				node = node.findPath(findPath);
 			}
 			return mapper.readValue(node.toString(), typeReference);

@@ -1,7 +1,8 @@
-package allbegray.slack;
+package allbegray.slack.webapi.method.dnd;
 
 import java.util.Map;
 
+import allbegray.slack.SlackClientFactory;
 import allbegray.slack.type.Authentication;
 import allbegray.slack.type.EndSnooze;
 import org.junit.After;
