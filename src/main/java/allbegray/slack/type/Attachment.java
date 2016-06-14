@@ -39,6 +39,8 @@ public class Attachment {
     protected String image_url;
     protected String thumb_url;
 
+    protected List<String> mrkdwn_in;
+
     protected String footer;
     protected String footer_icon;
     protected Integer ts;
@@ -172,6 +174,21 @@ public class Attachment {
         this.thumb_url = thumb_url;
     }
 
+    public void addMrkdwn_in(String field) {
+        getMrkdwn_in().add(field);
+    }
+
+    public List<String> getMrkdwn_in() {
+        if (mrkdwn_in == null) {
+            mrkdwn_in = new ArrayList<String>();
+        }
+        return mrkdwn_in;
+    }
+
+    public void setMrkdwn_in(List<String> mrkdwn_in) {
+        this.mrkdwn_in = mrkdwn_in;
+    }
+
     public String getFooter() {
         return footer;
     }
@@ -211,6 +228,7 @@ public class Attachment {
                 ", fields=" + fields +
                 ", image_url='" + image_url + '\'' +
                 ", thumb_url='" + thumb_url + '\'' +
+                ", mrkdwn_in=" + mrkdwn_in +
                 ", footer='" + footer + '\'' +
                 ", footer_icon='" + footer_icon + '\'' +
                 ", ts=" + ts +
