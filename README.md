@@ -17,11 +17,18 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.allbegray</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.2.2.RELEASE</version>
+    <version>v1.3.0.RELEASE</version>
 </dependency>
 ```
 
 ## Change Logs
+
+### v1.3.0.RELEASE
+
+add method "bots.info"
+add method "chat.meMessage"
+add method "files.revokePublicURL", "files.sharedPublicURL"
+add field "footer", "footer_icon", "ts". message attachments.
 
 ### v1.2.2.RELEASE
 
