@@ -25,10 +25,10 @@ Step 2. Add the dependency in the form
 
 ### v1.3.0.RELEASE
 
-add method "bots.info"
-add method "chat.meMessage"
-add method "files.revokePublicURL", "files.sharedPublicURL"
-add field "footer", "footer_icon", "ts". message attachments.
+add method "bots.info"  
+add method "chat.meMessage"  
+add method "files.revokePublicURL", "files.sharedPublicURL"  
+add field "footer", "footer_icon", "ts". message attachments.  
 
 ### v1.2.2.RELEASE
 
