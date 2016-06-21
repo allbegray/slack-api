@@ -30,23 +30,6 @@ add method "chat.meMessage"
 add method "files.revokePublicURL", "files.sharedPublicURL"  
 add field "footer", "footer_icon", "ts". message attachments.  
 
-### v1.2.2.RELEASE
-
-fix - Real Time Messaging API (apologize for being late)
-
-### v1.2.1.RELEASE
-
-[fix - Getting Usergroup List fails to execute #17](https://github.com/allbegray/slack-api/issues/17)
-
-### v1.2.0.RELEASE
-
-[add method "reminders"](https://api.slack.com/methods#reminders) - thanks for [timbuethe](https://github.com/timbuethe)
-
-### v1.1.0.RELEASE
-
-[add method "dnd"](https://api.slack.com/methods#files.comments)  
-[add method "files.comments"](https://api.slack.com/methods#dnd)
-
 ## Slack Web API compatibility
 auth, bots, channels, chat, dnd, emoji, files.comments. files, groups, im, mpim, oauth, pins, reactions, reminders, rtm, stars, team, usergroups, usergroups.users, users
 ```java
