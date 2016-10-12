@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class MessageEventListener implements EventListener {
 
 	@Override
-	public void handleMessage(JsonNode message) {
+	public void onMessage(JsonNode message) {
 		System.out.println(message);
 	}
 

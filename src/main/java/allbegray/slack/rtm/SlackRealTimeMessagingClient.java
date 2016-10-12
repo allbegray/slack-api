@@ -105,7 +105,7 @@ public class SlackRealTimeMessagingClient {
 						List<EventListener> eventListeners = listeners.get(type);
 						if (eventListeners != null && !eventListeners.isEmpty()) {
 							for (EventListener listener : eventListeners) {
-								listener.handleMessage(node);
+								listener.onMessage(node);
 							}
 						}
 					}
