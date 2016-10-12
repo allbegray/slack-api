@@ -31,18 +31,35 @@ public class SlackRealTimeMessagingClient {
 	private Map<String, List<EventListener>> listeners = new HashMap<String, List<EventListener>>();
 	private boolean stop;
 	private ObjectMapper mapper;
+	private Integer pingMillis;
+
+	public SlackRealTimeMessagingClient(String webSocketUrl) {
+		this(webSocketUrl, null, null, null);
+	}
 
 	public SlackRealTimeMessagingClient(String webSocketUrl, ObjectMapper mapper) {
-		this(webSocketUrl, null, mapper);
+		this(webSocketUrl, null, mapper, null);
+	}
+
+	public SlackRealTimeMessagingClient(String webSocketUrl, Integer pingMillis) {
+		this(webSocketUrl, null, null, pingMillis);
 	}
 
 	public SlackRealTimeMessagingClient(String webSocketUrl, ProxyServerInfo proxyServerInfo, ObjectMapper mapper) {
+		this(webSocketUrl, proxyServerInfo, mapper, null);
+	}
+
+	public SlackRealTimeMessagingClient(String webSocketUrl, ProxyServerInfo proxyServerInfo, ObjectMapper mapper, Integer pingMillis) {
 		if (mapper == null) {
 			mapper = new ObjectMapper();
+		}
+		if (pingMillis == null) {
+			pingMillis = 3 * 1000;
 		}
 		this.webSocketUrl = webSocketUrl;
 		this.proxyServerInfo = proxyServerInfo;
 		this.mapper = mapper;
+		this.pingMillis = pingMillis;
 	}
 	
 	public void addListener(Event event, EventListener listener) {
@@ -154,7 +171,7 @@ public class SlackRealTimeMessagingClient {
 				while (!stop) {
 					try {
 						ping();
-						Thread.sleep(3 * 1000);
+						Thread.sleep(pingMillis);
 					} catch (Exception e) {
 						throw new SlackException(e);
 					}
