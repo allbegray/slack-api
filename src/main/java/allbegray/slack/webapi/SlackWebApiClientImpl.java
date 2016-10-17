@@ -158,7 +158,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public boolean kickUserFormChannel(String channel, String user) {
+	public boolean kickUserFromChannel(String channel, String user) {
 		return isOk(new ChannelKickMethod(channel, user));
 	}
 
@@ -524,7 +524,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public boolean kickUserFormGroup(String channel, String user) {
+	public boolean kickUserFromGroup(String channel, String user) {
 		return isOk(new GroupKickMethod(channel, user));
 	}
 
