@@ -29,6 +29,8 @@ public class SlackRealTimeMessagingClient {
 	private AsyncHttpClient asyncHttpClient;
 	private WebSocket webSocket;
 	private Map<String, List<EventListener>> listeners = new HashMap<String, List<EventListener>>();
+	private List<CloseListener> closeListeners = new ArrayList<CloseListener>();
+	private List<FailureListener> failureListeners = new ArrayList<FailureListener>();
 	private boolean stop;
 	private ObjectMapper mapper;
 
@@ -56,6 +58,14 @@ public class SlackRealTimeMessagingClient {
 			listeners.put(event, eventListeners);
 		}
 		eventListeners.add(listener);
+	}
+
+	public void addCloseListener(CloseListener listener) {
+		closeListeners.add(listener);
+	}
+
+	public void addFailureListener(FailureListener listener) {
+		failureListeners.add(listener);
 	}
 
 	public void close() {
@@ -105,7 +115,7 @@ public class SlackRealTimeMessagingClient {
 						List<EventListener> eventListeners = listeners.get(type);
 						if (eventListeners != null && !eventListeners.isEmpty()) {
 							for (EventListener listener : eventListeners) {
-								listener.handleMessage(node);
+								listener.onMessage(node);
 							}
 						}
 					}
@@ -115,11 +125,22 @@ public class SlackRealTimeMessagingClient {
 				public void onClose(WebSocket websocket) {
 					super.onClose(websocket);
 					stop = true;
+					if (closeListeners != null && !closeListeners.isEmpty()) {
+						for (CloseListener listener : closeListeners) {
+							listener.onClose();
+						}
+					}
 				}
 
 				@Override
 				public void onError(Throwable t) {
-					throw new SlackException(t);
+					stop = true;
+					t.printStackTrace();
+					if (failureListeners != null && !failureListeners.isEmpty()) {
+						for (FailureListener listener : failureListeners) {
+							listener.onFailure(new SlackException(t));
+						}
+					}
 				}
 
 			}).build()).get();

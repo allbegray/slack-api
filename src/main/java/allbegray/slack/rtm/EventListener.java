@@ -4,6 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public interface EventListener {
 	
-	public void handleMessage(JsonNode message);
+	public void onMessage(JsonNode message);
 	
 }
