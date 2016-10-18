@@ -30,7 +30,7 @@ public interface SlackWebApiClient {
 	Channel getChannelInfo(String channel);
 	Channel inviteUserToChannel(String channel, String user);
 	Channel joinChannel(String name);
-	boolean kickUserFormChannel(String channel, String user);
+	boolean kickUserFromChannel(String channel, String user);
 	boolean leaveChannel(String channel);
 	List<Channel> getChannelList();
 	List<Channel> getChannelList(boolean exclude_archived);
@@ -102,7 +102,7 @@ public interface SlackWebApiClient {
 	History getGroupHistory(String channel, String latest, String oldest, boolean inclusive, int count, boolean unreads);
 	Group getGroupInfo(String channel);
 	Group inviteUserToGroup(String channel, String user);
-	boolean kickUserFormGroup(String channel, String user);
+	boolean kickUserFromGroup(String channel, String user);
 	boolean leaveGroup(String channel);
 	List<Group> getGroupList();
 	List<Group> getGroupList(boolean exclude_archived);
