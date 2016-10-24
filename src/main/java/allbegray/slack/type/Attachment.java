@@ -20,6 +20,7 @@ public class Attachment {
     private static final String PREDEFINED_COLOR_REGEX = "^(good|warning|danger)$";
 
     protected String fallback;
+    protected String callback_id;
 
     protected String color;
 
@@ -44,6 +45,31 @@ public class Attachment {
     protected String footer;
     protected String footer_icon;
     protected Integer ts;
+
+    protected List<Action> actions;
+
+    public void addAction(Action action) {
+        this.getActions().add(action);
+    }
+
+    public List<Action> getActions() {
+        if (actions == null) {
+            actions = new ArrayList<>();
+        }
+        return actions;
+    }
+
+    public void setActions(List<Action> actions) {
+        this.actions = actions;
+    }
+
+    public String getCallback_id() {
+        return callback_id;
+    }
+
+    public void setCallback_id(String callback_id) {
+        this.callback_id = callback_id;
+    }
 
     public String getFallback() {
         return fallback;
@@ -217,6 +243,7 @@ public class Attachment {
     public String toString() {
         return "Attachment{" +
                 "fallback='" + fallback + '\'' +
+                ", callback_id='" + callback_id + '\'' +
                 ", color='" + color + '\'' +
                 ", pretext='" + pretext + '\'' +
                 ", author_name='" + author_name + '\'' +
@@ -232,7 +259,7 @@ public class Attachment {
                 ", footer='" + footer + '\'' +
                 ", footer_icon='" + footer_icon + '\'' +
                 ", ts=" + ts +
+                ", actions=" + actions +
                 '}';
     }
-
 }

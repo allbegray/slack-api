@@ -153,6 +153,10 @@ public interface SlackWebApiConstants {
 	String TEAM_INFO = "team.info";
 	String TEAM_INTEGRATION_LOGS = "team.integrationLogs";
 
+	// team profile
+
+	String TEAM_PROFILE_GET = "team.profile.get";
+
 	// usergroups
 
 	String USERGROUPS_CREATE = "usergroups.create";
@@ -173,5 +177,10 @@ public interface SlackWebApiConstants {
 	String USERS_LIST = "users.list";
 	String USERS_SET_ACTIVE = "users.setActive";
 	String USERS_SET_PRESENCE = "users.setPresence";
+
+	// users.profile
+
+	String USERS_PROFILE_GET = "users.profile.get";
+	String USERS_PROFILE_SET = "users.profile.set";
 
 }
