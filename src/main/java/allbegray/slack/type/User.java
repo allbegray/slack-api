@@ -18,6 +18,7 @@ public class User {
 	protected Boolean has_2fa;
 	protected String two_factor_type;
 	protected Boolean has_files;
+	protected Boolean is_bot;
 
 	public String getId() {
 		return id;
@@ -122,13 +123,21 @@ public class User {
 	public void setHas_files(Boolean has_files) {
 		this.has_files = has_files;
 	}
+	
+	public Boolean getIs_bot() {
+		return is_bot;
+	}
+
+	public void setIs_bot(Boolean is_bot) {
+		this.is_bot = is_bot;
+	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", deleted=" + deleted + ", color=" + color + ", profile="
-				+ profile + ", is_admin=" + is_admin + ", is_owner=" + is_owner + ", is_primary_owner="
-				+ is_primary_owner + ", is_restricted=" + is_restricted + ", is_ultra_restricted=" + is_ultra_restricted
-				+ ", has_2fa=" + has_2fa + ", two_factor_type=" + two_factor_type + ", has_files=" + has_files + "]";
+		return "User [id=" + id + ", name=" + name + ", deleted=" + deleted + ", color=" + color + ", profile=" + profile + ", is_admin=" + is_admin
+				+ ", is_owner=" + is_owner + ", is_primary_owner=" + is_primary_owner + ", is_restricted=" + is_restricted + ", is_ultra_restricted="
+				+ is_ultra_restricted + ", has_2fa=" + has_2fa + ", two_factor_type=" + two_factor_type + ", has_files=" + has_files + ", is_bot="
+				+ is_bot + "]";
 	}
 
 }
