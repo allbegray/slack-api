@@ -375,36 +375,6 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public FileList getFileList() {
-		return getFileList(null, null, null, null, SlackWebApiConstants.DEFAULT_PAGE, SlackWebApiConstants.DEFAULT_COUNT);
-	}
-
-	@Override
-	public FileList getFileList(int page) {
-		return getFileList(null, null, null, null, page, SlackWebApiConstants.DEFAULT_COUNT);
-	}
-
-	@Override
-	public FileList getFileList(int page, int count) {
-		return getFileList(null, null, null, null, page, count);
-	}
-
-	@Override
-	public FileList getFileList(String user) {
-		return getFileList(user, null, null, null, SlackWebApiConstants.DEFAULT_PAGE, SlackWebApiConstants.DEFAULT_COUNT);
-	}
-
-	@Override
-	public FileList getFileList(String user, int page) {
-		return getFileList(user, null, null, null, page, SlackWebApiConstants.DEFAULT_COUNT);
-	}
-
-	@Override
-	public FileList getFileList(String user, int page, int count) {
-		return getFileList(user, null, null, null, page, count);
-	}
-
-	@Override
 	public FileList getFileList(String user, String ts_from, String ts_to, String types, int page, int count) {
 		FileListMethod method = new FileListMethod();
 		method.setUser(user);
