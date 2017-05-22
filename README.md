@@ -25,9 +25,9 @@ Step 2. Add the dependency in the form
 
 ### v1.4.0.RELEASE
 
-merge Typo fix #30
-merge Adding sendMessage and getWebsocket methods to RTM client #31
-merge divide SlackWebApiClient to small, domain parts #32
+merge Typo fix #30  
+merge Adding sendMessage and getWebsocket methods to RTM client #31  
+merge divide SlackWebApiClient to small, domain parts #32  
 
 ### v1.3.0.RELEASE
 
