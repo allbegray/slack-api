@@ -203,5 +203,21 @@ public class SlackRealTimeMessagingClient {
 		});
 		thread.start();
 	}
+	
+	/**
+	 * This method sends message to slack using webSocket client
+	 * @param message
+	 */
+	public void sendMessage(String message){
+		webSocket.sendMessage(message);		
+	}
+	
+	/**
+	 * This method returns the webSocket connected with Slack RTM
+	 * @return the webSocket client object
+	 */
+	public WebSocket getWebsocket(){
+		return webSocket;
+	}
 
 }
