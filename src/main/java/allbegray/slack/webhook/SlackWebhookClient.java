@@ -1,17 +1,17 @@
 package allbegray.slack.webhook;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import allbegray.slack.RestUtils;
 import allbegray.slack.exception.SlackArgumentException;
 import allbegray.slack.exception.SlackException;
+import allbegray.slack.rtm.ProxyServerInfo;
 import allbegray.slack.type.Payload;
 import allbegray.slack.webapi.SlackWebApiConstants;
-import org.apache.http.impl.client.CloseableHttpClient;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.impl.client.CloseableHttpClient;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SlackWebhookClient {
 
@@ -20,14 +20,26 @@ public class SlackWebhookClient {
 	private CloseableHttpClient httpClient;
 
 	public SlackWebhookClient(String webhookUrl) {
-		this(webhookUrl, null);
+		this(webhookUrl, null, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
+	}
+
+	public SlackWebhookClient(String webhookUrl, ProxyServerInfo proxyServerInfo) {
+		this(webhookUrl, null, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
 	}
 
 	public SlackWebhookClient(String webhookUrl, ObjectMapper mapper) {
-		this(webhookUrl, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT);
+		this(webhookUrl, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
+	}
+
+	public SlackWebhookClient(String webhookUrl, ObjectMapper mapper, ProxyServerInfo proxyServerInfo) {
+		this(webhookUrl, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
 	}
 
 	public SlackWebhookClient(String webhookUrl, ObjectMapper mapper, int timeout) {
+		this(webhookUrl, mapper, timeout, null);
+	}
+
+	public SlackWebhookClient(String webhookUrl, ObjectMapper mapper, int timeout, ProxyServerInfo proxyServerInfo) {
 		if (webhookUrl == null) {
 			throw new SlackArgumentException("Missing WebHook URL Configuration @ SlackApi");
 
@@ -37,7 +49,7 @@ public class SlackWebhookClient {
 
 		this.webhookUrl = webhookUrl;
 		this.mapper = mapper != null ? mapper : new ObjectMapper();
-		httpClient = RestUtils.createHttpClient(timeout);
+		httpClient = proxyServerInfo != null ? RestUtils.createHttpClient(timeout, proxyServerInfo) : RestUtils.createHttpClient(timeout);
 	}
 
 	public void shutdown() {

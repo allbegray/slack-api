@@ -1,14 +1,14 @@
 package allbegray.slack.bot;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import allbegray.slack.RestUtils;
+import allbegray.slack.exception.SlackArgumentException;
+import allbegray.slack.rtm.ProxyServerInfo;
+import allbegray.slack.webapi.SlackWebApiConstants;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 
-import allbegray.slack.exception.SlackArgumentException;
-import allbegray.slack.webapi.SlackWebApiConstants;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class SlackbotClient {
 
@@ -19,7 +19,15 @@ public class SlackbotClient {
 		this(slackbotUrl, SlackWebApiConstants.DEFAULT_TIMEOUT);
 	}
 
+	public SlackbotClient(String slackbotUrl, ProxyServerInfo proxyServerInfo) {
+		this(slackbotUrl, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
+	}
+
 	public SlackbotClient(String slackbotUrl, int timeout) {
+		this(slackbotUrl, timeout, null);
+	}
+
+	public SlackbotClient(String slackbotUrl, int timeout, ProxyServerInfo proxyServerInfo) {
 		if (slackbotUrl == null) {
 			throw new SlackArgumentException("Missing Slackbot URL Configuration @ SlackApi");
 
@@ -28,7 +36,7 @@ public class SlackbotClient {
 		}
 
 		this.slackbotUrl = slackbotUrl;
-		httpClient = RestUtils.createHttpClient(timeout);
+		httpClient = proxyServerInfo != null ? RestUtils.createHttpClient(timeout, proxyServerInfo) : RestUtils.createHttpClient(timeout);
 	}
 
 	public void shutdown() {

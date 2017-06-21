@@ -3,6 +3,8 @@ package allbegray.slack.webapi;
 import allbegray.slack.RestUtils;
 import allbegray.slack.exception.SlackArgumentException;
 import allbegray.slack.exception.SlackException;
+import allbegray.slack.exception.SlackResponseErrorException;
+import allbegray.slack.rtm.ProxyServerInfo;
 import allbegray.slack.type.*;
 import allbegray.slack.validation.Problem;
 import allbegray.slack.validation.ValidationError;
@@ -40,13 +42,12 @@ import allbegray.slack.webapi.method.team.TeamInfoMethod;
 import allbegray.slack.webapi.method.team.TeamIntegrationLogMethod;
 import allbegray.slack.webapi.method.test.AuthTestMethod;
 import allbegray.slack.webapi.method.usergroups.*;
+import allbegray.slack.webapi.method.usergroups.users.UsergroupsUsersListMethod;
 import allbegray.slack.webapi.method.usergroups.users.UsergroupsUsersUpdateMethod;
 import allbegray.slack.webapi.method.users.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import allbegray.slack.exception.SlackResponseErrorException;
-import allbegray.slack.webapi.method.usergroups.users.UsergroupsUsersListMethod;
 import org.apache.http.HttpEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 
@@ -66,17 +67,29 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	private CloseableHttpClient httpClient;
 
 	public SlackWebApiClientImpl(String token) {
-		this(token, null);
+		this(token, null, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
+	}
+
+	public SlackWebApiClientImpl(String token, ProxyServerInfo proxyServerInfo) {
+		this(token, null, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
 	}
 
 	public SlackWebApiClientImpl(String token, ObjectMapper mapper) {
-		this(token, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT);
+		this(token, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
+	}
+
+	public SlackWebApiClientImpl(String token, ObjectMapper mapper, ProxyServerInfo proxyServerInfo) {
+		this(token, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
 	}
 
 	public SlackWebApiClientImpl(String token, ObjectMapper mapper, int timeout) {
+		this(token, mapper, timeout, null);
+	}
+
+	public SlackWebApiClientImpl(String token, ObjectMapper mapper, int timeout, ProxyServerInfo proxyServerInfo) {
 		this.token = token;
 		this.mapper = mapper != null ? mapper : new ObjectMapper();
-		httpClient = RestUtils.createHttpClient(timeout);
+		httpClient = proxyServerInfo != null ? RestUtils.createHttpClient(timeout, proxyServerInfo) : RestUtils.createHttpClient(timeout);
 	}
 
 	@Override

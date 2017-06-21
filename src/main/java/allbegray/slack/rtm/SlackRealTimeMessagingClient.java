@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.BoundRequestBuilder;
+import org.asynchttpclient.proxy.ProxyServer;
 import org.asynchttpclient.ws.DefaultWebSocketListener;
 import org.asynchttpclient.ws.WebSocket;
 import org.asynchttpclient.ws.WebSocketUpgradeHandler;
@@ -39,19 +40,27 @@ public class SlackRealTimeMessagingClient {
 		this(webSocketUrl, null, null, null);
 	}
 
+	public SlackRealTimeMessagingClient(String webSocketUrl, ProxyServerInfo proxyServerInfo) {
+		this(webSocketUrl, null, null, proxyServerInfo);
+	}
+
 	public SlackRealTimeMessagingClient(String webSocketUrl, ObjectMapper mapper) {
-		this(webSocketUrl, null, mapper, null);
+		this(webSocketUrl, mapper, null, null);
+	}
+
+	public SlackRealTimeMessagingClient(String webSocketUrl, ObjectMapper mapper, ProxyServerInfo proxyServerInfo) {
+		this(webSocketUrl, mapper, null, proxyServerInfo);
 	}
 
 	public SlackRealTimeMessagingClient(String webSocketUrl, Integer pingMillis) {
-		this(webSocketUrl, null, null, pingMillis);
+		this(webSocketUrl, null, pingMillis, null);
 	}
 
-	public SlackRealTimeMessagingClient(String webSocketUrl, ProxyServerInfo proxyServerInfo, ObjectMapper mapper) {
-		this(webSocketUrl, proxyServerInfo, mapper, null);
+	public SlackRealTimeMessagingClient(String webSocketUrl, Integer pingMillis, ProxyServerInfo proxyServerInfo) {
+		this(webSocketUrl, null, pingMillis, proxyServerInfo);
 	}
 
-	public SlackRealTimeMessagingClient(String webSocketUrl, ProxyServerInfo proxyServerInfo, ObjectMapper mapper, Integer pingMillis) {
+	public SlackRealTimeMessagingClient(String webSocketUrl, ObjectMapper mapper, Integer pingMillis, ProxyServerInfo proxyServerInfo) {
 		if (mapper == null) {
 			mapper = new ObjectMapper();
 		}
@@ -63,7 +72,7 @@ public class SlackRealTimeMessagingClient {
 		this.mapper = mapper;
 		this.pingMillis = pingMillis;
 	}
-	
+
 	public void addListener(Event event, EventListener listener) {
 		addListener(event.name().toLowerCase(), listener);
 	}
@@ -109,7 +118,15 @@ public class SlackRealTimeMessagingClient {
 
 	public boolean connect() {
 		try {
-			asyncHttpClient = proxyServerInfo != null ? asyncHttpClient(config().setProxyServer(proxyServer(proxyServerInfo.getHost(), proxyServerInfo.getPort()))) : asyncHttpClient();
+			if (proxyServerInfo != null) {
+				ProxyServer.Builder proxyServer = proxyServer(proxyServerInfo.getHost(), proxyServerInfo.getPort());
+				if (proxyServerInfo.getPrincipal() != null && proxyServerInfo.getPassword() != null) {
+					proxyServer = proxyServer.setRealm(basicAuthRealm(proxyServerInfo.getPrincipal(), proxyServerInfo.getPassword()));
+				}
+				asyncHttpClient = asyncHttpClient(config().setProxyServer(proxyServer));
+			} else {
+				asyncHttpClient = asyncHttpClient();
+			}
 			BoundRequestBuilder requestBuilder = asyncHttpClient.prepareGet(webSocketUrl);
 			webSocket = requestBuilder.execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new DefaultWebSocketListener() {
 
@@ -203,15 +220,15 @@ public class SlackRealTimeMessagingClient {
 		});
 		thread.start();
 	}
-	
+
 	/**
 	 * This method sends message to slack using webSocket client
 	 * @param message
 	 */
 	public void sendMessage(String message){
-		webSocket.sendMessage(message);		
+		webSocket.sendMessage(message);
 	}
-	
+
 	/**
 	 * This method returns the webSocket connected with Slack RTM
 	 * @return the webSocket client object
