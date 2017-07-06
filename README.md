@@ -46,6 +46,10 @@ public interface SlackWebApiClient {
 	// auth
 
 	Authentication auth();
+	
+	void setWebApiUrl(String webApiUrl);
+    
+    String getWebApiUrl();
 
 	// bots
 
