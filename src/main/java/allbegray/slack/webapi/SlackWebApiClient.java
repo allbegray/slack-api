@@ -40,6 +40,10 @@ public interface SlackWebApiClient extends
 
     void shutdown();
 
+    void setWebApiUrl(String webApiUrl);
+
+    String getWebApiUrl();
+
     Authentication auth();
 
     Bot getBotInfo(String bot);
