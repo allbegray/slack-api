@@ -200,4 +200,15 @@ public class SlackWebApiClientTest {
 		Assert.assertTrue(message.getTs() != null);
 	}
 
+	@Test
+	public void shouldReturnTheDefaultApiUrlIfNotExplicitlySet() {
+		Assert.assertEquals("https://slack.com/api", webApiClient.getWebApiUrl());
+	}
+
+	@Test
+	public void shouldReturnNonDefaultApiUrlIfExplicitlySet() {
+		webApiClient.setWebApiUrl("http://localhost:8080");
+		Assert.assertEquals("http://localhost:8080", webApiClient.getWebApiUrl());
+	}
+
 }

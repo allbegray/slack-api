@@ -65,6 +65,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	private String token;
 	private ObjectMapper mapper;
 	private CloseableHttpClient httpClient;
+	private String webApiUrl = SlackWebApiConstants.SLACK_WEB_API_URL;
 
 	public SlackWebApiClientImpl(String token) {
 		this(token, null, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
@@ -90,6 +91,16 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		this.token = token;
 		this.mapper = mapper != null ? mapper : new ObjectMapper();
 		httpClient = proxyServerInfo != null ? RestUtils.createHttpClient(timeout, proxyServerInfo) : RestUtils.createHttpClient(timeout);
+	}
+
+	@Override
+	public void setWebApiUrl(String webApiUrl) {
+		this.webApiUrl = webApiUrl;
+	}
+
+	@Override
+	public String getWebApiUrl() {
+		return webApiUrl;
 	}
 
 	@Override
@@ -1240,7 +1251,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 			parameters.put("token", token);
 		}
 
-		String apiUrl = SlackWebApiConstants.SLACK_WEB_API_URL + "/" + method.getMethodName();
+		String apiUrl = webApiUrl + "/" + method.getMethodName();
 
 		HttpEntity httpEntity = null;
 		if (is == null) {
