@@ -12,6 +12,7 @@ public class Message {
 	protected String ts;
 	protected String user;
 	protected String text;
+	protected String thread_ts;
 
 	protected Boolean is_starred;
 	protected String subtype;
@@ -50,6 +51,14 @@ public class Message {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public String getThread_ts() {
+		return thread_ts;
+	}
+
+	public void setThread_ts(String thread_ts) {
+		this.thread_ts = thread_ts;
 	}
 
 	public String getPermalink() {

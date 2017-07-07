@@ -41,6 +41,7 @@ public class ChatPostMessageMethod extends AbstractMethod {
 	protected boolean unfurl_media;
 	protected String icon_url;
 	protected String icon_emoji;
+	protected String thread_ts;
 
 	public String getChannel() {
 		return channel;
@@ -125,6 +126,13 @@ public class ChatPostMessageMethod extends AbstractMethod {
 		this.icon_emoji = icon_emoji;
 	}
 
+	public String getThread_ts() {
+		return thread_ts;
+	}
+
+	public void setThread_ts(String thread_ts) {
+		this.thread_ts = thread_ts;
+	}
 	@Override
 	public String getMethodName() {
 		return SlackWebApiConstants.CHAT_POST_MESSAGE;
@@ -166,6 +174,9 @@ public class ChatPostMessageMethod extends AbstractMethod {
 		parameters.put("unfurl_media", String.valueOf(unfurl_media));
 		parameters.put("icon_url", icon_url);
 		parameters.put("icon_emoji", icon_emoji);
+		if (thread_ts != null) {
+			parameters.put("thread_ts", thread_ts);
+		}
 	}
 
 }

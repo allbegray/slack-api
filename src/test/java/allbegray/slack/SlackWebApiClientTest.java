@@ -8,6 +8,7 @@ import allbegray.slack.webapi.method.chats.ChatPostMessageMethod;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import allbegray.slack.type.Authentication;
@@ -26,6 +27,7 @@ import allbegray.slack.type.TeamAccessLogList;
 import allbegray.slack.type.User;
 import allbegray.slack.type.UserPresence;
 import allbegray.slack.webapi.SlackWebApiClient;
+import wiremock.org.apache.commons.lang3.RandomStringUtils;
 
 public class SlackWebApiClientTest {
 
@@ -48,7 +50,6 @@ public class SlackWebApiClientTest {
 	public void MultipartyDirectMessageChannelTest() {
 		String user1 = "userId1";
 		String user2 = "userId2";
-
 		Group group = webApiClient.openMultipartyDirectMessageChannel(user1, user2);
 
 		List<Group> messageChannels = webApiClient.getMultipartyDirectMessageChannelList();
@@ -107,13 +108,15 @@ public class SlackWebApiClientTest {
 			teamAccessLogList = webApiClient.getTeamAccessLogList(1);
 			Assert.assertTrue(teamAccessLogList.getLogins().size() > 0);
 		} catch (Exception e) {
-			Assert.assertTrue(e.getMessage().equals("paid_only"));
+			Assert.assertTrue(e.getMessage().startsWith("paid_only"));
 		}
 
 		Team team = webApiClient.getTeamInfo();
 		Assert.assertTrue(team.getId() != null);
 
-		Channel channel = webApiClient.createChannel("test_channel");
+
+		String channelName = "test_channel_" + RandomStringUtils.randomAlphabetic(5).toLowerCase();
+		Channel channel = webApiClient.createChannel(channelName);
 		String channelId = channel.getId();
 
 		Assert.assertTrue(channel.getId() != null);
@@ -133,7 +136,8 @@ public class SlackWebApiClientTest {
 		Assert.assertTrue(channel.getId() != null);
 		channelId = channel.getId();
 
-		channel = webApiClient.renameChannel(channelId, "changed_test_channel");
+		String newChannelName = RandomStringUtils.randomAlphabetic(5).toLowerCase() + "_changed_test_channel";
+		channel = webApiClient.renameChannel(channelId, newChannelName);
 		Assert.assertTrue(channel.getId() != null);
 		channelId = channel.getId();
 
@@ -154,6 +158,11 @@ public class SlackWebApiClientTest {
 		postMessage.setUsername(user);
 		String ts = webApiClient.postMessage(postMessage);
 		Assert.assertTrue(ts != null);
+
+		// threaded message
+		ChatPostMessageMethod answerMessage = new ChatPostMessageMethod(channelId, "test answer");
+		answerMessage.setThread_ts(ts);
+		String tsAnswer = webApiClient.postMessage(answerMessage);
 
 		webApiClient.addStarToMessage(channelId, ts);
 		webApiClient.addReactionToMessage("squirrel", channelId, ts);
@@ -198,6 +207,9 @@ public class SlackWebApiClientTest {
 		Message message = history.getMessages().get(0);
 		Assert.assertTrue(message.getType() != null);
 		Assert.assertTrue(message.getTs() != null);
+
+		Message answer = history.getMessages().stream().filter(mess -> mess.getTs().equals(tsAnswer)).findFirst().get();
+		Assert.assertEquals(ts, answer.getThread_ts());
 	}
 
 	@Test
