@@ -11,7 +11,6 @@ public class Profile {
 	protected String email;
 	protected String skype;
 	protected String phone;
-	protected String tz;
 	protected String image_24;
 	protected String image_32;
 	protected String image_48;
@@ -66,14 +65,6 @@ public class Profile {
 		this.phone = phone;
 	}
 
-	public String getTz() {
-		return tz;
-	}
-
-	public void setTz(String tz) {
-		this.tz = tz;
-	}
-
 	public String getImage_24() {
 		return image_24;
 	}
@@ -116,7 +107,7 @@ public class Profile {
 
 	@Override
 	public String toString() {
-		return "Profile [first_name=" + first_name + ", last_name=" + last_name + ", real_name=" + real_name + ", email=" + email + ", tz=" + tz + ", skype=" + skype + ", phone=" + phone + ", image_24=" + image_24
+		return "Profile [first_name=" + first_name + ", last_name=" + last_name + ", real_name=" + real_name + ", email=" + email + ", skype=" + skype + ", phone=" + phone + ", image_24=" + image_24
 				+ ", image_32=" + image_32 + ", image_48=" + image_48 + ", image_72=" + image_72 + ", image_192=" + image_192 + "]";
 	}
 
