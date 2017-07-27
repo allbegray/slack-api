@@ -76,14 +76,14 @@ public abstract class RestUtils {
 	}
 
 	public static String execute(CloseableHttpClient httpClient, String url, HttpEntity httpEntity) {
-		logger.info("url : " + url);
+		logger.debug("url : " + url);
 
 		try {
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setEntity(httpEntity);
 			String retStr = httpClient.execute(httpPost, new StringResponseHandler());
 
-			logger.info("return : " + retStr);
+			logger.debug("return : " + retStr);
 
 			return retStr;
 		} catch (IOException e) {
