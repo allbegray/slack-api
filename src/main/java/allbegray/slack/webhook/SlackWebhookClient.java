@@ -42,9 +42,6 @@ public class SlackWebhookClient {
 	public SlackWebhookClient(String webhookUrl, ObjectMapper mapper, int timeout, ProxyServerInfo proxyServerInfo) {
 		if (webhookUrl == null) {
 			throw new SlackArgumentException("Missing WebHook URL Configuration @ SlackApi");
-
-		} else if (!webhookUrl.startsWith("https://hooks.slack.com/services/")) {
-			throw new SlackArgumentException("Invalid Service URL. WebHook URL Format: https://hooks.slack.com/services/{id_1}/{id_2}/{token}");
 		}
 
 		this.webhookUrl = webhookUrl;
