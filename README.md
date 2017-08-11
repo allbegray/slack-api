@@ -1,4 +1,4 @@
-[![Release](https://img.shields.io/github/release/allbegray/slack-api.svg?label=JitPack)](https://jitpack.io/#allbegray/slack-api) [![Build Status](https://travis-ci.org/allbegray/slack-api.svg?branch=master)](https://travis-ci.org/allbegray/slack-api)
+[![Release](https://img.shields.io/github/release/allbegray/slack-api.svg?label=JitPack)](https://jitpack.io/#allbegray/slack-api) 
 
 slack-api
 =============
