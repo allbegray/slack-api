@@ -25,9 +25,9 @@ Step 2. Add the dependency in the form
 
 ### v1.5.1.RELEASE
 
-merge add threads support #37
-merge RestUtils logs verbosity reduced #39
-merge Don't check webhookUrl #40
+merge add threads support #37  
+merge RestUtils logs verbosity reduced #39  
+merge Don't check webhookUrl #40  
 
 ### v1.5.0.RELEASE
 
