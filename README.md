@@ -17,11 +17,17 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.allbegray</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.5.0.RELEASE</version>
+    <version>v1.5.1.RELEASE</version>
 </dependency>
 ```
 
 ## Change Logs
+
+### v1.5.1.RELEASE
+
+merge add threads support #37
+merge RestUtils logs verbosity reduced #39
+merge Don't check webhookUrl #40
 
 ### v1.5.0.RELEASE
 
