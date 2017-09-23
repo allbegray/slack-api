@@ -11,10 +11,7 @@ import allbegray.slack.validation.ValidationError;
 import allbegray.slack.webapi.method.SlackMethod;
 import allbegray.slack.webapi.method.bots.BotInfoMethod;
 import allbegray.slack.webapi.method.channels.*;
-import allbegray.slack.webapi.method.chats.ChatDeleteMethod;
-import allbegray.slack.webapi.method.chats.ChatMeMessageMethod;
-import allbegray.slack.webapi.method.chats.ChatPostMessageMethod;
-import allbegray.slack.webapi.method.chats.ChatUpdateMethod;
+import allbegray.slack.webapi.method.chats.*;
 import allbegray.slack.webapi.method.dnd.*;
 import allbegray.slack.webapi.method.emoji.EmojiListMethod;
 import allbegray.slack.webapi.method.files.*;
@@ -294,6 +291,14 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		method.setLink_names(link_names);
 		method.setMapper(mapper);
 
+		JsonNode retNode = call(method);
+		return retNode.findPath("ts").asText();
+	}
+
+	@Override
+	public String unfurl(String channel, String ts, Map<String, Attachment> unfurlResponseMap) {
+		ChatUnfurlMethod method = new ChatUnfurlMethod(channel, ts, unfurlResponseMap);
+		method.setMapper(mapper);
 		JsonNode retNode = call(method);
 		return retNode.findPath("ts").asText();
 	}
