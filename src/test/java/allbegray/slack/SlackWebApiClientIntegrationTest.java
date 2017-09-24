@@ -24,7 +24,7 @@ public class SlackWebApiClientIntegrationTest {
 
     @Before
     public void setUp() {
-        slackWebApiClient = SlackClientFactory.createWebApiClient(TEST_TOKEN);
+        slackWebApiClient = SlackClientFactory.createWebApiClient(TEST_TOKEN, TEST_TOKEN);
     }
 
     @After

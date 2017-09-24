@@ -51,4 +51,9 @@ public class ChatUnfurlMethod extends AbstractMethod {
     public void setMapper(ObjectMapper mapper) {
         this.mapper = mapper;
     }
+
+    @Override
+    public boolean isRequiredUserToken() {
+        return true;
+    }
 }

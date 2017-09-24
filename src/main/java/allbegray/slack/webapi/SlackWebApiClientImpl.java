@@ -60,31 +60,32 @@ import java.util.Map;
 public class SlackWebApiClientImpl implements SlackWebApiClient {
 
 	private String token;
+	private String userToken;
 	private ObjectMapper mapper;
 	private CloseableHttpClient httpClient;
 	private String webApiUrl = SlackWebApiConstants.SLACK_WEB_API_URL;
 
-	public SlackWebApiClientImpl(String token) {
-		this(token, null, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
+	public SlackWebApiClientImpl(String token, String userToken) {
+		this(token, userToken,null, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
 	}
 
-	public SlackWebApiClientImpl(String token, ProxyServerInfo proxyServerInfo) {
-		this(token, null, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
+	public SlackWebApiClientImpl(String token, String userToken, ProxyServerInfo proxyServerInfo) {
+		this(token, userToken,null, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
 	}
 
-	public SlackWebApiClientImpl(String token, ObjectMapper mapper) {
-		this(token, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
+	public SlackWebApiClientImpl(String token, String userToken, ObjectMapper mapper) {
+		this(token, userToken, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
 	}
 
-	public SlackWebApiClientImpl(String token, ObjectMapper mapper, ProxyServerInfo proxyServerInfo) {
-		this(token, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
+	public SlackWebApiClientImpl(String token, String userToken, ObjectMapper mapper, ProxyServerInfo proxyServerInfo) {
+		this(token, userToken, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
 	}
 
-	public SlackWebApiClientImpl(String token, ObjectMapper mapper, int timeout) {
-		this(token, mapper, timeout, null);
+	public SlackWebApiClientImpl(String token, String userToken, ObjectMapper mapper, int timeout) {
+		this(token, userToken, mapper, timeout, null);
 	}
 
-	public SlackWebApiClientImpl(String token, ObjectMapper mapper, int timeout, ProxyServerInfo proxyServerInfo) {
+	public SlackWebApiClientImpl(String token, String userToken, ObjectMapper mapper, int timeout, ProxyServerInfo proxyServerInfo) {
 		this.token = token;
 		this.mapper = mapper != null ? mapper : new ObjectMapper();
 		httpClient = proxyServerInfo != null ? RestUtils.createHttpClient(timeout, proxyServerInfo) : RestUtils.createHttpClient(timeout);
@@ -1252,7 +1253,9 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		}
 
 		Map<String, String> parameters = method.getParameters();
-		if (method.isRequiredToken()) {
+		if (method.isRequiredUserToken()) {
+			parameters.put("token", userToken);
+		} else if (method.isRequiredToken()) {
 			parameters.put("token", token);
 		}
 

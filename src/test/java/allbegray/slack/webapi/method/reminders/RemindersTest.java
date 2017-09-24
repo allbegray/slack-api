@@ -22,7 +22,7 @@ public class RemindersTest {
         String token = System.getenv().get("auth_token");
         assertNotNull(token);
 
-        webApiClient = SlackClientFactory.createWebApiClient(token);
+        webApiClient = SlackClientFactory.createWebApiClient(token, token);
     }
 
 

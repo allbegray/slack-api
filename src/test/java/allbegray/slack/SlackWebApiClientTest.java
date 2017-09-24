@@ -37,7 +37,7 @@ public class SlackWebApiClientTest {
 
 	@Before
 	public void setup() {
-		webApiClient = SlackClientFactory.createWebApiClient(token);
+		webApiClient = SlackClientFactory.createWebApiClient(token, token);
 		testfile = new File("d:\\2.jpg");
 	}
 	
