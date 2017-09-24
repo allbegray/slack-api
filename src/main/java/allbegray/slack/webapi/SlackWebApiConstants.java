@@ -42,6 +42,7 @@ public interface SlackWebApiConstants {
 	String CHAT_ME_MESSAGE = "chat.meMessage";
 	String CHAT_POST_MESSAGE = "chat.postMessage";
 	String CHAT_UPDATE = "chat.update";
+	String CHAT_UNFURL = "chat.unfurl";
 
 	// dnd
 	String DND_END_DND = "dnd.endDnd";

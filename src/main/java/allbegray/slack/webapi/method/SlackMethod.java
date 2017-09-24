@@ -9,6 +9,8 @@ public interface SlackMethod {
 
 	boolean isRequiredToken();
 
+	boolean isRequiredUserToken();
+
 	String getMethodName();
 
 	void validate(List<ValidationError> errors);
