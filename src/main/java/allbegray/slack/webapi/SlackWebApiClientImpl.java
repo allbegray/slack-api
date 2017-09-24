@@ -87,6 +87,7 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 
 	public SlackWebApiClientImpl(String token, String userToken, ObjectMapper mapper, int timeout, ProxyServerInfo proxyServerInfo) {
 		this.token = token;
+		this.userToken = userToken;
 		this.mapper = mapper != null ? mapper : new ObjectMapper();
 		httpClient = proxyServerInfo != null ? RestUtils.createHttpClient(timeout, proxyServerInfo) : RestUtils.createHttpClient(timeout);
 	}
