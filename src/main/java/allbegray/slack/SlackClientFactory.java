@@ -12,28 +12,28 @@ public abstract class SlackClientFactory {
 
 	// web api
 
-	public static SlackWebApiClient createWebApiClient(String token) {
-		return new SlackWebApiClientImpl(token);
+	public static SlackWebApiClient createWebApiClient(String token, String userToken) {
+		return new SlackWebApiClientImpl(token, userToken);
 	}
 
-	public static SlackWebApiClient createWebApiClient(String token, ProxyServerInfo proxyServerInfo) {
-		return new SlackWebApiClientImpl(token, proxyServerInfo);
+	public static SlackWebApiClient createWebApiClient(String token, String userToken, ProxyServerInfo proxyServerInfo) {
+		return new SlackWebApiClientImpl(token, userToken, proxyServerInfo);
 	}
 
-	public static SlackWebApiClient createWebApiClient(String token, ObjectMapper mapper) {
-		return new SlackWebApiClientImpl(token, mapper);
+	public static SlackWebApiClient createWebApiClient(String token, String userToken, ObjectMapper mapper) {
+		return new SlackWebApiClientImpl(token, userToken, mapper);
 	}
 
-	public static SlackWebApiClient createWebApiClient(String token, ObjectMapper mapper, ProxyServerInfo proxyServerInfo) {
-		return new SlackWebApiClientImpl(token, mapper, proxyServerInfo);
+	public static SlackWebApiClient createWebApiClient(String token, String userToken, ObjectMapper mapper, ProxyServerInfo proxyServerInfo) {
+		return new SlackWebApiClientImpl(token, userToken, mapper, proxyServerInfo);
 	}
 
-	public static SlackWebApiClient createWebApiClient(String token, ObjectMapper mapper, int timeout) {
-		return new SlackWebApiClientImpl(token, mapper, timeout);
+	public static SlackWebApiClient createWebApiClient(String token, String userToken, ObjectMapper mapper, int timeout) {
+		return new SlackWebApiClientImpl(token, userToken, mapper, timeout);
 	}
 
-	public static SlackWebApiClient createWebApiClient(String token, ObjectMapper mapper, int timeout, ProxyServerInfo proxyServerInfo) {
-		return new SlackWebApiClientImpl(token, mapper, timeout, proxyServerInfo);
+	public static SlackWebApiClient createWebApiClient(String token, String userToken, ObjectMapper mapper, int timeout, ProxyServerInfo proxyServerInfo) {
+		return new SlackWebApiClientImpl(token, userToken, mapper, timeout, proxyServerInfo);
 	}
 
 	// webhook
@@ -95,7 +95,7 @@ public abstract class SlackClientFactory {
 	}
 
 	public static SlackRealTimeMessagingClient createSlackRealTimeMessagingClient(String token, ObjectMapper mapper, ProxyServerInfo proxyServerInfo) {
-		SlackWebApiClient webApiClient = createWebApiClient(token, proxyServerInfo);
+		SlackWebApiClient webApiClient = createWebApiClient(token, null, proxyServerInfo);
 		String webSocketUrl = webApiClient.startRealTimeMessagingApi().findPath("url").asText();
 		return new SlackRealTimeMessagingClient(webSocketUrl, mapper, proxyServerInfo);
 	}
