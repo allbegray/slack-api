@@ -298,8 +298,8 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
-	public String unfurl(String channel, String ts, Map<String, Attachment> unfurlResponseMap) {
-		ChatUnfurlMethod method = new ChatUnfurlMethod(channel, ts, unfurlResponseMap);
+	public String unfurl(String channel, String ts, Map<String, Attachment> unfurlResponseMap, boolean user_auth_required) {
+		ChatUnfurlMethod method = new ChatUnfurlMethod(channel, ts, unfurlResponseMap, user_auth_required);
 		method.setMapper(mapper);
 		JsonNode retNode = call(method);
 		return retNode.findPath("ts").asText();

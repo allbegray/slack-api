@@ -16,12 +16,14 @@ public class ChatUnfurlMethod extends AbstractMethod {
     protected String channel;
     protected String ts;
     protected Map<String, Attachment> unfurlResponseMap;
+    protected boolean user_auth_required;
     protected ObjectMapper mapper;
 
-    public ChatUnfurlMethod(String channel, String ts, Map<String, Attachment> unfurlResponseMap) {
+    public ChatUnfurlMethod(String channel, String ts, Map<String, Attachment> unfurlResponseMap, boolean user_auth_required) {
         this.channel = channel;
         this.ts = ts;
         this.unfurlResponseMap = unfurlResponseMap;
+        this.user_auth_required = user_auth_required;
     }
 
     @Override
@@ -40,6 +42,7 @@ public class ChatUnfurlMethod extends AbstractMethod {
     protected void createParameters(Map<String, String> parameters) {
         parameters.put("channel", channel);
         parameters.put("ts", ts);
+        parameters.put("user_auth_required", Boolean.toString(user_auth_required));
 
         try {
             parameters.put("unfurls", mapper.writeValueAsString(unfurlResponseMap));

@@ -26,5 +26,5 @@ public interface ChatApi {
 
     String updateMessage(String channel, String ts, String text, List<Attachment> attachments, boolean link_names);
 
-    String unfurl(String channel, String ts, Map<String, Attachment> unfurlResponseMap);
+    String unfurl(String channel, String ts, Map<String, Attachment> unfurlResponseMap, boolean user_auth_required);
 }
