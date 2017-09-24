@@ -305,6 +305,13 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		return retNode.findPath("ts").asText();
 	}
 
+	@Override
+	public String postEphemeral(ChatPostEphemeralMethod method) {
+		method.setMapper(mapper);
+		JsonNode retNode = call(method);
+		return retNode.findPath("message_ts").asText();
+	}
+
 	// dnd
 
 	@Override

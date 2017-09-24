@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ChatPostEphemeral extends AbstractMethod {
+public class ChatPostEphemeralMethod extends AbstractMethod {
     protected String channel;
     protected String user;
     protected String text;
@@ -20,7 +20,7 @@ public class ChatPostEphemeral extends AbstractMethod {
 
     protected ObjectMapper mapper;
 
-    public ChatPostEphemeral(String channel, String user) {
+    public ChatPostEphemeralMethod(String channel, String user) {
         this.channel = channel;
         this.user = user;
     }
@@ -38,6 +38,10 @@ public class ChatPostEphemeral extends AbstractMethod {
             attachments = new ArrayList<>();
         }
         attachments.add(attachment);
+    }
+
+    public void setMapper(ObjectMapper mapper) {
+        this.mapper = mapper;
     }
 
     @Override
