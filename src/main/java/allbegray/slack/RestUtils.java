@@ -37,7 +37,9 @@ public abstract class RestUtils {
 	public static HttpEntity createUrlEncodedFormEntity(Map<String, String> parameters) {
 		List<NameValuePair> nvps = new ArrayList<NameValuePair>(parameters.size());
 		for (Entry<String, String> entry : parameters.entrySet()) {
-			nvps.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+			if (entry.getValue() != null) {
+				nvps.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+			}
 		}
 		return new UrlEncodedFormEntity(nvps, Charset.forName("UTF-8"));
 	}
@@ -48,7 +50,9 @@ public abstract class RestUtils {
 
 		multipartEntityBuilder.addBinaryBody("file", is, ContentType.create("application/octet-stream"), "file");
 		for (Entry<String, String> entry : parameters.entrySet()) {
-			multipartEntityBuilder.addTextBody(entry.getKey(), entry.getValue());
+			if (entry.getValue() != null) {
+				multipartEntityBuilder.addTextBody(entry.getKey(), entry.getValue());
+			}
 		}
 		return multipartEntityBuilder.build();
 	}
