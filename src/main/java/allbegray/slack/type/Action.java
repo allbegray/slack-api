@@ -15,6 +15,13 @@ public class Action {
     public Action() {
     }
 
+    public Action(String text, String value) {
+        this("generic_name", text, "button");
+
+        // if value is not set, let it be the same as the button's text
+        this.value = (value == null ? text : value);
+    }
+
     public Action(String name, String text, String type) {
         this.name = name;
         this.text = text;
@@ -74,5 +81,10 @@ public class Action {
 
     public void setConfirm(Confirm confirm) {
         this.confirm = confirm;
+    }
+
+    @Override
+    public String toString() {
+        return "Action [text=" + text + ", type=" + type + ", name=" + name + ", value=" + this.value + "]";
     }
 }
