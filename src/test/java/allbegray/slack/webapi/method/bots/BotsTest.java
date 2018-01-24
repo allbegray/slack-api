@@ -18,7 +18,7 @@ public class BotsTest {
 
     @Before
     public void setup() {
-        webApiClient = SlackClientFactory.createWebApiClient(token);
+        webApiClient = SlackClientFactory.createWebApiClient(token, token);
     }
 
     @Test

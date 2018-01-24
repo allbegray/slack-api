@@ -7,6 +7,7 @@ public class User {
 
 	protected String id;
 	protected String name;
+	protected String tz;
 	protected Boolean deleted;
 	protected String color;
 	protected Profile profile;
@@ -33,6 +34,14 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getTz() {
+		return tz;
+	}
+
+	public void setTz(String tz) {
+		this.tz = tz;
 	}
 
 	public Boolean getDeleted() {
@@ -125,7 +134,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", deleted=" + deleted + ", color=" + color + ", profile="
+		return "User [id=" + id + ", name=" + name + ", tz=" + tz + ", deleted=" + deleted + ", color=" + color + ", profile="
 				+ profile + ", is_admin=" + is_admin + ", is_owner=" + is_owner + ", is_primary_owner="
 				+ is_primary_owner + ", is_restricted=" + is_restricted + ", is_ultra_restricted=" + is_ultra_restricted
 				+ ", has_2fa=" + has_2fa + ", two_factor_type=" + two_factor_type + ", has_files=" + has_files + "]";

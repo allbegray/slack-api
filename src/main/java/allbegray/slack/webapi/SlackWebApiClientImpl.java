@@ -11,10 +11,7 @@ import allbegray.slack.validation.ValidationError;
 import allbegray.slack.webapi.method.SlackMethod;
 import allbegray.slack.webapi.method.bots.BotInfoMethod;
 import allbegray.slack.webapi.method.channels.*;
-import allbegray.slack.webapi.method.chats.ChatDeleteMethod;
-import allbegray.slack.webapi.method.chats.ChatMeMessageMethod;
-import allbegray.slack.webapi.method.chats.ChatPostMessageMethod;
-import allbegray.slack.webapi.method.chats.ChatUpdateMethod;
+import allbegray.slack.webapi.method.chats.*;
 import allbegray.slack.webapi.method.dnd.*;
 import allbegray.slack.webapi.method.emoji.EmojiListMethod;
 import allbegray.slack.webapi.method.files.*;
@@ -63,32 +60,34 @@ import java.util.Map;
 public class SlackWebApiClientImpl implements SlackWebApiClient {
 
 	private String token;
+	private String userToken;
 	private ObjectMapper mapper;
 	private CloseableHttpClient httpClient;
 	private String webApiUrl = SlackWebApiConstants.SLACK_WEB_API_URL;
 
-	public SlackWebApiClientImpl(String token) {
-		this(token, null, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
+	public SlackWebApiClientImpl(String token, String userToken) {
+		this(token, userToken,null, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
 	}
 
-	public SlackWebApiClientImpl(String token, ProxyServerInfo proxyServerInfo) {
-		this(token, null, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
+	public SlackWebApiClientImpl(String token, String userToken, ProxyServerInfo proxyServerInfo) {
+		this(token, userToken,null, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
 	}
 
-	public SlackWebApiClientImpl(String token, ObjectMapper mapper) {
-		this(token, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
+	public SlackWebApiClientImpl(String token, String userToken, ObjectMapper mapper) {
+		this(token, userToken, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, null);
 	}
 
-	public SlackWebApiClientImpl(String token, ObjectMapper mapper, ProxyServerInfo proxyServerInfo) {
-		this(token, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
+	public SlackWebApiClientImpl(String token, String userToken, ObjectMapper mapper, ProxyServerInfo proxyServerInfo) {
+		this(token, userToken, mapper, SlackWebApiConstants.DEFAULT_TIMEOUT, proxyServerInfo);
 	}
 
-	public SlackWebApiClientImpl(String token, ObjectMapper mapper, int timeout) {
-		this(token, mapper, timeout, null);
+	public SlackWebApiClientImpl(String token, String userToken, ObjectMapper mapper, int timeout) {
+		this(token, userToken, mapper, timeout, null);
 	}
 
-	public SlackWebApiClientImpl(String token, ObjectMapper mapper, int timeout, ProxyServerInfo proxyServerInfo) {
+	public SlackWebApiClientImpl(String token, String userToken, ObjectMapper mapper, int timeout, ProxyServerInfo proxyServerInfo) {
 		this.token = token;
+		this.userToken = userToken;
 		this.mapper = mapper != null ? mapper : new ObjectMapper();
 		httpClient = proxyServerInfo != null ? RestUtils.createHttpClient(timeout, proxyServerInfo) : RestUtils.createHttpClient(timeout);
 	}
@@ -296,6 +295,21 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 
 		JsonNode retNode = call(method);
 		return retNode.findPath("ts").asText();
+	}
+
+	@Override
+	public String unfurl(String channel, String ts, Map<String, Attachment> unfurlResponseMap, boolean user_auth_required) {
+		ChatUnfurlMethod method = new ChatUnfurlMethod(channel, ts, unfurlResponseMap, user_auth_required);
+		method.setMapper(mapper);
+		JsonNode retNode = call(method);
+		return retNode.findPath("ts").asText();
+	}
+
+	@Override
+	public String postEphemeral(ChatPostEphemeralMethod method) {
+		method.setMapper(mapper);
+		JsonNode retNode = call(method);
+		return retNode.findPath("message_ts").asText();
 	}
 
 	// dnd
@@ -1247,7 +1261,9 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 		}
 
 		Map<String, String> parameters = method.getParameters();
-		if (method.isRequiredToken()) {
+		if (method.isRequiredUserToken()) {
+			parameters.put("token", userToken);
+		} else if (method.isRequiredToken()) {
 			parameters.put("token", token);
 		}
 

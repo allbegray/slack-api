@@ -15,6 +15,11 @@ public abstract class AbstractMethod implements SlackMethod {
 	}
 
 	@Override
+	public boolean isRequiredUserToken() {
+		return false;
+	}
+
+	@Override
 	public abstract String getMethodName();
 
 	@Override

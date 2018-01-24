@@ -1,8 +1,10 @@
 package allbegray.slack.webapi.api;
 
 import java.util.List;
+import java.util.Map;
 
 import allbegray.slack.type.Attachment;
+import allbegray.slack.webapi.method.chats.ChatPostEphemeralMethod;
 import allbegray.slack.webapi.method.chats.ChatPostMessageMethod;
 
 public interface ChatApi {
@@ -24,4 +26,8 @@ public interface ChatApi {
     String updateMessage(String channel, String ts, String text);
 
     String updateMessage(String channel, String ts, String text, List<Attachment> attachments, boolean link_names);
+
+    String unfurl(String channel, String ts, Map<String, Attachment> unfurlResponseMap, boolean user_auth_required);
+
+    String postEphemeral(ChatPostEphemeralMethod method);
 }

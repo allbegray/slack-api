@@ -11,11 +11,12 @@ import org.junit.Test;
 public class ChatMeMessageMethodTest {
 
     private String token = "your slack web api token";
+    private String userToken = "install user token";
     private SlackWebApiClient webApiClient;
 
     @Before
     public void setup() {
-        webApiClient = SlackClientFactory.createWebApiClient(token);
+        webApiClient = SlackClientFactory.createWebApiClient(token, userToken);
     }
 
     @Test

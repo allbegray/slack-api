@@ -9,10 +9,17 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Action {
 
     enum Style {
-        _default, primary, danger;
+        primary, danger
     }
 
     public Action() {
+    }
+
+    public Action(String text, String value) {
+        this("generic_name", text, "button");
+
+        // if value is not set, let it be the same as the button's text
+        this.value = (value == null ? text : value);
     }
 
     public Action(String name, String text, String type) {
@@ -25,7 +32,9 @@ public class Action {
     protected String text;
     protected String type;
     protected String value;
-    protected Style style = Style._default;
+    protected String url;
+
+    protected Style style;
     protected Confirm confirm;
 
     public String getName() {
@@ -60,6 +69,14 @@ public class Action {
         this.value = value;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public Style getStyle() {
         return style;
     }
@@ -68,11 +85,26 @@ public class Action {
         this.style = style;
     }
 
+    public void setStyle(String style) {
+        if (style != null && !style.isEmpty()) {
+            try {
+                this.style = Style.valueOf(style);
+            } catch (IllegalArgumentException e) {
+                this.style = null;
+            }
+        }
+    }
+
     public Confirm getConfirm() {
         return confirm;
     }
 
     public void setConfirm(Confirm confirm) {
         this.confirm = confirm;
+    }
+
+    @Override
+    public String toString() {
+        return "Action [text=" + text + ", type=" + type + ", name=" + name + ", value=" + this.value + ", url=" + this.url + "]";
     }
 }
