@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Action {
 
     enum Style {
-        _default, primary, danger;
+        primary, danger
     }
 
     public Action() {
@@ -32,7 +32,7 @@ public class Action {
     protected String text;
     protected String type;
     protected String value;
-    protected Style style = Style._default;
+    protected Style style;
     protected Confirm confirm;
 
     public String getName() {
