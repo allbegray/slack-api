@@ -32,6 +32,8 @@ public class Action {
     protected String text;
     protected String type;
     protected String value;
+    protected String url;
+
     protected Style style;
     protected Confirm confirm;
 
@@ -67,6 +69,14 @@ public class Action {
         this.value = value;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public Style getStyle() {
         return style;
     }
@@ -95,6 +105,6 @@ public class Action {
 
     @Override
     public String toString() {
-        return "Action [text=" + text + ", type=" + type + ", name=" + name + ", value=" + this.value + "]";
+        return "Action [text=" + text + ", type=" + type + ", name=" + name + ", value=" + this.value + ", url=" + this.url + "]";
     }
 }
