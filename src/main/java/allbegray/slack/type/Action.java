@@ -75,6 +75,16 @@ public class Action {
         this.style = style;
     }
 
+    public void setStyle(String style) {
+        if (style != null && !style.isEmpty()) {
+            try {
+                this.style = Style.valueOf(style);
+            } catch (IllegalArgumentException e) {
+                this.style = null;
+            }
+        }
+    }
+
     public Confirm getConfirm() {
         return confirm;
     }
