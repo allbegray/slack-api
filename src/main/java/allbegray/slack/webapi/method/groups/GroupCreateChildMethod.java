@@ -4,8 +4,8 @@ import allbegray.slack.webapi.SlackWebApiConstants;
 
 public class GroupCreateChildMethod extends GroupCreateMethod {
 
-	public GroupCreateChildMethod(String channel) {
-		super(channel);
+	public GroupCreateChildMethod(String name) {
+		super(name);
 	}
 
 	@Override

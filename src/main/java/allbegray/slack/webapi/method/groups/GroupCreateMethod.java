@@ -11,18 +11,18 @@ import allbegray.slack.webapi.method.AbstractMethod;
 
 public class GroupCreateMethod extends AbstractMethod {
 
-	public GroupCreateMethod(String channel) {
-		this.channel = channel;
+	public GroupCreateMethod(String name) {
+		this.name = name;
 	}
 
-	protected String channel;
+	protected String name;
 
-	public String getChannel() {
-		return channel;
+	public String getName() {
+		return name;
 	}
 
-	public void setChannel(String channel) {
-		this.channel = channel;
+	public void setName(String channel) {
+		this.name = channel;
 	}
 
 	@Override
@@ -32,16 +32,16 @@ public class GroupCreateMethod extends AbstractMethod {
 
 	@Override
 	public void validate(List<ValidationError> errors) {
-		if (channel == null) {
-			errors.add(new ValidationError("channel", Problem.REQUIRED, null));
-		} else if (!SlackFieldValidationUtils.validChannelName(channel)) {
-			errors.add(new ValidationError("channel", Problem.PATTERN_NOT_MATCH, SlackFieldValidationUtils.ERROR_MSG));
+		if (name == null) {
+			errors.add(new ValidationError("name", Problem.REQUIRED, null));
+		} else if (!SlackFieldValidationUtils.validChannelName(name)) {
+			errors.add(new ValidationError("name", Problem.PATTERN_NOT_MATCH, SlackFieldValidationUtils.ERROR_MSG));
 		}
 	}
 
 	@Override
 	protected void createParameters(Map<String, String> parameters) {
-		parameters.put("channel", channel);
+		parameters.put("name", name);
 	}
 
 }
