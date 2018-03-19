@@ -42,6 +42,7 @@ public class ChatPostMessageMethod extends AbstractMethod {
 	protected String icon_url;
 	protected String icon_emoji;
 	protected String thread_ts;
+	protected boolean replyBroadcast;
 
 	public String getChannel() {
 		return channel;
@@ -138,6 +139,14 @@ public class ChatPostMessageMethod extends AbstractMethod {
 		return SlackWebApiConstants.CHAT_POST_MESSAGE;
 	}
 
+	public boolean isReplyBroadcast() {
+		return replyBroadcast;
+	}
+
+	public void setReplyBroadcast(boolean replyBroadcast) {
+		this.replyBroadcast = replyBroadcast;
+	}
+
 	@Override
 	public void validate(List<ValidationError> errors) {
 		if (channel == null) {
@@ -145,6 +154,9 @@ public class ChatPostMessageMethod extends AbstractMethod {
 		}
 		if (text == null) {
 			addError(errors, "text", Problem.REQUIRED);
+		}
+		if (replyBroadcast && thread_ts == null) {
+			addError(errors, "thread_ts", Problem.REQUIRED);
 		}
 	}
 
@@ -176,6 +188,7 @@ public class ChatPostMessageMethod extends AbstractMethod {
 		parameters.put("icon_emoji", icon_emoji);
 		if (thread_ts != null) {
 			parameters.put("thread_ts", thread_ts);
+			parameters.put("reply_broadcast", String.valueOf(replyBroadcast));
 		}
 	}
 
