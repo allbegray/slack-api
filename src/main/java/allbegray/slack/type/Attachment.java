@@ -44,7 +44,7 @@ public class Attachment {
 
     protected String footer;
     protected String footer_icon;
-    protected Integer ts;
+    protected Long ts;
 
     protected List<Action> actions;
 
@@ -231,11 +231,11 @@ public class Attachment {
         this.footer_icon = footer_icon;
     }
 
-    public Integer getTs() {
+    public Long getTs() {
         return ts;
     }
 
-    public void setTs(Integer ts) {
+    public void setTs(Long ts) {
         this.ts = ts;
     }
 
