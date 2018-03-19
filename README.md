@@ -17,35 +17,24 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.allbegray</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.5.1.RELEASE</version>
+    <version>v1.6.0.RELEASE</version>
 </dependency>
 ```
 
 ## Change Logs
+
+### v1.6.0.RELEASE
+
+merge Add reply broadcast flag #43  
+merge Adjust code indentation on README #45  
+merge add specific exception if hitting rate limits #46  
+merge fix create group param #47
 
 ### v1.5.1.RELEASE
 
 merge add threads support #37  
 merge RestUtils logs verbosity reduced #39  
 merge Don't check webhookUrl #40  
-
-### v1.5.0.RELEASE
-
-merge Support (un)authenticated proxies #34  
-merge Configurable web API URL #35  
-
-### v1.4.0.RELEASE
-
-merge Typo fix #30  
-merge Adding sendMessage and getWebsocket methods to RTM client #31  
-merge divide SlackWebApiClient to small, domain parts #32  
-
-### v1.3.0.RELEASE
-
-add method "bots.info"  
-add method "chat.meMessage"  
-add method "files.revokePublicURL", "files.sharedPublicURL"  
-add field "footer", "footer_icon", "ts". message attachments.  
 
 ## Slack Web API compatibility
 auth, bots, channels, chat, dnd, emoji, files.comments. files, groups, im, mpim, oauth, pins, reactions, reminders, rtm, stars, team, usergroups, usergroups.users, users
