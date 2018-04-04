@@ -169,7 +169,9 @@ public class SlackRealTimeMessagingClient {
 				@Override
 				public void onError(Throwable t) {
 					stop = true;
-					t.printStackTrace();
+					if (t != null) {
+						t.printStackTrace();
+					}
 					if (failureListeners != null && !failureListeners.isEmpty()) {
 						for (FailureListener listener : failureListeners) {
 							listener.onFailure(new SlackException(t));
