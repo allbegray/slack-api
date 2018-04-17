@@ -141,9 +141,9 @@ public class SlackRealTimeMessagingClient {
 						logger.error(e);
 					}
 
-					if (!"pong".equals(type)) {
-						logger.info("Slack RTM message : " + message);
-					}
+//					if (!"pong".equals(type)) {
+//						logger.info("Slack RTM message : " + message);
+//					}
 
 					if (type != null) {
 						List<EventListener> eventListeners = listeners.get(type);
