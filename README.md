@@ -17,11 +17,16 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.allbegray</groupId>
     <artifactId>slack-api</artifactId>
-    <version>v1.6.0.RELEASE</version>
+    <version>v1.7.0.RELEASE</version>
 </dependency>
 ```
 
 ## Change Logs
+
+### v1.7.0.RELEASE
+
+merge async-http-client version update to 2.4.5 #49  
+merge Get bot id, bot acess token and get bot user id #50  
 
 ### v1.6.0.RELEASE
 
