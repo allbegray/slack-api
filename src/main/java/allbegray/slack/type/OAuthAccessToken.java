@@ -14,6 +14,7 @@ public class OAuthAccessToken {
 	protected String scope;
 	protected String team_id;
 	protected String team_name;
+	protected BotAccessToken bot;
 
 	public String getAccess_token() {
 		return access_token;
@@ -54,9 +55,18 @@ public class OAuthAccessToken {
 		this.team_name = team_name;
 	}
 
+	public BotAccessToken getBot() {
+		return bot;
+	}
+
+	public void setBot(BotAccessToken bot) {
+		this.bot = bot;
+	}
+
 	@Override
 	public String toString() {
-		return "OAuthAccessToken [access_token=" + access_token + ", scope=" + scope + ", team_id=" + team_id + ", team_name=" + team_name + "]";
+		return "OAuthAccessToken [access_token=" + access_token + ", scope=" + scope + ", team_id=" + team_id +
+				", team_name=" + team_name + ", bot=" + bot + "]";
 	}
 
 }
