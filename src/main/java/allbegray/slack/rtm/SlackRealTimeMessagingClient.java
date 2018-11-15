@@ -9,8 +9,8 @@ import org.apache.commons.logging.LogFactory;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.BoundRequestBuilder;
 import org.asynchttpclient.proxy.ProxyServer;
-import org.asynchttpclient.ws.DefaultWebSocketListener;
 import org.asynchttpclient.ws.WebSocket;
+import org.asynchttpclient.ws.WebSocketListener;
 import org.asynchttpclient.ws.WebSocketUpgradeHandler;
 
 import java.io.IOException;
@@ -99,11 +99,7 @@ public class SlackRealTimeMessagingClient {
 
 		stop = true;
 		if (webSocket != null && webSocket.isOpen()) {
-			try {
-				webSocket.close();
-			} catch (IOException e) {
-				// ignore
-			}
+		    webSocket.sendCloseFrame();
 		}
 		if (asyncHttpClient != null && !asyncHttpClient.isClosed()) {
 			try {
@@ -128,10 +124,10 @@ public class SlackRealTimeMessagingClient {
 				asyncHttpClient = asyncHttpClient();
 			}
 			BoundRequestBuilder requestBuilder = asyncHttpClient.prepareGet(webSocketUrl);
-			webSocket = requestBuilder.execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new DefaultWebSocketListener() {
+			webSocket = requestBuilder.execute(new WebSocketUpgradeHandler.Builder().addWebSocketListener(new WebSocketListener() {
 
 				@Override
-				public void onMessage(String message) {
+				public void onTextFrame(String message, boolean finalFragment, int rsv) {
 					String type = null;
 					JsonNode node = null;
 					try {
@@ -156,8 +152,7 @@ public class SlackRealTimeMessagingClient {
 				}
 
 				@Override
-				public void onClose(WebSocket websocket) {
-					super.onClose(websocket);
+				public void onClose(WebSocket websocket, int code, String reason) {
 					stop = true;
 					if (closeListeners != null && !closeListeners.isEmpty()) {
 						for (CloseListener listener : closeListeners) {
@@ -175,6 +170,10 @@ public class SlackRealTimeMessagingClient {
 							listener.onFailure(new SlackException(t));
 						}
 					}
+				}
+
+				@Override
+				public void onOpen(WebSocket arg0) {
 				}
 
 			}).build()).get();
@@ -197,7 +196,7 @@ public class SlackRealTimeMessagingClient {
 		pingMessage.put("id", ++socketId);
 		pingMessage.put("type", "ping");
 		String pingJson = pingMessage.toString();
-		webSocket.sendMessage(pingJson);
+		webSocket.sendTextFrame(pingJson);
 
 		logger.debug("ping : " + pingJson);
 	}
@@ -226,7 +225,7 @@ public class SlackRealTimeMessagingClient {
 	 * @param message
 	 */
 	public void sendMessage(String message){
-		webSocket.sendMessage(message);
+		webSocket.sendTextFrame(message);
 	}
 
 	/**
