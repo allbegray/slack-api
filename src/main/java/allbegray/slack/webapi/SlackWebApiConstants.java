@@ -173,6 +173,7 @@ public interface SlackWebApiConstants {
 	// users
 
 	String USERS_GET_PRESENCE = "users.getPresence";
+	String USERS_LOOKUP_BY_EMAIL = "users.lookupByEmail";
 	String USERS_INFO = "users.info";
 	String USERS_LIST = "users.list";
 	String USERS_SET_ACTIVE = "users.setActive";

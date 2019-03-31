@@ -262,6 +262,7 @@ public interface SlackWebApiClient {
 
     UserPresence getUserPresence(String user);
     User getUserInfo(String user);
+    User lookupUserByEmail(String email);
     List<User> getUserList();
     List<User> getUserListWithPresence();
     boolean setActiveUser();

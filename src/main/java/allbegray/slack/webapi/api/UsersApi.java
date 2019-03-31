@@ -12,6 +12,8 @@ public interface UsersApi {
 
     User getUserInfo(String user);
 
+    User lookupUserByEmail(String email);
+
     List<User> getUserList();
 
     List<User> getUserListWithPresence();
