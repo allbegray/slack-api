@@ -137,9 +137,9 @@ public class SlackRealTimeMessagingClient {
 						logger.error(e);
 					}
 
-					if (!"pong".equals(type)) {
-						logger.info("Slack RTM message : " + message);
-					}
+//					if (!"pong".equals(type)) {
+//						logger.info("Slack RTM message : " + message);
+//					}
 
 					if (type != null) {
 						List<EventListener> eventListeners = listeners.get(type);
@@ -164,7 +164,9 @@ public class SlackRealTimeMessagingClient {
 				@Override
 				public void onError(Throwable t) {
 					stop = true;
-					t.printStackTrace();
+					if (t != null) {
+						t.printStackTrace();
+					}
 					if (failureListeners != null && !failureListeners.isEmpty()) {
 						for (FailureListener listener : failureListeners) {
 							listener.onFailure(new SlackException(t));
