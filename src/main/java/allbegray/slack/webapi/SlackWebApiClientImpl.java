@@ -1162,6 +1162,12 @@ public class SlackWebApiClientImpl implements SlackWebApiClient {
 	}
 
 	@Override
+	public User lookupUserByEmail(String email) {
+		JsonNode retNode = call(new UserLookupByEmailMethod(email));
+		return readValue(retNode, "user", User.class);
+	}
+
+	@Override
 	public List<User> getUserList() {
 		JsonNode retNode = call(new UserListMethod());
 		return readValue(retNode, "members", new TypeReference<List<User>>() {
