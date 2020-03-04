@@ -12,7 +12,7 @@
 
 		<java.version>1.8</java.version>
 
-		<com.fasterxml.jackson.version>2.5.4</com.fasterxml.jackson.version>
+		<com.fasterxml.jackson.version>2.9.10.3</com.fasterxml.jackson.version>
 		<org.apache.httpcomponents.version>4.3.6</org.apache.httpcomponents.version>
 	</properties>
 
